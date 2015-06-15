@@ -12,7 +12,11 @@
 */
 
 
-#Route::get("/login", 'Login\Login@index');
+Route::get("/", function(){
+
+	return view('home');
+
+});
 
 Route::controllers([
 
