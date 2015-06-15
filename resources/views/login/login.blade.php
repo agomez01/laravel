@@ -41,7 +41,7 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">este es el login xuxetumare !!</div>
+                <div class="title">este es el login !!</div>
                 <div class="quote"></div>
             </div>
         </div>
