@@ -11,16 +11,37 @@
 |
 */
 
+	Route::get(		'/', 			'Login\LoginController@index');
+	Route::post(	'/login', 		'Login\LoginController@logearse');
 
-Route::get("/", function(){
 
-	return view('home');
 
-});
+	Route::group(['middleware' => 'auth'], function(){
 
-Route::controllers([
+		Route::group(['middleware' => 'isWcManager'], function(){
 
-	'login' 	=> 'Login\LoginController',
-	'alumno'	=> 'Alumno\AlumnoController'
+			Route::get(	'/alumno', 	'Alumno\AlumnoController@index');
 
-	]);
+		});
+
+		# Acceso por ROL
+		Route::group(['middleware' => 'isSuperAdmin'], function(){
+			Route::get(	'/prueba', 	'PruebaController@index');
+			Route::get(	'/alumno', 	'Alumno\AlumnoController@index');	
+		});
+
+		
+
+		Route::group(['middleware' => 'isCapacitador'], function(){ /**/ });
+		Route::group(['middleware' => 'isFinanzas'], function(){ /**/ });
+		Route::group(['middleware' => 'isSostenedor'], function(){ /**/ });
+		Route::group(['middleware' => 'isDirector'], function(){ /**/ });
+		Route::group(['middleware' => 'isUtp'], function(){ /**/ });
+		Route::group(['middleware' => 'isProfesor'], function(){ /**/ });
+		Route::group(['middleware' => 'isInsGeneral'], function(){ /**/ });
+		Route::group(['middleware' => 'isApoderado'], function(){ /**/ });
+		Route::group(['middleware' => 'isAlumno'], function(){ /**/ });
+
+		
+		
+	});

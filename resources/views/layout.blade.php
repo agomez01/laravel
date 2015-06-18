@@ -20,7 +20,7 @@
 
     <div id="wrap">
       <div class="container">
-        <h1>@yield('content')</h1>
+        @yield('content')
       </div>
     </div>
     

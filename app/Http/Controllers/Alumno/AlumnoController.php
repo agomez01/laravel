@@ -2,24 +2,22 @@
 	namespace App\Http\Controllers\Alumno;
 
 	use App\Http\Controllers\Controller;
-
+	use App\models\Alumno;
 
 	class AlumnoController extends Controller
 	{
 
-	    public function getIndex(){
+	    public function index(){
 
-	        $return = \DB::table('noticias')
-	        	->select(['id', 'titulo', 'mensaje'])
-	        	->where('visible', '!=' ,1)
-	        	->orderBy('id', 'ASC')
-	        	#->join('tabla', 'alumno.id', '=', 'tabla.idalumno')
-	        	->get();
+	        $alumnos = Alumno::paginate(15);
+	        dd($alumnos);
+	        //return view('home', ['alumnos', $alumnos]);
 
-	        dd($return);
+	    }
 
-	        return $return;
-	        
+	    public function getPrueba(){
+
+	    	return "Esto es una prueba";
 	    }
 
 	}

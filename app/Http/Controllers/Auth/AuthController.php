@@ -1,64 +1,116 @@
 <?php
+    namespace App\Http\Controllers\Auth;
 
-namespace App\Http\Controllers\Auth;
+    # Modelos
+    use App\models\Alumno;
+    use App\models\Colegio;
+    use App\models\Curso;
+    use App\models\Sesion;
+    use App\models\Usuario;
+    use App\models\Variables;
 
-use App\User;
-use Validator;
-use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+    # Controladores
+    use Validator;
+    use Session;
+    use App\Http\Controllers\Controller;
 
-class AuthController extends Controller
-{
-    /*
-    |--------------------------------------------------------------------------
-    | Registration & Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users, as well as the
-    | authentication of existing users. By default, this controller uses
-    | a simple trait to add these behaviors. Why don't you explore it?
-    |
-    */
+    class AuthController extends Controller {
 
-    use AuthenticatesAndRegistersUsers;
+        static function logear($data){
 
-    /**
-     * Create a new authentication controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('guest', ['except' => 'getLogout']);
+            # Verificamos los datos
+            $validator = Validator::make($data, [
+                'nombre_usuario' => 'required|max:255',
+                'clave' => 'required|max:255',
+            ]);
+
+            if ($validator->fails()) {
+                # si existen problemas al validar, enviamos el detalle al form login
+                return redirect('/login')
+                            ->withErrors($validator)
+                            ->withInput();
+
+            }else{
+
+                $usuario = Usuario::where('visible',1)
+                                    ->where('nombre_usuario', $data['nombre_usuario'])
+                                    ->where('clave', $data['clave'])
+                                    ->first();
+
+                if(count($usuario) > 0){
+
+                    $auth = new AuthController();
+                    $auth->setSesion($usuario);
+
+                    return "ok";
+                }else{
+                    return false;
+                }             
+            }
+        }
+        
+        protected function validator(array $data)
+        {
+            return Validator::make($data, [
+                'username' => 'required|max:255',
+                'password' => 'required|max:255',
+            ]);
+        }
+
+        private function setSesion($data){
+
+            $sesion = new Sesion();
+            $sesion->usuario_id = $data->id;
+            $sesion->save();
+
+            $usuario = Usuario::find($data->id);
+
+            $var['id']              =   $data->id;
+            $var['tema']            =   $usuario->idtema;
+            $var['user']            =   $usuario->nombre_usuario;
+            $var['rol']             =   $usuario->idrol;
+            $var['colegio']         =   $usuario->idcolegio;
+            $var['anio']            =   $this->obtener_anio($usuario->idcolegio);
+            $var['curriculum']      =   $usuario->colegio->curriculum;
+            $var['full-name']       =   $usuario->usuario_detalle->full_name;
+            $var['school-name']     =   $usuario->colegio->nombre;
+            $var['plataforma']      =   PLATAFORMA;
+            $var['portadas']        =   $usuario->idrol;
+            $var['tema_usuario']    =   $usuario->idtema;
+            $var['estado']          =   'ok';
+            $var['modulos']         =   $usuario->colegio->modulos;
+
+            $var['tiempoInicio']    =   $sesion->created_at->timestamp;
+            $var['codigoSesion']    =   $this->generarCodigoSesion();
+
+            $vars = new Variables();
+            $vars->auth_sesion_id = $sesion->id;
+            $vars->variables = serialize($var);
+            $vars->save();
+
+            Session::put('logeado',     true);
+            Session::put('idusuario',   $usuario->id);
+            Session::put('colegio',     $usuario->idcolegio);
+            Session::put('rol',         $usuario->idrol);
+            
+        }
+
+
+        public function obtener_anio($colegio){
+
+            $curso = Curso::select('ano')
+                            ->where('colegio', $colegio)
+                            ->where('visible',1)
+                            ->orderBy('ano', 'desc')
+                            ->first();
+                       
+            return $curso->ano;
+        }
+
+        public function generarCodigoSesion()   
+        {
+            $code = sha1(mt_rand().time().mt_rand().$_SERVER['REMOTE_ADDR']);
+            return $code;
+        }
+        
     }
-
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|confirmed|min:6',
-        ]);
-    }
-
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return User
-     */
-    protected function create(array $data)
-    {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
-    }
-}

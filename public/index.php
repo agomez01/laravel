@@ -1,4 +1,6 @@
 <?php
+	set_time_limit(0);
+	define("PLATAFORMA", "desarrollo");
 
 /**
  * Laravel - A PHP Framework For Web Artisans
