@@ -96,17 +96,19 @@
         }
 
 
-        public function logout(){
+        static function logout(){
 
             $id = Session::get('idusuario');
 
-            Usuario::find($id)->delete();
-            
-            Variables::find($id)->delete();
+            $sesion = Sesion::where('usuario_id', $id)->first();
+
+            Variables::where('auth_sesion_id', $sesion->id)->delete();
+
+            $sesion->delete();
 
             Session::flush();
 
-
+            return true;
         }
 
 

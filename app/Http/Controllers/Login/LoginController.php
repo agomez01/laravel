@@ -39,7 +39,7 @@ class LoginController extends Controller
     	// Validamos los datos y además mandamos como un segundo parámetro la opción de recordar el usuario.
         if(AuthController::logear($userdata) == 'ok' ){
 
-            return Redirect::to('/alumno');
+            return Redirect::to('/home');
 
         }else{
 

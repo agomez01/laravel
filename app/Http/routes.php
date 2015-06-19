@@ -20,11 +20,7 @@
 
 
 		Route::get('/home', 'Home\HomeController@index');
-
-
-
-
-		Route::get('/logout', 'Login\LoginController@logout');
+		Route::any('/logout', 'Login\LoginController@logout');
 
 		# Acceso por ROL
 		Route::group(['middleware' => 'isSuperAdmin'], function(){
