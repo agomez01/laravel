@@ -20,7 +20,7 @@ class LoginController extends Controller
 
         if (Session::get('logeado')){
             # Dependiendo del Perfil se redireccionara
-            return Redirect::to('/alumno');
+            return Redirect::to('/home');
             
         }else{
             return View::make('login/login');
@@ -48,6 +48,14 @@ class LoginController extends Controller
                     ->with('mensaje_error', 'Tus datos son incorrectos')
                     ->withInput();
         }
+    }
+
+    public function logout(){
+
+        if(AuthController::logout()){
+            return Redirect::to('/');
+        }
+
     }
 
 }

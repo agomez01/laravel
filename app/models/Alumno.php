@@ -18,6 +18,6 @@
 
         public function usuario()
         {
-            return $this->belongsTo('App\models\Usuario', 'id', 'alumno');
+            return $this->belongsTo('App\models\Usuario', 'alumno', 'id');
         }
     }

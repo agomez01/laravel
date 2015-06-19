@@ -3,15 +3,23 @@
 
 	use App\Http\Controllers\Controller;
 	use App\models\Alumno;
-
+	use Session;
+	use Request;
+	
 	class AlumnoController extends Controller
 	{
 
 	    public function index(){
 
-	        $alumnos = Alumno::paginate(15);
-	        dd($alumnos);
-	        //return view('home', ['alumnos', $alumnos]);
+	        $alumnos = Alumno::paginate(10);
+	       
+
+
+	        if (Request::ajax()) {
+	            return Response::json( view('home')->with('alumnos', $alumnos) )->render() ;
+	        }
+
+	        return view('home')->with('alumnos', $alumnos);
 
 	    }
 

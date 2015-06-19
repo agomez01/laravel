@@ -10,27 +10,31 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+	
 
-	Route::get(		'/', 			'Login\LoginController@index');
-	Route::post(	'/login', 		'Login\LoginController@logearse');
-
-
+	Route::get(		'/', 		'Login\LoginController@index');
+	Route::post(	'/login', 	'Login\LoginController@logearse');
+	Route::get(		'/prueba', 	'PruebaController@index');
 
 	Route::group(['middleware' => 'auth'], function(){
 
-		Route::group(['middleware' => 'isWcManager'], function(){
 
-			Route::get(	'/alumno', 	'Alumno\AlumnoController@index');
+		Route::get('/home', 'Home\HomeController@index');
 
-		});
+
+
+
+		Route::get('/logout', 'Login\LoginController@logout');
 
 		# Acceso por ROL
 		Route::group(['middleware' => 'isSuperAdmin'], function(){
-			Route::get(	'/prueba', 	'PruebaController@index');
-			Route::get(	'/alumno', 	'Alumno\AlumnoController@index');	
+
+
+			Route::get(	'/alumno', 	'Alumno\AlumnoController@index');
 		});
 
-		
+		Route::group(['middleware' => 'isWcManager'], function(){
+		});
 
 		Route::group(['middleware' => 'isCapacitador'], function(){ /**/ });
 		Route::group(['middleware' => 'isFinanzas'], function(){ /**/ });

@@ -24,7 +24,7 @@
 
 		<ul class="nav navbar-nav navbar-right">
 
-			@if ( Auth::check() )
+			@if ( Session::get('logeado') )
 
 				<li class="active "><a href="/admin/compras" class='hvr-overline-from-left'>Compra <span class="sr-only">(current)</span></a></li>				
 
@@ -52,8 +52,8 @@
 
 				<ul class="dropdown-menu">
 
-					@if ( !Auth::check() )
-						<li><a href="/login">Iniciar sesión</a></li>
+					@if ( !Session::get('logeado') )
+						<li><a href="/">Iniciar sesión</a></li>
 					@else				
 						<li><a href="/logout">Cerrar Sesión</a></li>
         			@endif

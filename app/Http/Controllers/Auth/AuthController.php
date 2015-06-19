@@ -96,6 +96,20 @@
         }
 
 
+        public function logout(){
+
+            $id = Session::get('idusuario');
+
+            Usuario::find($id)->delete();
+            
+            Variables::find($id)->delete();
+
+            Session::flush();
+
+
+        }
+
+
         public function obtener_anio($colegio){
 
             $curso = Curso::select('ano')
