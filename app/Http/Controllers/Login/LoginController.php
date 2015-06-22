@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Auth\AuthController;
 
 use View;
+use Input;
 use Session;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -25,7 +26,17 @@ class LoginController extends Controller
         }else{
             return View::make('login/login');
             //return Redirect::to('/login');
+        }   
+    }
+
+    public function logexterno($id, $modulo, $token){
+
+        if(AuthController::comprueba($id, $token)){
+            return Redirect::to($modulo);
+        }else{
+            abort(403, 'Unauthorized action.');
         }
+
     }
 
 

@@ -26,22 +26,19 @@
 
 			@if ( Session::get('logeado') )
 
-				<li class="active "><a href="/admin/compras" class='hvr-overline-from-left'>Compra <span class="sr-only">(current)</span></a></li>				
+				<li class="active "><a href="/admin/compras" class='hvr-overline-from-left'>Menu 1 <span class="sr-only">(current)</span></a></li>				
 
 
 			
 				<li class="dropdown">
 
-					<a href="#" class="dropdown-toggle hvr-overline-from-left" data-toggle="dropdown">Administrar <b class="caret"></b></a>
+					<a href="#" class="dropdown-toggle hvr-overline-from-left" data-toggle="dropdown">Menu 2 <b class="caret"></b></a>
 					
 					<ul class="dropdown-menu">
-						<li><a href="/admin/clientes">Clientes</a></li>
-						<li><a href="/admin/datos">Datos</a></li>
-						<li><a href="/admin/productos">Productos</a></li>		
-						<li><a href="/admin/proveedores">Proveedores</a></li>
-						<li><a href="/admin/vehiculos">Vehiculos</a></li>
+						<li><a href="/admin/">Sub Menu 1</a></li>
+						<li><a href="/admin/">Sub Menu 2</a></li>
 						<li class="divider"></li>
-						<li><a href="/admin/users">Usuarios</a></li>
+						<li><a href="/admin/users">Sub Menu 3</a></li>
 					</ul>
 				</li>
 
@@ -52,9 +49,7 @@
 
 				<ul class="dropdown-menu">
 
-					@if ( !Session::get('logeado') )
-						<li><a href="/">Iniciar sesión</a></li>
-					@else				
+					@if ( Session::get('logeado') )			
 						<li><a href="/logout">Cerrar Sesión</a></li>
         			@endif
 

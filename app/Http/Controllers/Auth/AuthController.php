@@ -59,8 +59,12 @@
 
         private function setSesion($data){
 
+            # Si existe una sesión iniciada con el mismo usuario, esta se elimina
+            Sesion::where('usuario_id', $data->id)->delete();
+
             $sesion = new Sesion();
             $sesion->usuario_id = $data->id;
+            $sesion->token = Session::token();
             $sesion->save();
 
             $usuario = Usuario::find($data->id);
@@ -109,6 +113,19 @@
             Session::flush();
 
             return true;
+        }
+
+        static function comprueba($id, $token){
+
+            $usr = Sesion::where('usuario_id', $id)
+                        ->where('token', $token)->get();
+
+            if(count($usr) > 0){
+                return true;
+            }else{
+                return false;
+            }
+            
         }
 
 

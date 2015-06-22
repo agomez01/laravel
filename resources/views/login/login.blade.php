@@ -1,9 +1,23 @@
-@extends ('layout')
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="\assets\img\favicon.ico">
 
-@section ('title') Login | Webclass @stop
+    <title>@yield('title', 'WebClass')</title>
 
-@section ('content')
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
 
+    <script src="{{ asset('assets/js/jquery-2.1.4.min.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+    
+  </head>
+  <body>
+    
+    <br><br><br><br><br><br>
 
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
@@ -11,7 +25,7 @@
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-12">
-                            <a href="#" class="active" id="login-form-link">Login</a>
+                            <a href="#" class="active" id="login-form-link">Login WebClass</a>
                         </div>
                     </div>
                     <hr>
@@ -50,11 +64,12 @@
                                   </div>
                                 @endif
 
-
+                                <!--
                                 <div class="form-group text-center">
                                     <input type="checkbox" tabindex="3" class="" name="remember" id="remember">
                                     <label for="remember">Recordar contraseña</label>
                                 </div>
+                            -->
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-sm-6 col-sm-offset-3">
@@ -81,4 +96,5 @@
         </div>
     </div>
 
-@stop
+  </body>
+</html>

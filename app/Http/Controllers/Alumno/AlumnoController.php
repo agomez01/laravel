@@ -5,6 +5,7 @@
 	use App\models\Alumno;
 	use Session;
 	use Request;
+	use Response;
 	
 	class AlumnoController extends Controller
 	{
@@ -16,7 +17,7 @@
 
 
 	        if (Request::ajax()) {
-	            return Response::json( view('home')->with('alumnos', $alumnos) )->render() ;
+	            return Response::json( view('home')->with('alumnos', $alumnos) );
 	        }
 
 	        return view('home')->with('alumnos', $alumnos);
