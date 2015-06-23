@@ -14,7 +14,7 @@
         protected $table = 'usuario_detalle';
 
         public function getFullNameAttribute(){
-            return  $this->nombre_usuario." ".$this->apellido_paterno." ".$this->apellido_materno;
+            return  $this->apellido_paterno." ".$this->apellido_materno." ".$this->nombre_usuario;
         }
 
 

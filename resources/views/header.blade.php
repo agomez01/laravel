@@ -1,70 +1,96 @@
-<header>
-<nav class="navbar navbar-default" role="navigation">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="/">Login Webclass</a>
+	<style>
 
-    </div>
+			#top-navbar-alumno
+			{
+					margin:0; padding:0; border-radius:0; border:0; background:#CCC;
+			}
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			#subTop-navbar-alumno
+			{
+				margin:0; padding:0; border-radius:0; border:0;
+			}
 
-<ul class="nav navbar-nav">
-	
+	</style>
 
-</ul>
+	<header class="alumno-header" >
+		<nav class="navbar navbar-default" role="navigation" id="top-navbar-alumno">
+			  <div class="container-fluid">
+			    <!-- Brand and toggle get grouped for better mobile display -->
+				    <div class="navbar-header">
+
+					      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					        <span class="sr-only">Toggle navigation</span>
+					        <span class="icon-bar"></span>
+					        <span class="icon-bar"></span>
+					        <span class="icon-bar"></span>
+					      </button>
+
+				          <a class="navbar-brand" href="/">{{ Session::get('full-name') }}</a>
+
+				    </div>
+
+				    <!-- Collect the nav links, forms, and other content for toggling -->
+				    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+						<ul class="nav navbar-nav navbar-right">
+
+							@if ( Session::get('logeado') )
+
+								<li class="dropdown"><a href="/login" class='dropdown-toggle hvr-overline-from-left'><imgCambiar Tema<span class="sr-only">(current)</span></a></li>
+
+								<li class="dropdown"><a href="/login" class='dropdown-toggle hvr-overline-from-left'>Chat Soporte<span class="sr-only">(current)</span></a></li>
+
+								<li class="dropdown"><a href="/login" class='dropdown-toggle hvr-overline-from-left'>Ayuda<span class="sr-only">(current)</span></a></li>
+
+								<li class="dropdown"><a href="/logout" class='dropdown-toggle hvr-overline-from-left'>Salir<span class="sr-only">(current)</span></a></li>				
+
+							@endif
+							
+						</ul>
+
+			    	</div><!-- /.navbar-collapse -->
+			  </div><!-- /.container-fluid -->
+		</nav>
+
+		<nav class="navbar navbar-default" role="navigation" id="subTop-navbar-alumno" >
+			  <div class="container-fluid">
+			    <!-- Brand and toggle get grouped for better mobile display -->
+				    <div class="navbar-header">
+
+					      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
+
+					        	<span class="sr-only">Toggle navigation</span>
+					        	<span class="icon-bar"></span>
+					        	<span class="icon-bar"></span>
+					        	<span class="icon-bar"></span>
+
+					      </button>
 
 
-		<ul class="nav navbar-nav navbar-right">
+				    </div>
 
-			@if ( Session::get('logeado') )
+				    <!-- Collect the nav links, forms, and other content for toggling -->
+				    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
 
-				<li class="active "><a href="/admin/compras" class='hvr-overline-from-left'>Menu 1 <span class="sr-only">(current)</span></a></li>				
+						<ul class="nav navbar-nav navbar-right">
 
+							@if ( Session::get('logeado') )
 
-			
-				<li class="dropdown">
+								<li class="dropdown"><a href="/admin/compras" class='dropdown-toggle hvr-overline-from-left'>Mis Cuadernos<span class="sr-only">(current)</span></a></li>
 
-					<a href="#" class="dropdown-toggle hvr-overline-from-left" data-toggle="dropdown">Menu 2 <b class="caret"></b></a>
-					
-					<ul class="dropdown-menu">
-						<li><a href="/admin/">Sub Menu 1</a></li>
-						<li><a href="/admin/">Sub Menu 2</a></li>
-						<li class="divider"></li>
-						<li><a href="/admin/users">Sub Menu 3</a></li>
-					</ul>
-				</li>
+								<li class="dropdown"><a href="/admin/compras" class='dropdown-toggle hvr-overline-from-left'>Mis Notas<span class="sr-only">(current)</span></a></li>
 
-			@endif
+								<li class="dropdown"><a href="/admin/compras" class='dropdown-toggle hvr-overline-from-left'>Mi Asistencia<span class="sr-only">(current)</span></a></li>
 
-			<li class="dropdown">
-				<a href="#" class="dropdown-toggle hvr-overline-from-left" data-toggle="dropdown">Opciones <b class="caret"></b></a>
+								<li class="dropdown"><a href="/admin/compras" class='dropdown-toggle hvr-overline-from-left'>Explorar Recursos<span class="sr-only">(current)</span></a></li>
 
-				<ul class="dropdown-menu">
+								<li class="dropdown"><a href="/logout" class='dropdown-toggle hvr-overline-from-left'>Comunicación<span class="sr-only">(current)</span></a></li>				
 
-					@if ( Session::get('logeado') )			
-						<li><a href="/logout">Cerrar Sesión</a></li>
-        			@endif
+							@endif
+							
+						</ul>
 
-					
-				</ul>
-			</li>
-
-
-			
-		</ul>
-
-
-
-
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
-</header>
+			    	</div><!-- /.navbar-collapse -->
+			  </div><!-- /.container-fluid -->
+		</nav>
+	</header>

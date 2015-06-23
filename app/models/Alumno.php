@@ -18,6 +18,9 @@
 
         public function usuario()
         {
+
             return $this->belongsTo('App\models\Usuario', 'alumno', 'id');
+            
         }
+
     }

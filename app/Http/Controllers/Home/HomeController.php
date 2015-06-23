@@ -2,7 +2,9 @@
 	namespace App\Http\Controllers\Home;
 
 	use App\Http\Controllers\Controller;
-	use App\models\Alumno;
+	use App\models\TestAlumno;
+	
+	
 	use Session;
 	use Request;
 	
@@ -11,24 +13,24 @@
 
 	    public function index(){
 
-	        $rol = Session::get('rol');
-
+	        $rol 		= Session::get('rol');
+	        $idalumno	= Session::get('idalumno');
+	        $curso		= Session::get('curso');
 	        switch ($rol) {
-	        	case '1':
 
-	        		$alumno ='Seba';
+	        	case '31':
 
+	        		$testAbiertoAlumno = TestAlumno::getTestActivosDelAlumno($idalumno,$curso);
+					$testCerradoAlumno = TestAlumno::getTestCerradosDelAlumno($idalumno,$curso);
 
-	        		return view('alumno/home')->with('alumno', $alumno)
-	        								->with('alumno', $alumno);
+	        		return view('alumno/home')
+			        		->with('testAbiertos', $testAbiertoAlumno)
+			        		->with('testCerrados', $testCerradoAlumno);
 	        	break;
+	        	
 	        }
 
 	    }
 
-	    public function getPrueba(){
-
-	    	return "Esto es una prueba";
-	    }
 
 	}

@@ -21,21 +21,24 @@
 	
 	# Ruta enlace externo,
 	# se espera como argumento el id de usuario, el modulo al cual se dirige y el token de comprobación de la sesión
-	Route::get(		'/externo/{id}/{modulo}/{token}', 'Login\LoginController@logexterno')->where('id', '[0-9]+');
+	Route::get(		'/externo/{id}', 'Login\LoginController@logexterno')->where('id', '[0-9]+');
 
 	# Rutas del Sistema
 	Route::group(['middleware' => 'auth'], function(){
 
 		Route::get('/home', 'Home\HomeController@index');
+		Route::get(	'/evaluacion/{id}', 'Evaluacion\EvaluacionController@index')->where('id', '[0-9]+');
+		
 		Route::any('/logout', 'Login\LoginController@logout');
 
 		# Acceso ROL SUPER ADMINISTRADOR
 		Route::group(['middleware' => 'isSuperAdmin'], function(){
-			Route::get(	'/alumno', 	'Alumno\AlumnoController@index');
+			//Route::get(	'/alumno', 	'Alumno\AlumnoController@index');
 		});
 
 		# Acceso ROL WEBCLASS MANAGER
 		Route::group(['middleware' => 'isWcManager'], function(){
+
 		});
 
 		Route::group(['middleware' => 'isCapacitador'], function(){ /**/ });

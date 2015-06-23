@@ -18,9 +18,17 @@
   <body>
 
     @include ('header') 
+    
+    <style>
 
+      #container-alumno{
+          width:100%; margin:0; padding:0;
+      }
+
+    </style>
+    
     <div id="wrap">
-      <div class="container">
+      <div class="container" id="container-alumno">
         @yield('content')
       </div>
     </div>

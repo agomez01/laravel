@@ -1,3 +1,3 @@
 <footer>
-	este es un footer
+	<!--este es un footer-->
 </footer>
