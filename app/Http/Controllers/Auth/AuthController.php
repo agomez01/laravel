@@ -115,12 +115,21 @@
             return true;
         }
 
-        static function comprueba($id, $token){
+        static function comprueba($usuario, $token){
 
-            $usr = Sesion::where('usuario_id', $id)
+            $sesion = Sesion::where('usuario_id', $usuario)
                         ->where('token', $token)->get();
 
-            if(count($usr) > 0){
+
+            if(count($sesion) > 0){
+
+                $usuario = Usuario::find($usuario);
+
+                Session::put('logeado',     true);
+                Session::put('idusuario',   $usuario->id);
+                Session::put('colegio',     $usuario->idcolegio);
+                Session::put('rol',         $usuario->idrol);
+
                 return true;
             }else{
                 return false;

@@ -29,9 +29,16 @@ class LoginController extends Controller
         }   
     }
 
-    public function logexterno($id, $modulo, $token){
+    public function logexterno(){
 
-        if(AuthController::comprueba($id, $token)){
+        $usuario = Input::get('usuario');
+        $token = Input::get('token');
+        $modulo = Input::get('modulo');
+
+        if(AuthController::comprueba($usuario, $token)){
+
+            #dd($modulo);
+
             return Redirect::to($modulo);
         }else{
             abort(403, 'Unauthorized action.');

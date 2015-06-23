@@ -19,19 +19,18 @@
 	Route::get(		'/', 		'Login\LoginController@index');
 	Route::post(	'/login', 	'Login\LoginController@logearse');
 	
-	# Ruta enlace externo,
-	# se espera como argumento el id de usuario, el modulo al cual se dirige y el token de comprobación de la sesión
-	Route::get(		'/externo/{id}/{modulo}/{token}', 'Login\LoginController@logexterno')->where('id', '[0-9]+');
+	# Ruta enlace externo
+	Route::post('/externo', 'Login\LoginController@logexterno');
 
 	# Rutas del Sistema
 	Route::group(['middleware' => 'auth'], function(){
 
-		Route::get('/home', 'Home\HomeController@index');
-		Route::any('/logout', 'Login\LoginController@logout');
+		Route::get('/home', 	'Home\HomeController@index');
+		Route::any('/logout', 	'Login\LoginController@logout');
 
 		# Acceso ROL SUPER ADMINISTRADOR
 		Route::group(['middleware' => 'isSuperAdmin'], function(){
-			Route::get(	'/alumno', 	'Alumno\AlumnoController@index');
+			Route::get(	'/alumno/evaluacion', 	'Alumno\AlumnoController@index');
 		});
 
 		# Acceso ROL WEBCLASS MANAGER
@@ -46,6 +45,7 @@
 		Route::group(['middleware' => 'isProfesor'], function(){ /**/ });
 		Route::group(['middleware' => 'isInsGeneral'], function(){ /**/ });
 		Route::group(['middleware' => 'isApoderado'], function(){ /**/ });
+		
 		Route::group(['middleware' => 'isAlumno'], function(){ /**/ });		
 		
 	});
