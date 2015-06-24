@@ -1,6 +1,9 @@
 <?php
 	set_time_limit(0);
+	
 	define("PLATAFORMA", "desarrollo");
+	define("URL_PLATAFORMA", "http://localhost/sistema/desarrollo/
+		");
 
 /**
  * Laravel - A PHP Framework For Web Artisans
