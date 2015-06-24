@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Evaluacion;
 
 use Illuminate\Http\Request;
 
+use App\models\Test;
+use App\models\Pregunta;
+
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -14,10 +17,48 @@ class EvaluacionController extends Controller
      *
      * @return Response
      */
-    public function index($idtest)
+    public function index($idtest,$action)
     {
+
+         $idtest = base64_decode($idtest);
+
+        switch($action){
+            case 0:
+                    $dataTest = Test::find($idtest);
         
-        return $idtest;
+                    $nombreTest = $dataTest->miPrueba;
+
+                    
+                    $test["id"]      = $dataTest->id;
+                    $test["nombre"]      = $dataTest->miPrueba->titulo;
+                    $test["nivel"]       = $dataTest->miPrueba->miSector->miNivel->nombre;
+                    $test["asignatura"]  = $dataTest->miPrueba->miSector->nombre;
+                    $test["duracion"]    = $dataTest->duracion;
+             
+                    return view('evaluacion/portadaEvaluacion')->with('test', $test);
+            break;
+
+            case 1:
+                    $dataTest = Test::find($idtest);
+        
+                    $preguntasTest = $dataTest->miPrueba->misPreguntas; //Esta es la tabla vinculante entre la prueba y las preguntas.
+
+                    $preguntas = Pregunta::obternerContenidoDePreguntasDelTest($preguntasTest); //Este es un arreglo que contiene todas las preguntas de la prueba y su contenido.
+
+                    //dd($preguntas);              
+                    
+                    $test["id"]      = $dataTest->id;
+                    $test["prueba"]  = $dataTest->miPrueba->id;
+                    $test["nombre"]      = $dataTest->miPrueba->titulo;
+                    $test["nivel"]       = $dataTest->miPrueba->miSector->miNivel->nombre;
+                    $test["asignatura"]  = $dataTest->miPrueba->miSector->nombre;
+                    $test["duracion"]    = $dataTest->duracion;
+
+                    return view('evaluacion/rendirEvaluacion')->with('test', $test)->with('preguntas', $preguntas);
+            break;
+        }
+       
+        
         
     }
 

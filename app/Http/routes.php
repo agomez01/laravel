@@ -28,29 +28,30 @@
 	Route::group(['middleware' => 'auth'], function(){
 
 
-		Route::get('/home', 	'Home\HomeController@index');
-		Route::any('/logout', 	'Login\LoginController@logout');
-		Route::get(	'/evaluacion/{id}', 'Evaluacion\EvaluacionController@index')->where('id', '[0-9]+');
-		# Acceso ROL SUPER ADMINISTRADOR
-		Route::group(['middleware' => 'isSuperAdmin'], function(){
-			Route::get(	'/alumno/evaluacion', 	'Alumno\AlumnoController@index');
+	Route::get('/home', 	'Home\HomeController@index');
+	Route::any('/logout', 	'Login\LoginController@logout');
+	Route::get('/evaluacion/{id}/{action?}', 'Evaluacion\EvaluacionController@index');
 
-		});
+	# Acceso ROL SUPER ADMINISTRADOR
+	Route::group(['middleware' => 'isSuperAdmin'], function(){
+		Route::get(	'/alumno/evaluacion', 	'Alumno\AlumnoController@index');
 
-		# Acceso ROL WEBCLASS MANAGER
-		Route::group(['middleware' => 'isWcManager'], function(){
-
-		});
-
-		Route::group(['middleware' => 'isCapacitador'], function(){ /**/ });
-		Route::group(['middleware' => 'isFinanzas'], function(){ /**/ });
-		Route::group(['middleware' => 'isSostenedor'], function(){ /**/ });
-		Route::group(['middleware' => 'isDirector'], function(){ /**/ });
-		Route::group(['middleware' => 'isUtp'], function(){ /**/ });
-		Route::group(['middleware' => 'isProfesor'], function(){ /**/ });
-		Route::group(['middleware' => 'isInsGeneral'], function(){ /**/ });
-		Route::group(['middleware' => 'isApoderado'], function(){ /**/ });
-		
-		Route::group(['middleware' => 'isAlumno'], function(){ /**/ });		
-		
 	});
+
+	# Acceso ROL WEBCLASS MANAGER
+	Route::group(['middleware' => 'isWcManager'], function(){
+
+	});
+
+	Route::group(['middleware' => 'isCapacitador'], function(){ /**/ });
+	Route::group(['middleware' => 'isFinanzas'], function(){ /**/ });
+	Route::group(['middleware' => 'isSostenedor'], function(){ /**/ });
+	Route::group(['middleware' => 'isDirector'], function(){ /**/ });
+	Route::group(['middleware' => 'isUtp'], function(){ /**/ });
+	Route::group(['middleware' => 'isProfesor'], function(){ /**/ });
+	Route::group(['middleware' => 'isInsGeneral'], function(){ /**/ });
+	Route::group(['middleware' => 'isApoderado'], function(){ /**/ });
+	
+	Route::group(['middleware' => 'isAlumno'], function(){ /**/ });		
+	
+});

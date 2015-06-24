@@ -65,12 +65,12 @@
 
 		    	@foreach ($testAbiertos as $test)
 		    		<li role="presentation" class="test-box">
-		    			<a role="menuitem" tabindex="-1" href="evaluacion/{{$test->idtest}}">
+		    			<a role="menuitem" tabindex="-1" href="/evaluacion/<?= base64_encode($test->idtest); ?>/0 ">
 			    			<h5>
-			    				Id: {{$test->idtest}}
+			    				Id: {{ $test->idtest }}
 			    			</h5>
 			    			<h6>
-			    				Nombre: {{$test->nombre}}
+			    				Nombre: {{ $test->nombre }}
 			    			</h6>
 			    			<h6>
 			    				Asignatura: {{$test->asignatura}}

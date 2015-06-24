@@ -8,33 +8,6 @@
     class TestAlumno extends Model
     {
 
-/*
-
-SELECT t.id AS idtest, p.titulo AS prueba, s.nombre AS sector, t_a.realizado AS realizado, a.curso as curso
-from test t
-join test_alumno t_a on t.id = t_a.test
-join alumno a on t_a.alumno = a.id
-join prueba p on p.id = t.prueba
-join sector s on s.id = t_a.sector
-where t_a.alumno =  178633 AND t.visible = 1 and a.curso = 11681
-AND t.estado < 2 
-AND  unix_timestamp() >= t.fechaini 
-AND  
-AND  
-order by t.id desc;
-
-
-SELECT t.id AS idtest, p.titulo AS prueba, s.nombre AS sector, t_a.realizado AS realizado, a.*
-from test t
-join test_alumno t_a on t.id = t_a.test
-join alumno a on t_a.alumno = a.id
-join prueba p on p.id = t.prueba
-join sector s on s.id = t_a.sector
-where t_a.alumno =  178633 AND t.visible = 1 and a.curso = 11681 AND t.estado > 1 AND (t_a.realizado > 0 OR  unix_timestamp()  >= ( t.fechafin + (3600*24)-1))
-order by t.id desc  limit 5;
-
-*/
-
         /**
          * The database table used by the model.
          *
@@ -89,6 +62,8 @@ order by t.id desc  limit 5;
             return $data;
 
         }
+
+
        
     }
 

@@ -5,7 +5,7 @@
     use Illuminate\Database\Eloquent\Model;
 
 
-    class Alumno extends Model
+    class Sector extends Model
     {
 
         /**
@@ -13,15 +13,13 @@
          *
          * @var string
          */
-        protected $table = 'alumno';
+        protected $table = 'sector';
 
-
-        public function usuario()
+        public function miNivel()
         {
-
-            return $this->belongsTo('App\models\Usuario', 'alumno', 'id');
-            
+            return $this->belongsTo('App\models\Nivel','nivel','id');
         }
+        
 
         
 

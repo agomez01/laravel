@@ -8,10 +8,8 @@
 	use App\models\Colegio;
 	use App\models\Alumno;
 	use App\models\Sesion;
-	use App\models\Curso;
 
 	use Session;
-	use DB;
 
 	class PruebaController extends Controller
 	{
@@ -20,24 +18,10 @@
 
 	    public function index(){
 
-
-	    	$curso = DB::table('usuario')
-	    				->join('alumno', 'usuario.id', '=', 'alumno.alumno')
-	    				->join('curso', 'curso.id', '=', 'alumno.curso')
-	    				->where('alumno.habilitado', 1)
-	    				->where('alumno.estado', 1)
-	    				->orderBy('curso.ano', 'DESC')
-	    				->first();
-
-	    	dd($curso);
-
-	    	
-	    	/*
-
 	    	$this->generaLink();
 
 	       
-	        return "<a href='".$this->href."'>Prueba</a>";*/
+	        return "<a href='".$this->href."'>Prueba</a>";
 
 	    }
 
