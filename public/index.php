@@ -1,8 +1,10 @@
 <?php
 	set_time_limit(0);
 	
-	define("PLATAFORMA", "desarrollo");
-	define("URL_PLATAFORMA", "http://localhost/sistema/desarrollo/");
+
+	define("PLATAFORMA", 		"desarrollo");
+	define("URL_PLATAFORMA", 	"http://localhost/sistema/desarrollo");
+
 
 	define("URL_PLATAFORMA_PRODUCCION", "http://proyecto.webescuela.cl/sistema/webclass");
 	

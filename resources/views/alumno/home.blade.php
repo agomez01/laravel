@@ -3,50 +3,8 @@
 @section ('title') Home Alumno @stop
 
 @section ('content')
-	<style>
 
-		#sidebar-left
-		{
-			padding: 15px;
-			position: relative;
-			width: 25%;
-			float: left;
-		}
-
-		#content-right-alumno
-		{
-			width: 75%;
-			float: left;
-		}
-
-		#open-test-alumno button
-		{
-			width: 100%;
-			padding: 12px;
-			border: 0;
-			text-align: left;
-			color: #337ab7;
-		}
-
-		#closed-test-alumno button
-		{	
-			width: 100%;
-			padding: 12px;		
-			border: 0;	
-			text-align: left;
-			color: #337ab7;
-		}
-
-		.sidebar-alumno-dropdown
-		{
-			width: 100%;
-			position:relative;
-		}
-		.test-box{
-			border-bottom: 1px solid #CCC;
-		}
-
-	</style>
+	@include ('alumno.menu') 
 
     <div id="sidebar-left" >
         

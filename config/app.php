@@ -195,8 +195,12 @@ return [
         'View'      => Illuminate\Support\Facades\View::class,
         'AuthC'      => App\Http\Controllers\Auth\AuthController::class,
 
+
         'Form' => 'Collective\Html\FormFacade',
         'Html' => 'Collective\Html\HtmlFacade',
+
+        'Salir'     => App\Http\Controllers\Auth\SalirController::class,
+
     ],
 
 ];
