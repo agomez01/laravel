@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Login;
 
-
+use App\Http\Clases\generaLink;
 use App\Http\Controllers\Controller;
 
 use App\Http\Controllers\Auth\AuthController;
@@ -50,7 +50,17 @@ class LoginController extends Controller
     	// Validamos los datos y además mandamos como un segundo parámetro la opción de recordar el usuario.
         if(AuthController::logear($userdata) == 'ok' ){
 
-            return Redirect::to('/home');
+            if(Session::get('rol') != 31){
+
+                $link = generaLink::getLink('modulo&desde=login'); 
+
+                return Redirect::away($link);
+
+            }else{
+                return Redirect::to('/home');
+            }
+
+            
 
         }else{
 
