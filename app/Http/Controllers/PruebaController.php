@@ -9,6 +9,8 @@
 	use App\models\Alumno;
 	use App\models\Sesion;
 
+	use App\models\Pregunta;
+
 	use Session;
 
 	class PruebaController extends Controller
@@ -18,10 +20,10 @@
 
 	    public function index(){
 
-	    	$this->generaLink();
-
-	       
-	        return "<a href='".$this->href."'>Prueba</a>";
+	    	$data = Pregunta::find(148573);
+	    	foreach($data->misAlternativas as $alt){
+	    		echo $alt->visible;
+	    	}
 
 	    }
 

@@ -4,7 +4,8 @@
 
 <style>
 
-#eva-leftSection{
+#eva-leftSection
+{
 
 	padding:10px;
 	width: 80%;
@@ -13,7 +14,8 @@
 
 }
 
-#eva-rightSection{
+#eva-rightSection
+{
 
 	width: 20%;
 	float:left;
@@ -29,31 +31,62 @@
 
 }
 
-.eva-boxPregunta{
-
-	padding:5px !important;
-
+.eva-boxPregunta
+{
+	border-radius: 5px;
+	padding: 5px !important;
+	border: 1px dashed #CCC;
+;
 }
 
-.eva-btnEnviar{
+.eva-btnEnviar
+{
 
 	font-size:14px !important;
 
 }
 
 
-#eva-casillaImagen{
+.eva-casillaImagen
+{
 
 	text-align: center;
 
 }
 
-#eva-casillaImagen:img {
+.eva-casillaImagen:img 
+{
 
  	display: block; margin: 0 auto;
 
 }
 
+.eva-casillaCuerpo
+{
+	padding:25px;
+}
+
+.eva-checkAlternativa
+{
+	width:3%;
+}
+
+.eva-textoAlternativa
+{
+	width:97%;
+
+}
+
+.eva-parejas
+{
+	list-style-type: none;
+	margin:0;
+	padding:0;
+}
+
+.eva-Indicadores{
+	padding:15px;
+}
 
 </style>
 
@@ -75,17 +108,17 @@
 
 			<div id="" class="jumbotron eva-boxPregunta"> 
 				
-					@if ($val["imagen"] != "")
+					@if ($val["recurso"] != "")
 					    
-					<div id="eva-casillaImagen">					    
+					<div class="eva-casillaImagen">					    
 
-						<img src='http://proyecto.webescuela.cl/sistema/webclass/home/recursos/{{ $val["imagen"] }}'/>
-
+						@include('evaluacion/preguntas', ['test' => $test , 'pregunta' => $val, 'seccion' => 'recurso'])
+						
 					</div>
 					
 					@endif
 
-					<div id="eva-casillaTexto">
+					<div class="eva-casillaTexto">
 
 						<h5>
 
@@ -95,9 +128,9 @@
 
 					</div>
 
-					<div id="eva-casillaCuerpo">
+					<div class="eva-casillaCuerpo">
 
-						@include('evaluacion/preguntas', ['test' => $test , 'pregunta' => $val])
+						@include('evaluacion/preguntas', ['test' => $test , 'pregunta' => $val, 'seccion' => 'cuerpo'])
 
 					</div>
 
@@ -114,15 +147,27 @@
 </div>
 
 <div id="eva-rightSection">
-	<section id="eva-Indicadores" >
-		<h3 style="text-align: center;">
-
-			Aqui los indicadores 
-
-		</h3>
+	<section class="eva-Indicadores" >
+		
+		<ul class="list-group">
+		  <li class="list-group-item">
+		  	Id Evaluación: {{ $test["id"] }}
+		  	<br>
+		  	Profesor: {{ $test["autor"] }}
+		  </li>
+		  <li class="list-group-item">
+		  	Tiempo Restante
+		  </li>
+		  <li class="list-group-item">
+		  	Preguntas:
+		  </li>
+		  <li class="list-group-item">leyenda</li>
+		  
+		</ul>
+		
 	</secction>
 
-	<section id="eva-controles" >
+	<section class="eva-controles" >
 		<h3 style="text-align: center;">
 
 			Aqui los controles 

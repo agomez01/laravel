@@ -23,6 +23,13 @@
 
         }
 
+        public function misPreguntas()
+        {
+
+            return $this->hasMany('App\models\TestPregunta','test','id');
+
+        }
+
 
         public static function getDatosDelTest($idtest)
         {
