@@ -8,7 +8,7 @@
 	class generaLink
 	{
 
-	    static function getLink($modulo){
+	    static function getLink($modulo = '/'){
 
 	    	$sesion = Sesion::where('usuario_id', Session::get('idusuario'))->first();
 
