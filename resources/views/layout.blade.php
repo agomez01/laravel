@@ -9,6 +9,9 @@
     <title>@yield('title', 'WebClass')</title>
 
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap.min.css') }}">
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/calendar/calendar.css') }}">
+
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
 
     <script src="{{ asset('assets/js/jquery-2.1.4.min.js') }}"></script>
@@ -37,7 +40,7 @@
                                 <li ><a href="/login">Ayuda</a></li>
 
                                 @yield('menu')
-                                
+                                 
                                 <li ><a href="/logout">Salir</a></li>               
 
                             @endif
@@ -96,5 +99,33 @@
 
 
         <script src="{{ asset('assets/js/script_estilos.js') }}"></script>
+
+        <!-- Calendar -->
+            <script src="{{ asset('assets/js/underscore/underscore-min.js') }}"></script>
+            <script src="{{ asset('assets/js/jstimezonedetect/jstz.min.js') }}"></script>
+            <script src="{{ asset('assets/js/calendar/calendar.js') }}" src="js/calendar.js"></script>
+            <script src="{{ asset('assets/js/calendar/language/es-ES.js') }}" src="js/language/es-ES.js"></script>
+            
+            
+            <!--<script src="{{ asset('assets/js/calendar/app.js') }}" src="js/app.js"></script>-->
+
+            <script>
+
+                $(document).ready(function(){
+
+                    var eventos = '{"sucess":1,"result":{"id":293,"title":"Event1","url":"example.com","class":"event-important","start":12039485678000,"end":1234576967000}}'
+
+                    var calendar = $("#calendar").calendar(
+                    {
+                        tmpl_path: 'assets/js/calendar/tmpls/',
+                        language: 'es-ES',
+                        events_source: eventos
+                    });
+
+                });
+
+            </script>
+
+
     </body>
 </html>

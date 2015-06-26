@@ -1,11 +1,3 @@
-	<style>
-
-			
-
-	</style>
-
-
-
 
 	<header class="alumno-header" >
 		<nav class="navbar navbar-default" role="navigation" id="top-navbar-alumno">
