@@ -2,9 +2,14 @@
 
 @section ('title') Home Alumno @stop
 
+
+@section ('menu')
+	@include ('alumno.menu')
+@stop
+
 @section ('content')
 
-	@include ('alumno.menu') 
+	
 
     <div id="sidebar-left" >
         
