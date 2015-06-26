@@ -1,19 +1,9 @@
 (function($) {
 
-	"use strict";
-
+	"use strict"
 
 	var options = {
-		events_source: [
-	        {
-	            "id": 293,
-	            "title": "Event 1",
-	            "url": "http://example.com",
-	            "class": "event-important",
-	            "start": 1436391278000, // Milliseconds
-	            "end": 1436391278000 // Milliseconds
-	        }
-	    ],
+		events_source: 'eventos',
 		view: 'month',
 		tmpl_path: 'assets/js/calendar/tmpls/',
 		tmpl_cache: false,
@@ -50,6 +40,7 @@
 	};
 
 	var calendar = $('#calendar').calendar(options);
+
 
 	/* por defecto */
 	calendar.setLanguage('es-ES');
