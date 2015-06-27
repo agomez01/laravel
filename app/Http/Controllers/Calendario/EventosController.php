@@ -20,27 +20,31 @@
 
 	    public function EventosJson(){
 
-	    	$data['success'] = true;
+	    	$data['success'] = 1;
 
-	    	$evento['id'] 	= 293;
-	    	$evento['title'] 	= 'Event1';
-	    	$evento['url'] 	= "http://example.com";
+	    	$result = array();
+
+	    	$evento['id'] 		= 293;
+	    	$evento['title'] 	= "Event1";
+	    	$evento['url'] 		= "http://example.com";
 	    	$evento['class'] 	= "event-important";
-	    	$evento['start'] 	= 12039485678000;
-	    	$evento['end'] 	= 12039485678000;
+	    	$evento['start'] 	= 1435345848140;
+	    	$evento['end'] 		= 1435345848140;
 
-	    	$data['result'] = $evento;
+	    	array_push($result, $evento);
 
-	    	
+	    	$evento['id'] 		= 293;
+	    	$evento['title'] 	= "Event1";
+	    	$evento['url'] 		= "http://example.com";
+	    	$evento['class'] 	= "event-important";
+	    	$evento['start'] 	= 1435345848140;
+	    	$evento['end'] 		= 1435345848140;
 
+	    	array_push($result, $evento);
+
+	    	$data['result'] = $result;
 
 			return Response::json($data);
-
-	    }
-
-	    public function generaLink(){
-
-	    	$this->href = 'http://localhost/sistema/desarrollo/externo.php?idusuario='.Session::get('idusuario')."&modulo=alumno&token=".Session::token();
 
 	    }
 
