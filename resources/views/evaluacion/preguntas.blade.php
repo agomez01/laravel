@@ -34,12 +34,12 @@
 										<li>
 											<select>
 
-												@for($i=1; $i <= count($pregunta["alternativas"]["col2"]); $i++)
-													<option value="{{ $i }}">{{ $i}}</option>
-												@endfor
+												@foreach($pregunta["alternativas"]["col2"] as $val2)
+													<option value="{{ $val->id }}_{{ $val2->id }}">{{ $val2->orden }}</option>
+												@endforeach
 
 											</select>
-											{{ $val->texto }}
+											<span id="{{ $val->id }}">{{ $val->texto }}</span>
 
 										</li>
 
@@ -54,7 +54,7 @@
 
 										<li>
 
-											{{ $val->orden }}) {{ $val->texto }}
+											{{ $val->orden }}) <span id="{{ $val->id }}">{{ $val->texto }}</span>
 
 										</li>
 
@@ -138,6 +138,23 @@
 			<a  href="{{ URL_PLATAFORMA_PRODUCCION }}/home/recursos/view.php?id={{ $val['recurso']->id }}" target="_blank"  onclick="window.open(this.href, this.target, 'width=500,height=200'); return false;"> <strong> Archivo adjunto <!-- 6 - {{  $val["recurso"]->id  }}--> </strong> </a>
 
 		@endif
+
+@elseif ($seccion === 'miniaturas')
+
+	<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+
+		@foreach ($preguntas as $pos=>$val)
+			
+			<div class="btn-group" role="group" aria-label="First group">
+		    
+		    	    <button type="button" class="btn btn-default eva-btnMinPreg" id="eva-minPregNum{{ $val['data']->id }}">{{ $val["numero"] }}</button>
+		    
+		    </div>
+
+		@endforeach
+      
+      
+    </div>
 
 @endif
 

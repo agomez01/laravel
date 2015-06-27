@@ -85,7 +85,12 @@
 }
 
 .eva-Indicadores{
-	padding:15px;
+	padding:25px;
+}
+
+.eva-btnMinPreg{
+	border-radius: 26px !important;
+
 }
 
 </style>
@@ -106,7 +111,13 @@
 		
 		@foreach ($preguntas as $pos=>$val)
 
-			<div id="" class="jumbotron eva-boxPregunta"> 
+
+			{!! Form::open( ['route' => ['evaluacion',''], 'method' => 'UPDATE', 'id' => 'resp_'.$val["data"]->id ] ) !!}
+
+			{!! Form::close() !!}
+
+
+			<div data-id="<?= $test['id'].'_'.$val['data']->id.'_'.$val['data']->tipo ?>" class="jumbotron eva-boxPregunta"> 
 				
 					@if ($val["recurso"] != "")
 					    
@@ -134,10 +145,12 @@
 
 					</div>
 
-					<div style="text-align:right; ">
-							
-							<a class="btn btn-primary btn-lg eva-btnEnviar" href="javasctipt:void(0)" role="button" id="<?= $test['id'].'_'.$val['data']->id.'_'.$val['data']->tipo ?>">Enviar respuesta</a>
-					</div>
+					<p style="text-align:right;" >
+
+							<a class="btn btn-primary btn-lg eva-btnEnviar" href="javasctipt:void(0)" role="button" >Enviar respuesta</a>
+
+				    </p>
+					
 			</div>
 
 
@@ -159,7 +172,10 @@
 		  	Tiempo Restante
 		  </li>
 		  <li class="list-group-item">
-		  	Preguntas:
+		  	Preguntas
+
+		  	@include('evaluacion/preguntas', ['test' => $test , 'pregunta' => $val, 'seccion' => 'miniaturas'])
+
 		  </li>
 		  <li class="list-group-item">leyenda</li>
 		  
@@ -175,4 +191,5 @@
 		</h3>
 	</secction>
 </div>
-	
+
+

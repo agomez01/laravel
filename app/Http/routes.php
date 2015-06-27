@@ -35,7 +35,7 @@
 		Route::any('/eventos', 	'Calendario\EventosController@EventosJson');
 
 		Route::get('/evaluacion/{id}/{action?}', 'Evaluacion\EvaluacionController@index');
-
+		Route::post('evaluacion', ['as' => 'evaluacion', 'uses' => 'Evaluacion\EvaluacionController@procesarRespuesta']);
 		# Acceso ROL SUPER ADMINISTRADOR
 		Route::group(['middleware' => 'isSuperAdmin'], function(){
 			Route::get(	'/alumno/evaluacion', 	'Alumno\AlumnoController@index');

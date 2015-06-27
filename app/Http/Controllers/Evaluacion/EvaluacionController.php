@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Evaluacion;
 
-use Illuminate\Http\Request;
+
 
 use App\models\Test;
 use App\models\TestPregunta;
@@ -11,9 +11,18 @@ use App\models\Pregunta;
 use App\models\PreguntaAlternativa;
 use App\models\PreguntaEmparejamiento;
 
+use App\models\RespuestaAlternativaAlumno;
+use App\models\RespuestaCortaAlumno;
+use App\models\RespuestaDesarrolloAlumno;
+use App\models\RespuestaEmparejaAlumno;
+use App\models\RespuestaVofAlumno;
+
 use App\models\Usuario;
 
-use App\Http\Requests;
+use Session;
+use Input;
+use Request;
+use Response;
 use App\Http\Controllers\Controller;
 
 class EvaluacionController extends Controller
@@ -23,14 +32,60 @@ class EvaluacionController extends Controller
      *
      * @return Response
      */
-    public function index($idtest,$action)
+
+    public function procesarRespuesta(){
+
+        
+        if(Request::ajax()) {
+
+            $data = Input::all();
+
+            $data["idalumno"] = Session::get('idalumno');
+
+            switch($data["tipoPregunta"]){
+                case 1:
+                        //Verdadero o Falso
+                        $registro = new RespuestaVofAlumno;
+                                                                
+                        $registro->idtest = $data["test"];
+                        $registro->idpregunta = $data["pregunta"];
+                        $registro->idalumno = $data["idalumno"];
+                        $registro->respuesta = $data["respuestaAlumno"];
+                        $registro->justificacion = "";
+                        $registro->puntaje = 0;
+                        $registro->fecha = time();
+                        
+                        if ($registro->save()){
+                            return 1;
+                        }else{
+                            return 0;
+                        }
+
+                        
+                break;
+                case 2:
+                break;
+                case 3:
+                break;
+                case 4:
+                break;
+                case 5:
+                break;
+
+            }
+
+        }
+
+    }
+
+    public function index($data,$action)
     {
 
-         $idtest = base64_decode($idtest);
+         $data = base64_decode($data);
 
         switch($action){
             case 0:
-                    $dataTest = Test::find($idtest);
+                    $dataTest = Test::find($data);
         
                     $nombreTest = $dataTest->miPrueba;
 
@@ -45,7 +100,7 @@ class EvaluacionController extends Controller
             break;
 
             case 1:
-                    $dataTest       = Test::find($idtest);
+                    $dataTest       = Test::find($data);
                     $preguntasTest  = TestPregunta::where('test', $dataTest->id)->get(); //Esta es la tabla vinculante entre test y las preguntas.
                     $preguntas      = EvaluacionController::obternerContenidoDePreguntasDelTest($preguntasTest); //Este es un arreglo que contiene todas las preguntas de la prueba y su contenido.
 
@@ -60,8 +115,14 @@ class EvaluacionController extends Controller
                     $test["nivel"]       = $dataTest->miPrueba->miSector->miNivel->nombre;
                     $test["asignatura"]  = $dataTest->miPrueba->miSector->nombre;
                     $test["duracion"]    = $dataTest->duracion;
-
+                    //dd($preguntas);
                     return view('evaluacion/rendirEvaluacion')->with('test', $test)->with('preguntas', $preguntas);
+            break;
+
+            case 2:
+
+
+
             break;
         }
        
