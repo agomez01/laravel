@@ -11,7 +11,7 @@
 
 	
 
-    <div id="sidebar-left" >
+    <div class="sidebar-left" >
         
     	<ul class="nav nav-pills nav-stacked">
 

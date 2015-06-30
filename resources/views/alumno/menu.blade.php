@@ -1,6 +1,6 @@
 <li class="dropdown">
 
-	<a href="#" class="dropdown-toggle hvr-overline-from-left" data-toggle="dropdown">Alumno<b class="caret"></b></a>
+	<a href="#" class="dropdown-toggle hvr-overline-from-left alumno" data-toggle="dropdown">Alumno<b class="caret"></b></a>
 	
 	<ul class="dropdown-menu">
 		<li><a href="{{ Salir::link('alumno/mis_clases.php') }}" target='blank'>Mis Cuadernos</a></li>

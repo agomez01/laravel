@@ -20,17 +20,14 @@
 
 	    public function index(){
 
-	    	$data = Pregunta::find(148573);
+	    	dd(Session::all());
+
+	    	/*$data = Pregunta::find(148573);
 	    	foreach($data->misAlternativas as $alt){
 	    		echo $alt->visible;
-	    	}
+	    	}*/
 
 	    }
 
-	    public function generaLink(){
-
-	    	$this->href = 'http://localhost/sistema/desarrollo/externo.php?idusuario='.Session::get('idusuario')."&modulo=alumno&token=".Session::token();
-
-	    }
 
 	}
