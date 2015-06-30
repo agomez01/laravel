@@ -32,10 +32,10 @@
 									@foreach($pregunta["alternativas"]["col1"] as $val)
 
 										<li>
-											<select>
-
+											<select class="eva-RespEmpareja{{ $pregunta['data']->id }}" id="{{ $val->id }}">
+													<option value="0">--</option>
 												@foreach($pregunta["alternativas"]["col2"] as $val2)
-													<option value="{{ $val->id }}_{{ $val2->id }}">{{ $val2->orden }}</option>
+													<option value="{{ $val2->id }}">{{ $val2->orden }}</option>
 												@endforeach
 
 											</select>
@@ -85,9 +85,10 @@
 				@foreach($pregunta["alternativas"] as $pos => $val)
 
 				<tr>
+					<td class="eva-letraAlternativa">{{ $val->letra }}) </td>
 					<td class="eva-checkAlternativa">
 					
-						<input class="resp_{{ $val->pregunta }}_{{ $val->id }}" type="checkbox" id="{{ $val->id }}"/> 
+						<input name="respAlt_{{ $test['id'] }}{{ $val->pregunta }}" type="radio" value="{{ $val->id }}"/> 
 
 					</td>
 					<td class="eva-textoAlternativa">{{ $val->texto }}</td>

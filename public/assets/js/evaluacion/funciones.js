@@ -41,16 +41,120 @@ $('document').ready(function(){
 					break;
 				case '2':
 						//emparejamiento
+						var clase = 'eva-RespEmpareja'+pregunta;
+						var todasSinResp = true;
+						var algunaSinResp = false;
+						//alert(clase);
+						var parejasArray = new Array();
+						var x=0;
+						$.each( $("."+clase), function (){
+
+							var pareja = new Array();
+
+						    var col1 = $(this).attr('id');
+						    var col2 = $('#'+col1+' option:selected').val();
+
+						    pareja[0] = col1;
+						    pareja[1] = col2;
+
+						    if(col2 != 0){
+						    	todasSinResp = false;
+						    }
+
+						    if (col2 == 0){
+						    	algunaSinResp = true;
+						    }
+
+						    
+						    parejasArray[x] = JSON.stringify(pareja);
+						    x++;
+						});
+							
+							if(todasSinResp){
+
+								if (confirm("¿Estás seguro que deseas enviar sin responder la pregunta?")){
+
+									respuestaAlumno = JSON.stringify(parejasArray);
+
+								}else{
+
+									return;
+
+								}
+
+							}else{
+
+								if(algunaSinResp){
+
+									if (confirm("Falta una o más parejas que vincular. ¿Seguro deseas enviar la repuesta?")){
+
+										respuestaAlumno = JSON.stringify(parejasArray);
+
+									}else{
+
+										return;
+
+									}
+
+								}else{
+
+									respuestaAlumno = JSON.stringify(parejasArray);
+									
+								}
+							}
 
 					break;
 				case '3':
-						//Desarrollo
+						
+						respuestaAlumno = $("#des_"+test+pregunta).val();
+
+						if (respuestaAlumno === ""){
+
+							if (!confirm("¿Estás seguro que deseas enviar sin responder la pregunta?")){
+
+								return;
+								
+							}
+
+						}
+						
 					break;	
 				case '4':
 						//respuesta alternativa
+						var name = 'respAlt_'+test+pregunta;
+						var resp = $('input:radio[name='+name+']:checked').val();
+						
+						if (resp === "" || typeof resp === "undefined"){
+
+							if (confirm("¿Estás seguro que deseas enviar sin responder la pregunta?")){
+
+								var respuestaAlumno = 0;
+
+							}else{
+
+								return;
+
+							}
+
+						}else{
+
+							respuestaAlumno = resp;
+
+						}
 					break;		
 				case '5':
-						//Respuesta corta
+						
+						respuestaAlumno = $("#cor_"+test+pregunta).val();
+
+						if (respuestaAlumno === ""){
+
+							if (!confirm("¿Estás seguro que deseas enviar sin responder la pregunta?")){
+
+								return;
+
+							}
+
+						}
 					break;	
 			}
 			
@@ -61,7 +165,7 @@ $('document').ready(function(){
 			var dataForm 		 = form.serialize(); //datos del form para llamada ajas serializados.
 			
 			var urlPost = form.attr('action');
-
+			console.log(test,pregunta,tipoPregunta,respuestaAlumno);
 
 			$.ajax({
 
@@ -69,31 +173,25 @@ $('document').ready(function(){
 				      type: "post",
 				      data: {'_token': token, 'test':test, 'pregunta': pregunta, 'tipoPregunta':tipoPregunta, 'respuestaAlumno':respuestaAlumno },
 				      success: function(resp){
-				        alert(resp);
+				      		sendResposeMessenge(resp,pregunta);
 				      }
 
 		    });
-
-
-/*
-			console.log(respuesta);
-
-			respuestaJSON = JSON.stringify(respuesta);
-
-			console.log(respuestaJSON);
-
-			var form 			 = $('#resp_'+pregunta); //form para llamada ajax
-			var dataForm 		 = form.serialize(); //datos del form para llamada ajas serializados.
-			
-			var url = form.attr('action').replace(':RESPDATA', respuesta);
-			
-			$.post(url, dataForm, function(response){
-				alert(response);
-			});	
-					
-					
-			*/		
+	
 		});
 
+
 });
+
+function sendResposeMessenge(resp, idpregunta){
+	//console.log(resp,idpregunta);
+	idResp = resp.last_insert_id;
+	if (idResp > 0){
+		//alert("enviada"+idResp);
+		$("#respMessege"+idpregunta).html(resp.messege);
+		$("#eva-minPregNum"+idpregunta).css(  'background-color', '#0BE409');
+	}else{
+		alert(resp.messege);
+	}
+}
 

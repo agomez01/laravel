@@ -6,7 +6,7 @@ namespace App\Http\Controllers\Evaluacion;
 
 use App\models\Test;
 use App\models\TestPregunta;
-
+use App\models\Prueba;
 use App\models\Pregunta;
 use App\models\PreguntaAlternativa;
 use App\models\PreguntaEmparejamiento;
@@ -18,7 +18,7 @@ use App\models\RespuestaEmparejaAlumno;
 use App\models\RespuestaVofAlumno;
 
 use App\models\Usuario;
-
+use StdClass;
 use Session;
 use Input;
 use Request;
@@ -45,31 +45,242 @@ class EvaluacionController extends Controller
             switch($data["tipoPregunta"]){
                 case 1:
                         //Verdadero o Falso
-                        $registro = new RespuestaVofAlumno;
+                        $exists = RespuestaVofAlumno::where('idtest', $data["test"])
+                                ->where('idpregunta', $data["pregunta"])
+                                ->where('idalumno', $data["idalumno"])
+                                ->count();
+
+                        if ( $exists == 0) 
+                        {
+
+                            $registro = new RespuestaVofAlumno;
                                                                 
-                        $registro->idtest = $data["test"];
-                        $registro->idpregunta = $data["pregunta"];
-                        $registro->idalumno = $data["idalumno"];
-                        $registro->respuesta = $data["respuestaAlumno"];
-                        $registro->justificacion = "";
-                        $registro->puntaje = 0;
-                        $registro->fecha = time();
-                        
-                        if ($registro->save()){
-                            return 1;
-                        }else{
-                            return 0;
+                            $registro->idtest = $data["test"];
+                            $registro->idpregunta = $data["pregunta"];
+                            $registro->idalumno = $data["idalumno"];
+                            $registro->respuesta = $data["respuestaAlumno"];
+                            $registro->justificacion = "";
+                            $registro->puntaje = 0;
+                            $registro->fecha = time();
+                            
+                            if ($registro->save())
+                            {
+
+                                return Response::json(array('success' => true, 'last_insert_id' => $registro->id, 'messege' => "Respuesta Enviada!!"), 200);
+                            
+                            }
+                            else
+                            {
+                            
+                                return Response::json(array('success' => false, 'last_insert_id' => "-1", 'messege' => "Ocurrió un error al guardar tu respuesta. Intentalo de nuevo por favor!!"), 200);
+                            
+                            }
                         }
+                        else
+                        {
+
+                            return Response::json(array('success' => false, 'last_insert_id' => "-1", 'messege' => 'Esta pregunta ya registra una respuesta!!'), 200);
+                        
+                        }
+                        
 
                         
                 break;
                 case 2:
+
+                        //respuesta emparejamiento
+                        $exists = RespuestaEmparejaAlumno::where('idtest', $data["test"])
+                                            ->where('idpregunta', $data["pregunta"])
+                                            ->where('idalumno', $data["idalumno"])
+                                            ->count();
+                        if ( $exists == 0) 
+                        {
+                            $parejas = json_decode($data['respuestaAlumno']);
+
+                            $todoOk = true;
+                            $cantInsertados = 0;
+                            foreach($parejas as $pos => $val){
+
+                                    $pareja = json_decode($val);
+                                    $col1 = $pareja[0];
+                                    $col2 = $pareja[1];
+
+                                    $registro = new RespuestaEmparejaAlumno;
+                                                                    
+                                    $registro->idtest = $data["test"];
+                                    $registro->idpregunta = $data["pregunta"];
+                                    $registro->idalumno = $data["idalumno"];
+                                    $registro->vinculo_a = $col1;
+                                    $registro->vinculo_b = $col2;
+                                    $registro->puntaje = 0;
+                                    $registro->fecha = time();
+                                    
+                                    if ($registro->save())
+                                    {
+
+                                        $todoOk = true;
+                                        $cantInsertados++;
+
+                                    }
+                                    else
+                                    {
+                                    
+                                        $todoOk = fasle;
+                                        exit();
+                                    }
+
+                            }
+
+                            if ($todoOk){
+
+                                return Response::json(array('success' => true, 'last_insert_id' => $cantInsertados, 'messege' => "Respuesta Enviada!!"), 200);
+                            
+                            }else{
+
+                                $eliminados = RespuestaEmparejaAlumno::where('idtest', $data["test"])
+                                            ->where('idpregunta', $data["pregunta"])
+                                            ->where('idalumno', $data["idalumno"])->delete();
+
+                                return Response::json(array('success' => false, 'last_insert_id' => "-1", 'messege' => "Ocurrió un error al guardar tu respuesta. Intentalo de nuevo por favor!!"), 200);
+
+                            }
+                        }
+                        else
+                        {
+
+                            return Response::json(array('success' => false, 'last_insert_id' => "-1", 'messege' => 'Esta pregunta ya registra una respuesta!!'), 200);
+                        
+                        }
+                        
+                    
+
                 break;
+
+                        
                 case 3:
+
+                        //respuesta desarrollo alumno
+                        $exists = RespuestaDesarrolloAlumno::where('idtest', $data["test"])
+                                ->where('idpregunta', $data["pregunta"])
+                                ->where('idalumno', $data["idalumno"])
+                                ->count();
+
+                        if ( $exists == 0) 
+                        {
+
+                            $registro = new RespuestaDesarrolloAlumno;
+                                                                
+                            $registro->idtest = $data["test"];
+                            $registro->idpregunta = $data["pregunta"];
+                            $registro->idalumno = $data["idalumno"];
+                            $registro->respuesta = $data["respuestaAlumno"];
+                            $registro->puntaje = 0;
+                            $registro->idresultado = 0;
+                            $registro->comentario_profe = "";
+                            $registro->retro_alumno = "";
+                            $registro->fecha = time();
+                            
+                            if ($registro->save())
+                            {
+
+                                return Response::json(array('success' => true, 'last_insert_id' => $registro->id, 'messege' => "Respuesta Enviada!!"), 200);
+                            
+                            }
+                            else
+                            {
+                            
+                                return Response::json(array('success' => false, 'last_insert_id' => "-1", 'messege' => "Ocurrió un error al guardar tu respuesta. Intentalo de nuevo por favor!!"), 200);
+                            
+                            }
+                        }
+                        else
+                        {
+
+                            return Response::json(array('success' => false, 'last_insert_id' => "-1", 'messege' => 'Esta pregunta ya registra una respuesta!!'), 200);
+                        
+                        }
+
                 break;
                 case 4:
+                        //Respuesta alternatiiva alumno
+                        $exists = RespuestaAlternativaAlumno::where('idtest', $data["test"])
+                                ->where('idpregunta', $data["pregunta"])
+                                ->where('idalumno', $data["idalumno"])
+                                ->count();
+
+                        if ( $exists == 0) 
+                        {
+
+                            $registro = new RespuestaAlternativaAlumno;
+                                                                
+                            $registro->idtest = $data["test"];
+                            $registro->idpregunta = $data["pregunta"];
+                            $registro->idalumno = $data["idalumno"];
+                            $registro->respuesta = $data["respuestaAlumno"];
+                            $registro->puntaje = 0;
+                            $registro->fecha = time();
+                            
+                            if ($registro->save())
+                            {
+
+                                return Response::json(array('success' => true, 'last_insert_id' => $registro->id, 'messege' => "Respuesta Enviada!!"), 200);
+                            
+                            }
+                            else
+                            {
+                            
+                                return Response::json(array('success' => false, 'last_insert_id' => "-1", 'messege' => "Ocurrió un error al guardar tu respuesta. Intentalo de nuevo por favor!!"), 200);
+                            
+                            }
+                        }
+                        else
+                        {
+
+                            return Response::json(array('success' => false, 'last_insert_id' => "-1", 'messege' => 'Esta pregunta ya registra una respuesta!!'), 200);
+                        
+                        }
+
                 break;
                 case 5:
+
+                        //respuesta corta alumno
+                        $exists = RespuestaCortaAlumno::where('idtest', $data["test"])
+                                ->where('idpregunta', $data["pregunta"])
+                                ->where('idalumno', $data["idalumno"])
+                                ->count();
+
+                        if ( $exists == 0) 
+                        {
+
+                            $registro = new RespuestaCortaAlumno;
+                                                                
+                            $registro->idtest = $data["test"];
+                            $registro->idpregunta = $data["pregunta"];
+                            $registro->idalumno = $data["idalumno"];
+                            $registro->respuesta = $data["respuestaAlumno"];
+                            $registro->puntaje = 0;
+                            $registro->fecha = time();
+                            
+                            if ($registro->save())
+                            {
+
+                                return Response::json(array('success' => true, 'last_insert_id' => $registro->id, 'messege' => "Respuesta Enviada!!"), 200);
+                            
+                            }
+                            else
+                            {
+                            
+                                return Response::json(array('success' => false, 'last_insert_id' => "-1", 'messege' => "Ocurrió un error al guardar tu respuesta. Intentalo de nuevo por favor!!"), 200);
+                            
+                            }
+                        }
+                        else
+                        {
+
+                            return Response::json(array('success' => false, 'last_insert_id' => "-1", 'messege' => 'Esta pregunta ya registra una respuesta!!'), 200);
+                        
+                        }
+
                 break;
 
             }
@@ -101,6 +312,7 @@ class EvaluacionController extends Controller
 
             case 1:
                     $dataTest       = Test::find($data);
+                    $dataPrueba     = Prueba::find($dataTest->prueba);
                     $preguntasTest  = TestPregunta::where('test', $dataTest->id)->get(); //Esta es la tabla vinculante entre test y las preguntas.
                     $preguntas      = EvaluacionController::obternerContenidoDePreguntasDelTest($preguntasTest); //Este es un arreglo que contiene todas las preguntas de la prueba y su contenido.
 
@@ -109,7 +321,7 @@ class EvaluacionController extends Controller
                     
                     $test["id"]          = $dataTest->id;
                     $test["autor"]       = $dataAutor->usuario_detalle->full_name;
-                    //dd($test["autor"]);
+                    $test["instrucciones"] = $dataPrueba->instrucciones;
                     $test["prueba"]      = $dataTest->miPrueba->id;
                     $test["nombre"]      = $dataTest->miPrueba->titulo;
                     $test["nivel"]       = $dataTest->miPrueba->miSector->miNivel->nombre;
@@ -197,11 +409,26 @@ class EvaluacionController extends Controller
 
                     if ($tipoPregunta === 4)
                     {
+                            
+                            $alternativasArray = Array();
 
+                            $letras = Array('0'=>'A','1'=>'B','2'=>'C','3'=>'D','4'=>'E','5'=>'F','6'=>'G','7'=>'H','8'=>'I');
                             $idPregunta = $pregunta->id;
                             $lasAlternativas = PreguntaAlternativa::where('pregunta',$idPregunta)->where('visible',1)->orderBy('orden','asc')->get();
-                            $arreglo['alternativas'] = $lasAlternativas;
 
+                            foreach($lasAlternativas as $pos => $val){
+                                $alternativa = new StdClass();
+                                $alternativa->id = $val->id;
+                                $alternativa->texto = $val->texto;
+                                $alternativa->letra = $letras[$pos];
+                                $alternativa->retroalimentacion = $val->retroalimentacion;
+                                $alternativa->pregunta = $val->pregunta;
+
+                                array_push($alternativasArray, $alternativa);   
+                            }
+
+                            $arreglo['alternativas'] = $alternativasArray;
+                            //dd($arreglo['alternativas']);
                     }
                     else if ($tipoPregunta === 2)
                     {

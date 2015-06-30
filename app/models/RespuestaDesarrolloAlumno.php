@@ -5,7 +5,7 @@
     use Illuminate\Database\Eloquent\Model;
 
 
-    class RespuestaDearrolloAlumno extends Model
+    class RespuestaDesarrolloAlumno extends Model
     {
 
         /**
@@ -13,6 +13,9 @@
          *
          * @var string
          */
+
+        public $timestamps = false;
+        
         protected $table = 'respuesta_desarrollo_alumno';
        
 

@@ -98,10 +98,12 @@
 
             if ($usuario->idrol == '31')
             {
-
+                
                 $dataAlumno = $this->obtenerDataDelAlumno($data->id, $anio);
+                $dataCurso = Curso::find($dataAlumno[0]->idcurso);
                 Session::put('curso',  $dataAlumno[0]->idcurso );
                 Session::put('idalumno',   $dataAlumno[0]->idalumno);
+                Session::put('nombre-curso',   $dataCurso->nombre);
 
             }
 

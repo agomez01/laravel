@@ -73,8 +73,12 @@
 
 .eva-textoAlternativa
 {
-	width:97%;
+	width:94%;
 
+}
+
+.eva-letraAlternativa{
+	width:3%;
 }
 
 .eva-parejas
@@ -98,12 +102,41 @@
 <div id="eva-leftSection">
 
 	<section id="eva-membretePrueba" >
+		<ul class="list-group">
+		  <li class="list-group-item">
+		  		<h2 style="text-align: center;">
 
-		<h2 style="text-align: center;">
+					{{ $test["nombre"] }}
 
-			Prueba id: {{ $test["prueba"] }}
+				</h2>
+		  </li>
+		  <li class="list-group-item">
 
-		</h2>
+			  <h5>
+			  		Alumno: {{ Session::get('full-name') }}
+			  </h5>
+
+			  <h5>
+			  		Curso: {{ Session::get('nombre-curso') }}
+			  </h5>
+
+			  <h5>
+			  		Fecha: {{  date("d-m-Y", time())  }}
+			  </h5>
+
+		  </li>
+		  <li class="list-group-item">
+		  
+		  	<h5><strong>Instrucciones</strong></h5>
+		  	<?=  $test["instrucciones"];  ?>
+		  </li>
+		  
+		</ul>
+		
+		Nombre Alumno:
+		Curso:
+		Fecha:
+		Instrucciones: 
 
 	</secction>
 
@@ -145,7 +178,7 @@
 
 					</div>
 
-					<p style="text-align:right;" >
+					<p style="text-align:right;" id="respMessege{{ $val['data']->id }}">
 
 							<a class="btn btn-primary btn-lg eva-btnEnviar" href="javasctipt:void(0)" role="button" >Enviar respuesta</a>
 
