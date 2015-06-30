@@ -10,17 +10,24 @@ use App\models\Prueba;
 use App\models\Pregunta;
 use App\models\PreguntaAlternativa;
 use App\models\PreguntaEmparejamiento;
+use App\models\PreguntaCorta;
+use App\models\PreguntaVof;
+
+
 
 use App\models\RespuestaAlternativaAlumno;
 use App\models\RespuestaCortaAlumno;
 use App\models\RespuestaDesarrolloAlumno;
 use App\models\RespuestaEmparejaAlumno;
 use App\models\RespuestaVofAlumno;
+use App\models\Resultado;
+
 
 use App\models\Usuario;
 use StdClass;
 use Session;
 use Input;
+use DB;
 use Request;
 use Response;
 use App\Http\Controllers\Controller;
@@ -32,6 +39,114 @@ class EvaluacionController extends Controller
      *
      * @return Response
      */
+        public function index($data,$action)
+        {
+
+             $data = base64_decode($data);
+
+            switch($action){
+                case 0:
+                        $dataTest = Test::find($data);
+                                            
+                        $test["id"]      = $dataTest->id;
+                        $test["nombre"]      = $dataTest->miPrueba->titulo;
+                        $test["nivel"]       = $dataTest->miPrueba->miSector->miNivel->nombre;
+                        $test["asignatura"]  = $dataTest->miPrueba->miSector->nombre;
+                        $test["duracion"]    = $dataTest->duracion;
+                 
+                        return view('evaluacion/portadaEvaluacion')->with('test', $test);
+                break;
+
+                case 1:
+                        $dataTest       = Test::find($data);
+
+                        $dataPrueba     = Prueba::find($dataTest->prueba);
+
+                        //$preguntasTest  = TestPregunta::where('test', $dataTest->id)->orderBy('orden', 'desc')->get(); //Esta es la tabla vinculante entre test y las preguntas.
+                       //dd($preguntasTest);
+                        
+                        if ($dataTest->barajar === 1)
+                        {
+                             
+                                $preguntasTest  = TestPregunta::where('test', $dataTest->id)->orderBy(DB::raw('RAND()'))->get(); //Esta es la tabla vinculante entre test y las preguntas.
+
+                        }
+                        else
+                        {
+
+                                $preguntasTest  = TestPregunta::where('test', $dataTest->id)->orderBy('orden', 'asc')->get(); //Esta es la tabla vinculante entre test y las preguntas.
+                        }
+                        
+                        
+                        $preguntas      = EvaluacionController::obternerContenidoDePreguntasDelTest($preguntasTest, $dataTest->id, $dataTest->barajar_resp); //Este es un arreglo que contiene todas las preguntas de la prueba y su contenido.
+                        
+                        $dataAutor = Usuario::find($dataTest->profesor);
+                        
+                        $test["id"]          = $dataTest->id;
+                        $test["autor"]       = $dataAutor->usuario_detalle->full_name;
+                        $test["instrucciones"] = $dataPrueba->instrucciones;
+                        $test["prueba"]      = $dataTest->miPrueba->id;
+                        $test["nombre"]      = $dataTest->miPrueba->titulo;
+                        $test["nivel"]       = $dataTest->miPrueba->miSector->miNivel->nombre;
+                        $test["asignatura"]  = $dataTest->miPrueba->miSector->nombre;
+                        $test["duracion"]    = $dataTest->duracion;
+                        //dd($preguntas);
+                        return view('evaluacion/rendirEvaluacion')->with('test', $test)->with('preguntas', $preguntas);
+                break;
+
+                case 2:
+
+
+
+                break;
+            }
+            
+        }
+
+    public static function corregirLaPregunta($tipoPregunta, $registro){
+
+        switch ($tipoPregunta) {
+            case 1:
+                //VERDADERO O FALSO
+                $pregunta = PreguntaVof::where('pregunta', $registro->idpregunta)->get();
+                
+                if ($registro->respuesta == 2){
+                    //EL ALUMNO OMITIO LA PREGUNTA
+                    $resulado = new Resultado;
+                    dd($resulado);
+                    return;
+                }
+
+                
+
+                break;
+            
+            case 2:
+               //EMPAREJAMIENTO
+
+
+                break;
+
+            case 3:
+               //DESARROLLO
+
+
+                break;
+
+            case 4:
+               //ALTERNATIVA
+
+
+                break;
+
+            case 5:
+               //RESPUESTA CORTA
+
+
+                break;
+        }
+
+    } 
 
     public function procesarRespuesta(){
 
@@ -45,6 +160,7 @@ class EvaluacionController extends Controller
             switch($data["tipoPregunta"]){
                 case 1:
                         //Verdadero o Falso
+
                         $exists = RespuestaVofAlumno::where('idtest', $data["test"])
                                 ->where('idpregunta', $data["pregunta"])
                                 ->where('idalumno', $data["idalumno"])
@@ -66,6 +182,7 @@ class EvaluacionController extends Controller
                             if ($registro->save())
                             {
 
+                                $corregida = EvaluacionController::corregirLaPregunta($data["tipoPregunta"], $registro);
                                 return Response::json(array('success' => true, 'last_insert_id' => $registro->id, 'messege' => "Respuesta Enviada!!"), 200);
                             
                             }
@@ -132,7 +249,7 @@ class EvaluacionController extends Controller
                             }
 
                             if ($todoOk){
-
+                                $corregida = EvaluacionController::corregirLaPregunta($data["tipoPregunta"], $registro);
                                 return Response::json(array('success' => true, 'last_insert_id' => $cantInsertados, 'messege' => "Respuesta Enviada!!"), 200);
                             
                             }else{
@@ -183,6 +300,7 @@ class EvaluacionController extends Controller
                             if ($registro->save())
                             {
 
+                                $corregida = EvaluacionController::corregirLaPregunta($data["tipoPregunta"], $registro);
                                 return Response::json(array('success' => true, 'last_insert_id' => $registro->id, 'messege' => "Respuesta Enviada!!"), 200);
                             
                             }
@@ -223,6 +341,7 @@ class EvaluacionController extends Controller
                             if ($registro->save())
                             {
 
+                                $corregida = EvaluacionController::corregirLaPregunta($data["tipoPregunta"], $registro);
                                 return Response::json(array('success' => true, 'last_insert_id' => $registro->id, 'messege' => "Respuesta Enviada!!"), 200);
                             
                             }
@@ -263,13 +382,14 @@ class EvaluacionController extends Controller
                             
                             if ($registro->save())
                             {
-
+                                
+                                $corregida = EvaluacionController::corregirLaPregunta($data["tipoPregunta"], $registro);
                                 return Response::json(array('success' => true, 'last_insert_id' => $registro->id, 'messege' => "Respuesta Enviada!!"), 200);
                             
                             }
                             else
                             {
-                            
+                                
                                 return Response::json(array('success' => false, 'last_insert_id' => "-1", 'messege' => "Ocurrió un error al guardar tu respuesta. Intentalo de nuevo por favor!!"), 200);
                             
                             }
@@ -289,58 +409,7 @@ class EvaluacionController extends Controller
 
     }
 
-    public function index($data,$action)
-    {
 
-         $data = base64_decode($data);
-
-        switch($action){
-            case 0:
-                    $dataTest = Test::find($data);
-        
-                    $nombreTest = $dataTest->miPrueba;
-
-                    
-                    $test["id"]      = $dataTest->id;
-                    $test["nombre"]      = $dataTest->miPrueba->titulo;
-                    $test["nivel"]       = $dataTest->miPrueba->miSector->miNivel->nombre;
-                    $test["asignatura"]  = $dataTest->miPrueba->miSector->nombre;
-                    $test["duracion"]    = $dataTest->duracion;
-             
-                    return view('evaluacion/portadaEvaluacion')->with('test', $test);
-            break;
-
-            case 1:
-                    $dataTest       = Test::find($data);
-                    $dataPrueba     = Prueba::find($dataTest->prueba);
-                    $preguntasTest  = TestPregunta::where('test', $dataTest->id)->get(); //Esta es la tabla vinculante entre test y las preguntas.
-                    $preguntas      = EvaluacionController::obternerContenidoDePreguntasDelTest($preguntasTest); //Este es un arreglo que contiene todas las preguntas de la prueba y su contenido.
-
-                    //dd();
-                    $dataAutor = Usuario::find($dataTest->profesor);
-                    
-                    $test["id"]          = $dataTest->id;
-                    $test["autor"]       = $dataAutor->usuario_detalle->full_name;
-                    $test["instrucciones"] = $dataPrueba->instrucciones;
-                    $test["prueba"]      = $dataTest->miPrueba->id;
-                    $test["nombre"]      = $dataTest->miPrueba->titulo;
-                    $test["nivel"]       = $dataTest->miPrueba->miSector->miNivel->nombre;
-                    $test["asignatura"]  = $dataTest->miPrueba->miSector->nombre;
-                    $test["duracion"]    = $dataTest->duracion;
-                    //dd($preguntas);
-                    return view('evaluacion/rendirEvaluacion')->with('test', $test)->with('preguntas', $preguntas);
-            break;
-
-            case 2:
-
-
-
-            break;
-        }
-       
-        
-        
-    }
 
     public function generarUrlDelRecurso($urlRecurso){
 
@@ -365,11 +434,82 @@ class EvaluacionController extends Controller
         return $ruta;
     }
 
+    public function obtenerRespuestaDelAlumno($pregunta, $tipoPregunta, $idtest, $idalumno){
 
-    public function obternerContenidoDePreguntasDelTest($preguntasTest)
+        switch($tipoPregunta)
+        {
+            case 1:
+
+                    $respuestaAlumno = RespuestaVofAlumno::getRespuestaDelAlumno($pregunta, $tipoPregunta, $idtest, $idalumno);
+                    
+            break;
+
+            case 2:
+
+                    $respuestaAlumno = RespuestaEmparejaAlumno::getRespuestaDelAlumno($pregunta, $tipoPregunta, $idtest, $idalumno);
+                    
+                    $dataResp = Array();
+                    
+                    foreach($respuestaAlumno as $pos => $val)
+                    {
+                            
+                            $dataResp[$val->vinculo_a] = $val->vinculo_b;  
+                            
+                    }
+
+                    $respuesta = new StdClass();
+
+                    if (count($dataResp) > 0)
+                    {
+
+                            $respuesta->respuesta = $dataResp;
+
+                    }
+                    else
+                    {
+
+                            $respuesta->respuesta = null;
+
+                    }
+                    
+                    
+                    
+                    $respuestaAlumno = $respuesta;
+
+
+
+            break;
+
+            case 3:
+
+                    $respuestaAlumno = RespuestaDesarrolloAlumno::getRespuestaDelAlumno($pregunta, $tipoPregunta, $idtest, $idalumno);
+            
+            break;  
+
+            case 4:
+
+                    $respuestaAlumno = RespuestaAlternativaAlumno::getRespuestaDelAlumno($pregunta, $tipoPregunta, $idtest, $idalumno);
+
+            break;
+
+            case 5:
+
+                    $respuestaAlumno = RespuestaCortaAlumno::getRespuestaDelAlumno($pregunta, $tipoPregunta, $idtest, $idalumno);
+
+            break;
+        }
+
+        return $respuestaAlumno;
+
+    }
+
+    public function obternerContenidoDePreguntasDelTest($preguntasTest, $idtest, $barajarAlternativas)
         {
             $respuesta = Array();
             $num = 1;
+
+            $idalumno = Session::get('idalumno');
+
 
             foreach($preguntasTest as $pos=>$value)
             {
@@ -380,7 +520,9 @@ class EvaluacionController extends Controller
 
                     $arreglo['numero'] = $num;
                     $arreglo['data'] = $pregunta;
-                                    
+                    
+                    //dd($arreglo['respuestaAlumno']);                    
+
                     if(!isset($pregunta->miRecurso->url))
                     {
 
@@ -413,8 +555,21 @@ class EvaluacionController extends Controller
                             $alternativasArray = Array();
 
                             $letras = Array('0'=>'A','1'=>'B','2'=>'C','3'=>'D','4'=>'E','5'=>'F','6'=>'G','7'=>'H','8'=>'I');
+
                             $idPregunta = $pregunta->id;
-                            $lasAlternativas = PreguntaAlternativa::where('pregunta',$idPregunta)->where('visible',1)->orderBy('orden','asc')->get();
+
+                                                        
+                            if ($barajarAlternativas === 1){
+
+                                    $lasAlternativas = PreguntaAlternativa::where('pregunta',$idPregunta)->where('visible',1)->orderBy(DB::raw('RAND()'))->get();
+
+                            }else{
+
+                                    $lasAlternativas = PreguntaAlternativa::where('pregunta',$idPregunta)->where('visible',1)->orderBy('orden','asc')->get();
+
+                            }
+
+                            
 
                             foreach($lasAlternativas as $pos => $val){
                                 $alternativa = new StdClass();
@@ -434,8 +589,8 @@ class EvaluacionController extends Controller
                     {
 
                             $idPregunta = $pregunta->id;
-                            $lasAlternativasCol1 = PreguntaEmparejamiento::where('pregunta',$idPregunta)->where('visible',1)->where('columna',1)->orderBy('orden','asc')->get();
-                            $lasAlternativasCol2 = PreguntaEmparejamiento::where('pregunta',$idPregunta)->where('visible',1)->where('columna',2)->orderBy('orden','asc')->get();
+                            $lasAlternativasCol1 = PreguntaEmparejamiento::where('pregunta',$idPregunta)->where('visible',1)->where('columna',1)->orderBy(DB::raw('RAND()'))->get();
+                            $lasAlternativasCol2 = PreguntaEmparejamiento::where('pregunta',$idPregunta)->where('visible',1)->where('columna',2)->orderBy(DB::raw('RAND()'))->get();
                             
                             $arreglo['alternativas'] = Array("col1"=>$lasAlternativasCol1, "col2"=>$lasAlternativasCol2);
 
@@ -447,7 +602,7 @@ class EvaluacionController extends Controller
 
                     }
 
-                    
+                    $arreglo['respuestaAlumno'] = EvaluacionController::obtenerRespuestaDelAlumno($arreglo['data']->id, $arreglo['data']->tipo, $idtest, $idalumno);
                     
                         array_push($respuesta, $arreglo);
 

@@ -18,5 +18,9 @@
         
         protected $table = 'respuesta_enpareja_alumno';
        
+        public static function getRespuestaDelAlumno($idpregunta, $tipoPregunta, $idtest, $idalumno){
 
+            return $respuestaAlumno = RespuestaEmparejaAlumno::where('idtest', $idtest)->where('idpregunta', $idpregunta)->where('idalumno', $idalumno)->get();
+            
+        }
     }

@@ -13,7 +13,45 @@ $('document').ready(function(){
 			var tipoPregunta     = parametrosArray[2];
 
 			
-			switch(tipoPregunta){
+			respuestaAlumno = obtenerRespuestaPregunta(test, pregunta, tipoPregunta);
+
+			enviarRespuesta(test, pregunta, tipoPregunta, respuestaAlumno);
+			
+			
+	
+		});
+
+
+});
+
+
+function enviarRespuesta(test, pregunta, tipoPregunta, respuestaAlumno){
+
+		var form 			 = $('#resp_'+pregunta); //form para llamada ajax
+				
+		var token = $('#resp_'+pregunta+' input').val();
+
+		var dataForm 		 = form.serialize(); //datos del form para llamada ajas serializados.
+		
+		var urlPost = form.attr('action');
+		console.log(test,pregunta,tipoPregunta,respuestaAlumno);
+
+		$.ajax({
+
+			      url: urlPost,
+			      type: "post",
+			      data: {'_token': token, 'test':test, 'pregunta': pregunta, 'tipoPregunta':tipoPregunta, 'respuestaAlumno':respuestaAlumno },
+			      success: function(resp){
+			      		sendResposeMessenge(resp,pregunta);
+			      }
+
+	    });
+
+}
+
+function obtenerRespuestaPregunta(test, pregunta, tipoPregunta){
+
+		switch(tipoPregunta){
 
 				case '1':
 
@@ -24,7 +62,7 @@ $('document').ready(function(){
 
 							if (confirm("¿Estás seguro que deseas enviar sin responder la pregunta?")){
 
-								var respuestaAlumno = 0;
+								var respuestaAlumno = 2;
 
 							}else{
 
@@ -157,31 +195,11 @@ $('document').ready(function(){
 						}
 					break;	
 			}
-			
-			var form 			 = $('#resp_'+pregunta); //form para llamada ajax
-			
-			var token = $('#resp_'+pregunta+' input').val();
 
-			var dataForm 		 = form.serialize(); //datos del form para llamada ajas serializados.
-			
-			var urlPost = form.attr('action');
-			console.log(test,pregunta,tipoPregunta,respuestaAlumno);
+			return respuestaAlumno;
 
-			$.ajax({
+}
 
-				      url: urlPost,
-				      type: "post",
-				      data: {'_token': token, 'test':test, 'pregunta': pregunta, 'tipoPregunta':tipoPregunta, 'respuestaAlumno':respuestaAlumno },
-				      success: function(resp){
-				      		sendResposeMessenge(resp,pregunta);
-				      }
-
-		    });
-	
-		});
-
-
-});
 
 function sendResposeMessenge(resp, idpregunta){
 	//console.log(resp,idpregunta);

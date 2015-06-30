@@ -132,11 +132,6 @@
 		  </li>
 		  
 		</ul>
-		
-		Nombre Alumno:
-		Curso:
-		Fecha:
-		Instrucciones: 
 
 	</secction>
 
@@ -166,7 +161,7 @@
 
 						<h5>
 
-							<strong> Pregunta N°{{ $val["numero"] }} - <?= $val["data"]->texto ?> [id: <?= $val["data"]->id ?>]</strong>
+							<strong> Pregunta N°{{ $val["numero"] }} - <?= $val["data"]->texto ?></strong>
 
 						</h5>
 
@@ -180,8 +175,15 @@
 
 					<p style="text-align:right;" id="respMessege{{ $val['data']->id }}">
 
-							<a class="btn btn-primary btn-lg eva-btnEnviar" href="javasctipt:void(0)" role="button" >Enviar respuesta</a>
+							@if( !isset( $val["respuestaAlumno"]->respuesta ) ) 
 
+								<a class="btn btn-primary btn-lg eva-btnEnviar" href="javasctipt:void(0)" role="button" >Enviar respuesta</a>
+
+							@else
+
+								Respuesta Enviada!!
+
+							@endif
 				    </p>
 					
 			</div>

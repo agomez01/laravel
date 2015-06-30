@@ -7,13 +7,46 @@
 			<table width="100%" >
 
 				<tr>
+					@if(isset( $pregunta["respuestaAlumno"]->respuesta ))
 
-					<td valign="middle"><input type="radio" name="vof_<?= $test['id'].$pregunta['data']->id ?>" id="v_<?= $test['id'].$pregunta['data']->id ?>" value="1"/> Verdadero</td>
+						@if($pregunta["respuestaAlumno"]->respuesta === 1)					
+
+							<td valign="middle"><input type="radio" name="vof_<?= $test['id'].$pregunta['data']->id ?>" id="v_<?= $test['id'].$pregunta['data']->id ?>" value="1" checked="checked"/> Verdadero</td>
+
+						@else
+
+							<td valign="middle"><input type="radio" name="vof_<?= $test['id'].$pregunta['data']->id ?>" id="v_<?= $test['id'].$pregunta['data']->id ?>" value="1"/> Verdadero</td>
+
+						@endif
+
+					@else
+
+						<td valign="middle"><input type="radio" name="vof_<?= $test['id'].$pregunta['data']->id ?>" id="v_<?= $test['id'].$pregunta['data']->id ?>" value="1"/> Verdadero</td>
+
+					@endif
+
+					
 
 				</tr>
 				<tr>
 
-					<td valign="middle"><input type="radio" name="vof_<?= $test['id'].$pregunta['data']->id ?>" id="f_<?= $test['id'].$pregunta['data']->id ?>" value="2"/> Falso</td>
+					@if(isset( $pregunta["respuestaAlumno"]->respuesta ))
+
+						@if($pregunta["respuestaAlumno"]->respuesta === 0)					
+
+							<td valign="middle"><input type="radio" name="vof_<?= $test['id'].$pregunta['data']->id ?>" id="v_<?= $test['id'].$pregunta['data']->id ?>" value="0" checked="checked"/> Falso</td>
+
+						@else
+
+							<td valign="middle"><input type="radio" name="vof_<?= $test['id'].$pregunta['data']->id ?>" id="v_<?= $test['id'].$pregunta['data']->id ?>" value="0"/> Falso</td>
+
+						@endif
+
+					@else
+
+						<td valign="middle"><input type="radio" name="vof_<?= $test['id'].$pregunta['data']->id ?>" id="v_<?= $test['id'].$pregunta['data']->id ?>" value="0"/> Falso</td>
+
+					@endif
 				
 				</tr>
 
@@ -29,32 +62,78 @@
 						<td>
 
 								<ul class="eva-parejas">
-									@foreach($pregunta["alternativas"]["col1"] as $val)
+									
+									@if( count( $pregunta["respuestaAlumno"]->respuesta ) == 0)
 
-										<li>
-											<select class="eva-RespEmpareja{{ $pregunta['data']->id }}" id="{{ $val->id }}">
-													<option value="0">--</option>
-												@foreach($pregunta["alternativas"]["col2"] as $val2)
-													<option value="{{ $val2->id }}">{{ $val2->orden }}</option>
-												@endforeach
+											@foreach($pregunta["alternativas"]["col1"] as $val)
+												{{--*/ $var = 0 /*--}}
 
-											</select>
-											<span id="{{ $val->id }}">{{ $val->texto }}</span>
+												<li>
+													<select class="eva-RespEmpareja{{ $pregunta['data']->id }}" id="{{ $val->id }}">
 
-										</li>
+															<option value="0">--</option>
+														@foreach($pregunta["alternativas"]["col2"] as $val2)
 
-									@endforeach
+																<option value="{{ $val2->id }}">{{ $var = $var + 1 }} </option>
+
+														@endforeach
+
+													</select>
+													<span id="{{ $val->id }}">{{ $val->texto }}</span>
+
+												</li>
+
+											@endforeach
+
+									@else
+
+										@foreach($pregunta["alternativas"]["col1"] as $val)
+												{{--*/ $var = 0 /*--}}
+
+												{{--*/ $respuestaAlumno  = $pregunta["respuestaAlumno"]->respuesta /*--}}
+												<li>
+													<select class="eva-RespEmpareja{{ $pregunta['data']->id }}" id="{{ $val->id }}">
+
+															<option value="0">--</option>
+														@foreach($pregunta["alternativas"]["col2"] as $val2)
+
+															@if($respuestaAlumno[$val->id] === $val2->id)
+
+																<option value="{{ $val2->id }}" selected="true">{{ $var = $var + 1 }}</option>
+
+															@else
+
+																<option value="{{ $val2->id }}">{{ $var = $var + 1 }} </option>
+
+															@endif
+															
+
+															
+
+														@endforeach
+
+													</select>
+													<span id="{{ $val->id }}">{{ $val->texto }}</span>
+
+												</li>
+
+											@endforeach
+
+									@endif
+									
+									
 								</ul>
 
 						</td>
 						<td>
 
 								<ul class="eva-parejas">
+									{{--*/ $var = 0 /*--}}
 									@foreach($pregunta["alternativas"]["col2"] as $val)
 
 										<li>
 
-											{{ $val->orden }}) <span id="{{ $val->id }}">{{ $val->texto }}</span>
+											{{ $var = $var + 1 }}) <span id="{{ $val->id }}">{{ $val->texto }}  </span>
 
 										</li>
 
@@ -67,19 +146,28 @@
 			</table>
 
 		@elseif ($pregunta["data"]->tipo === 3)
+
 		    
 			<table width="100%" >
 
 				<tr>
-                    
-						<textarea rows="10" cols="80" id="des_<?= $test['id'].$pregunta['data']->id ?>" ></textarea>
+                    	@if(isset( $pregunta["respuestaAlumno"]->respuesta ))
+								
+                    			<textarea rows="10" cols="80" id="des_<?= $test['id'].$pregunta['data']->id ?>" >{{ $pregunta["respuestaAlumno"]->respuesta }}</textarea>
+
+						@else
+
+								<textarea rows="10" cols="80" id="des_<?= $test['id'].$pregunta['data']->id ?>" ></textarea>
+
+						@endif
+						
 
 				</tr>
 
 			</table>
 
 		@elseif ($pregunta["data"]->tipo === 4)
-		    
+
 			<table width="100%" >
 
 				@foreach($pregunta["alternativas"] as $pos => $val)
@@ -87,8 +175,24 @@
 				<tr>
 					<td class="eva-letraAlternativa">{{ $val->letra }}) </td>
 					<td class="eva-checkAlternativa">
-					
-						<input name="respAlt_{{ $test['id'] }}{{ $val->pregunta }}" type="radio" value="{{ $val->id }}"/> 
+						
+						@if(isset( $pregunta["respuestaAlumno"]->respuesta ))
+
+							@if($val->id === $pregunta["respuestaAlumno"]->respuesta)					
+
+								<input name="respAlt_{{ $test['id'] }}{{ $val->pregunta }}" type="radio" value="{{ $val->id }}" checked="checked"/> 
+
+							@else
+
+								<input name="respAlt_{{ $test['id'] }}{{ $val->pregunta }}" type="radio" value="{{ $val->id }}" /> 
+
+							@endif
+
+						@else
+
+							<input name="respAlt_{{ $test['id'] }}{{ $val->pregunta }}" type="radio" value="{{ $val->id }}" />
+
+						@endif
 
 					</td>
 					<td class="eva-textoAlternativa">{{ $val->texto }}</td>
@@ -101,11 +205,21 @@
 		@elseif ($pregunta["data"]->tipo === 5)
 
 			<table width="100%" >
+
 				<tr>
                     
-						<textarea rows="10" cols="80" id="cor_<?= $test['id'].$pregunta['data']->id ?>" ></textarea>
+						@if(isset( $pregunta["respuestaAlumno"]->respuesta ))
+								
+                    			<textarea rows="10" cols="80" id="des_<?= $test['id'].$pregunta['data']->id ?>" >{{ $pregunta["respuestaAlumno"]->respuesta }}</textarea>
+
+						@else
+
+								<textarea rows="10" cols="80" id="des_<?= $test['id'].$pregunta['data']->id ?>" ></textarea>
+
+						@endif
 
 				</tr>
+
 			</table>	
 
 		@endif		
@@ -147,8 +261,16 @@
 		@foreach ($preguntas as $pos=>$val)
 			
 			<div class="btn-group" role="group" aria-label="First group">
-		    
-		    	    <button type="button" class="btn btn-default eva-btnMinPreg" id="eva-minPregNum{{ $val['data']->id }}">{{ $val["numero"] }}</button>
+		    	@if( !isset( $val["respuestaAlumno"]->respuesta ) )
+
+		    		<button type="button" class="btn btn-default eva-btnMinPreg" id="eva-minPregNum{{ $val['data']->id }}">{{ $val["numero"] }}</button>
+
+		    	@else
+
+		    		<button style="background-color: #0BE409;" type="button" class="btn btn-default eva-btnMinPreg" id="eva-minPregNum{{ $val['data']->id }}">{{ $val["numero"] }}</button>
+
+		    	@endif
+		    	    
 		    
 		    </div>
 
