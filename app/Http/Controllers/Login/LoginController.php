@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Login;
 
 use App\Http\Clases\generaLink;
+use App\models\Usuario;
 use App\Http\Controllers\Controller;
 
 use App\Http\Controllers\Auth\AuthController;
@@ -29,9 +30,23 @@ class LoginController extends Controller
         }   
     }
 
-    public function logexterno($id, $modulo, $token){
+    public function logexterno(){
+
+        $modulo = Request::get('modulo');
+        $id = Request::get('usuario');
+        $token = Request::get('token');
+
 
         if(AuthController::comprueba($id, $token)){
+
+
+            $usuario = Usuario::find($id);
+            $usuario->token = $token;
+
+            $auth = new AuthController();
+            $auth->setSesion($usuario);
+
+
             return Redirect::to($modulo);
         }else{
             abort(403, 'Unauthorized action.');

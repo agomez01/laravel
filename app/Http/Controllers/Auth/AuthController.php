@@ -59,14 +59,22 @@
             ]);
         }
 
-        private function setSesion($data){
+        public function setSesion($data){
 
             # Si existe una sesión iniciada con el mismo usuario, esta se elimina
             Sesion::where('usuario_id', $data->id)->delete();
 
             $sesion = new Sesion();
             $sesion->usuario_id = $data->id;
+
+            if(!isset($data->token)){
+                $sesion->token = $data->token;
+            }else{
+                $sesion->token = Session::token();
+            }
+
             $sesion->token = Session::token();
+
             $sesion->save();
 
             $usuario = Usuario::find($data->id);
