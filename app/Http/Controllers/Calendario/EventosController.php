@@ -4,12 +4,8 @@
 	use App\Http\Controllers\Controller;
 
 
-	use App\models\Usuario;
-	use App\models\Colegio;
-	use App\models\Alumno;
-	use App\models\Sesion;
-
-	use App\models\Pregunta;
+	use App\models\Evento;
+	use App\models\UsuarioDetalle;
 
 	use Session;
 	use Response;
@@ -20,32 +16,61 @@
 
 	    public function EventosJson(){
 
-	    	$data['success'] = 1;
-
 	    	$result = array();
 
-	    	$evento['id'] 		= 293;
-	    	$evento['title'] 	= "Event1";
-	    	$evento['url'] 		= "http://example.com";
-	    	$evento['class'] 	= "event-important";
-	    	$evento['start'] 	= 1435345848140;
-	    	$evento['end'] 		= 1435345848140;
+	    	# Eventos personales
+		    	$e = Self::getEventosPersonales(Session::get('idusuario'));
 
-	    	array_push($result, $evento);
+		    # Eventos Generales
+		    # Eventos UTP
 
-	    	$evento['id'] 		= 293;
-	    	$evento['title'] 	= "Event1";
-	    	$evento['url'] 		= "http://example.com";
-	    	$evento['class'] 	= "event-important";
-	    	$evento['start'] 	= 1435345848140;
-	    	$evento['end'] 		= 1435345848140;
 
-	    	array_push($result, $evento);
+	    	$data['success'] = 1;
+	    	$data['result'] = $e;
 
-	    	$data['result'] = $result;
-
-			return Response::json($data);
+	    	return Response::json($data);
 
 	    }
+
+	    public function getEvento($id){
+
+	    	// el formato de respuesta corresponde al plugin Bootstrap Calendar que es "html"
+
+	    	$evento = Evento::find($id);
+
+	    	$data['titulo']	=	'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
+	    	$data['titulo'] .= "<h3>".$evento->nombre."</h3>";
+	    	$data['descripcion'] 	= "<p>".$evento->descripcion."</p>";
+
+	    	return Response::json($data);
+	    }
+
+	    static function getEventosPersonales($usuario){
+
+	    	$eventos_personales = Evento::where('visible', 1)
+	    								->where('usuario', $usuario)->get();
+
+	    	$lista_eventos = array();
+
+
+	    	foreach ($eventos_personales as $evento) {
+
+	    		$event['id'] 		= $evento->id;
+		    	$event['title'] 	= $evento->nombre;
+		    	$event['url'] 		= '';
+		    	$event['class'] 	= "evento-".$evento->evento_tipo->nombre;
+		    	$event['start'] 	= strtotime($evento->fecha_inicio)."000";
+		    	$event['end'] 		= strtotime($evento->fecha_termino)."000";
+
+				array_push($lista_eventos, $event);
+	    	}
+
+
+
+
+	    	return $lista_eventos;
+	    }
+
+
 
 	}

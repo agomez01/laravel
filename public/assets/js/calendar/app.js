@@ -107,4 +107,15 @@
 		//e.preventDefault();
 		//e.stopPropagation();
 	});
+
+	$(document).on('click', '#btn_actualizar', function(){
+
+		actualizar_calendario();
+	});
+
+
+	function actualizar_calendario(){
+		calendar.view();
+	}
+	
 }(jQuery));

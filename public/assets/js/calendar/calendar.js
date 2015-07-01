@@ -1017,8 +1017,11 @@ if(!String.prototype.formatNum) {
 			event.preventDefault();
 			event.stopPropagation();
 
-			var url = $(this).attr('href');
+
 			var id = $(this).data("event-id");
+
+			/* RUTA en routes.php */
+			var url = '/eventos/'+id;
 			var event = _.find(self.options.events, function(event) {
 				return event.id == id
 			});
@@ -1033,7 +1036,10 @@ if(!String.prototype.formatNum) {
 					.off('shown.bs.modal')
 					.off('hidden.bs.modal')
 					.on('show.bs.modal', function() {
+
 						var modal_body = $(this).find('.modal-body');
+						var modal_head = $(this).find('.modal-header');
+
 						switch(self.options.modal_type) {
 							case "iframe" :
 								var height = modal_body.height() - parseInt(modal_body.css('padding-top'), 10) - parseInt(modal_body.css('padding-bottom'), 10);
@@ -1042,8 +1048,10 @@ if(!String.prototype.formatNum) {
 
 							case "ajax":
 								$.ajax({
-									url: url, dataType: "html", async: false, success: function(data) {
-										modal_body.html(data);
+									url: url, dataType: "json", async: false, success: function(data) {
+										
+										modal_body.html(data.descripcion);
+										modal_head.html(data.titulo);
 									}
 								});
 								break;

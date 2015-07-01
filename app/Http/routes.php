@@ -34,6 +34,8 @@
 		Route::any('/logout', 	'Login\LoginController@logout');
 		Route::any('/eventos', 	'Calendario\EventosController@EventosJson');
 
+		Route::any('/eventos/{id}', 	'Calendario\EventosController@getEvento')->where('id', '[0-9]+');
+
 		Route::get('/evaluacion/{id}/{action?}', 'Evaluacion\EvaluacionController@index');
 		Route::post('evaluacion', ['as' => 'evaluacion', 'uses' => 'Evaluacion\EvaluacionController@procesarRespuesta']);
 		# Acceso ROL SUPER ADMINISTRADOR
