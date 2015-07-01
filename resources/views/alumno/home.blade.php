@@ -16,7 +16,7 @@
     	<ul class="nav nav-pills nav-stacked">
 
 			  
-			  <li role="presentation"><a href="#">El reloj</a></li>
+			  <li role="presentation"><a class="alu-reloj">00:00:00</a></li>
 			  <li role="presentation"><a href="#">Biblioteca Alumno</a></li>
 
 		</ul>
@@ -87,20 +87,19 @@
 
 		<div class="pull-right form-inline">
 			<div class="btn-group">
-				<button class="btn btn-primary" data-calendar-nav="prev"><< Prev</button>
-				<button class="btn" data-calendar-nav="today">Today</button>
-				<button class="btn btn-primary" data-calendar-nav="next">Next >></button>
+				<button class="btn btn-primary" data-calendar-nav="prev"><< Anterior</button>
+				<button class="btn" data-calendar-nav="today">Hoy</button>
+				<button class="btn btn-primary" data-calendar-nav="next">Próximo >></button>
 			</div>
 			<div class="btn-group">
-				<button class="btn btn-warning" data-calendar-view="year">Year</button>
-				<button class="btn btn-warning active" data-calendar-view="month">Month</button>
-				<button class="btn btn-warning" data-calendar-view="week">Week</button>
-				<button class="btn btn-warning" data-calendar-view="day">Day</button>
+				<button class="btn btn-warning" data-calendar-view="year">Año</button>
+				<button class="btn btn-warning active" data-calendar-view="month">Mes</button>
+				<button class="btn btn-warning" data-calendar-view="week">Semana</button>
+				<button class="btn btn-warning" data-calendar-view="day">Día</button>
 			</div>
 		</div>
 
-		<h3></h3>
-		<small>To see example with events navigate to march 2013</small>
+		<h3></h3>		
 	</div>
 
     	<div id="calendar">calendario</div>
@@ -111,12 +110,12 @@
 		        <div class="modal-content">
 		            <div class="modal-header">
 		                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-		                <h3>Event</h3>
+		                <h3>Evento</h3>
 		            </div>
 		            <div class="modal-body" style="height: 400px">
 		            </div>
 		            <div class="modal-footer">
-		                <a href="#" data-dismiss="modal" class="btn">Close</a>
+		                <a href="#" data-dismiss="modal" class="btn">Cerrar</a>
 		            </div>
 		        </div>
 		    </div>

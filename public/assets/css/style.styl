@@ -1,303 +1,397 @@
 /*  */
 
-body
-    width 100%
-    min-width 480px
-    
-    .hola
-        border-color black
+    body
+        width 100%
+        min-width 480px
         
+        .hola
+            border-color black
+            
 
-/*  LOGIN  */ 
+    /*  LOGIN  */ 
 
-.panel-login {
-    border-color: #ccc;
-    -webkit-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
-    -moz-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
-    box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
-    
-}
-.panel-login>.panel-heading {
-    color: #00415d;
-    background-color: #fff;
-    border-color: #fff;
-    text-align:center;
-}
-.panel-login>.panel-heading a{
-    -moz-transition: all 0.1s linear;
-    -webkit-transition: all 0.1s linear;
-    color: #666;
-    font-size: 15px;
-    font-weight: bold;
-    text-decoration: none;
-    transition: all 0.1s linear;
-}
-.panel-login>.panel-heading a.active{
-    color: #029f5b;
-    font-size: 18px;
-}
-.panel-login>.panel-heading hr{
-    margin-top: 10px;
-    margin-bottom: 0px;
-    clear: both;
-    border: 0;
-    height: 1px;
-    background-image: -webkit-linear-gradient(left,rgba(0, 0, 0, 0),rgba(0, 0, 0, 0.15),rgba(0, 0, 0, 0));
-    background-image: -moz-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
-    background-image: -ms-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
-    background-image: -o-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
-}
-.panel-login input[type="text"],.panel-login input[type="email"],.panel-login input[type="password"] {
-    height: 45px;
-    border: 1px solid #ddd;
-    font-size: 16px;
-    -webkit-transition: all 0.1s linear;
-    -moz-transition: all 0.1s linear;
-    transition: all 0.1s linear;
-}
-.panel-login input:hover,
-.panel-login input:focus {
-    outline:none;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
-    border-color: #ccc;
-}
-.btn-login {
-    background-color: #59B2E0;
-    outline: none;
-    color: #fff;
-    font-size: 14px;
-    height: auto;
-    font-weight: normal;
-    padding: 14px 0;
-    text-transform: uppercase;
-    border-color: #59B2E6;
-}
-.btn-login:hover,
-.btn-login:focus {
-    color: #fff;
-    background-color: #53A3CD;
-    border-color: #53A3CD;
-}
-.forgot-password {
-    text-decoration: underline;
-    color: #888;
-}
-.forgot-password:hover,
-.forgot-password:focus {
-    text-decoration: underline;
-    color: #666;
-}
-
-.btn-register {
-    background-color: #1CB94E;
-    outline: none;
-    color: #fff;
-    font-size: 14px;
-    height: auto;
-    font-weight: normal;
-    padding: 14px 0;
-    text-transform: uppercase;
-    border-color: #1CB94A;
-}
-.btn-register:hover,
-.btn-register:focus {
-    color: #fff;
-    background-color: #1CA347;
-    border-color: #1CA347;
-}
-
-
-/*  MODULO ALUMNOS  */
-.sidebar-left
-
-    margin-top 80px
-    padding 15px
-    position relative
-    width: 25%
-    float left
-
-
-#content-right-alumno
-{
-    width: 75%;
-    float: left;
-}
-
-#open-test-alumno button
-{
-    width: 100%;
-    padding: 12px;
-    border: 0;
-    text-align: left;
-    color: #337ab7;
-}
-
-#closed-test-alumno button
-{   
-    width: 100%;
-    padding: 12px;      
-    border: 0;  
-    text-align: left;
-    color: #337ab7;
-}
-
-.sidebar-alumno-dropdown
-{
-    width: 100%;
-    position:relative;
-}
-.test-box{
-    border-bottom: 1px solid #CCC;
-}
-
-#container-alumno{
-    width:100%; margin:0; padding:0;
-}
-
-
-#top-navbar-alumno
-{
-        margin:0; padding:0; border-radius:0; border:0; background:#CCC;
-}
-
-#subTop-navbar-alumno
-{
-    margin:0; padding:0; border-radius:0; border:0;
-}
-
-.navbar-inverse
-    background-color #26ACDF
-    border-color #26ACDF
-    -webkit-box-shadow: 0px 2px 1px 0px rgba(142, 142, 142, 0.84);
-    -moz-box-shadow:    0px 2px 1px 0px rgba(142, 142, 142, 0.84);
-    box-shadow:         0px 2px 1px 0px rgba(142, 142, 142, 0.84)
-    padding-bottom 0px
-    
-.navbar-inverse .navbar-nav>li>a 
-    color #fff
-    margin-top 5px 
-
-.navbar-nav
-    position relative
-    float right
-   
-.container
-    width 100%    
-
-
-@media screen and (min-width: 769px) {    
-
-
-nav.navbar-collapse ul li {
-    display: inline-block;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    vertical-align: top;
-  }  
-nav.navbar-collapse ul li a{
-  display: table;
-    height:53px;
-    padding:70px 20px 5px 20px;
-    background-repeat: no-repeat;
-    background-position :center 5px;
-    background-size :70px 70px;
-    border-radius: 2%;
-    opacity:0.75;
-}
-
-nav.navbar-collapse ul li a:hover{    
-    opacity:1;
-    background-size:75px 75px;
-    
-    
-}
-nav.navbar-collapse ul li a p{
-    display: table-cell;
-    max-width: 120px;
-    text-align: center;
-    color: rgb(255,255,255);
-    margin: 0;
-    padding: 43px 2px 0px 2px;
-    word-wrap: break-word;
-    vertical-align: middle;
-    line-height: 50px;
-}
-
-}
-/*
-nav.navbar-collapse
-    position relative
-    float right
-    overflow auto
-
-
-nav.navbar-collapse ul
-    margin 0
-    padding 0
-
-
-
-nav.navbar-collapse ul li
-    display inline-block
-    list-style none
-    margin 0
-    padding 0
-    vertical-align top
-
-nav.navbar-collapse ul li a
-    display table
-    height 82px
-    padding 0
-    background-repeat no-repeat
-    background-position center 5px
-    background-size 40px 40px
-    border-radius 2%
-
-nav.navbar-collapse ul li ahover
-    border-bottom 3px solid rgba(255,255,255,0.5)
-    background-color rgba(255,255,255,0.1)
-
-nav.navbar-collapse ul li a p
-    display table-cell
-    max-width 120px
-    text-align center
-    color rgb(255,255,255)
-    margin 0
-    padding 43px 2px 0px 2px
-    word-wrap break-word
-    vertical-align middle
-    line-height: 16px;
-*/
-    
-
-//ICONOS
+    .panel-login {
+        border-color: #ccc;
+        -webkit-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
+        -moz-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
+        box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
         
-.iproyecto
-    background-image url(../img/proyectos.svg)
+    }
+    .panel-login>.panel-heading {
+        color: #00415d;
+        background-color: #fff;
+        border-color: #fff;
+        text-align:center;
+    }
+    .panel-login>.panel-heading a{
+        -moz-transition: all 0.1s linear;
+        -webkit-transition: all 0.1s linear;
+        color: #666;
+        font-size: 15px;
+        font-weight: bold;
+        text-decoration: none;
+        transition: all 0.1s linear;
+    }
+    .panel-login>.panel-heading a.active{
+        color: #029f5b;
+        font-size: 18px;
+    }
+    .panel-login>.panel-heading hr{
+        margin-top: 10px;
+        margin-bottom: 0px;
+        clear: both;
+        border: 0;
+        height: 1px;
+        background-image: -webkit-linear-gradient(left,rgba(0, 0, 0, 0),rgba(0, 0, 0, 0.15),rgba(0, 0, 0, 0));
+        background-image: -moz-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
+        background-image: -ms-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
+        background-image: -o-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
+    }
+    .panel-login input[type="text"],.panel-login input[type="email"],.panel-login input[type="password"] {
+        height: 45px;
+        border: 1px solid #ddd;
+        font-size: 16px;
+        -webkit-transition: all 0.1s linear;
+        -moz-transition: all 0.1s linear;
+        transition: all 0.1s linear;
+    }
+    .panel-login input:hover,
+    .panel-login input:focus {
+        outline:none;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+        border-color: #ccc;
+    }
+    .btn-login {
+        background-color: #59B2E0;
+        outline: none;
+        color: #fff;
+        font-size: 14px;
+        height: auto;
+        font-weight: normal;
+        padding: 14px 0;
+        text-transform: uppercase;
+        border-color: #59B2E6;
+    }
+    .btn-login:hover,
+    .btn-login:focus {
+        color: #fff;
+        background-color: #53A3CD;
+        border-color: #53A3CD;
+    }
+    .forgot-password {
+        text-decoration: underline;
+        color: #888;
+    }
+    .forgot-password:hover,
+    .forgot-password:focus {
+        text-decoration: underline;
+        color: #666;
+    }
 
-.chatsoporte
-    background-image url(../img/chatsoporte.svg)
+    .btn-register {
+        background-color: #1CB94E;
+        outline: none;
+        color: #fff;
+        font-size: 14px;
+        height: auto;
+        font-weight: normal;
+        padding: 14px 0;
+        text-transform: uppercase;
+        border-color: #1CB94A;
+    }
+    .btn-register:hover,
+    .btn-register:focus {
+        color: #fff;
+        background-color: #1CA347;
+        border-color: #1CA347;
+    }
 
-.ayuda
-    background-image url(../img/ayuda.svg)
 
-.alumno
-    background-image url(../img/alumno.svg)
-             
-.salir
-    background-image url(../img/salir.svg)            
+    /*  MODULO ALUMNOS  */
+    .sidebar-left
+        width 15%
+        height 665px
+        background-color #F0AD4E
+        color #fff
+        margin-top 103px
+        padding 15px
+        position relative        
+        float left
     
- 
+    .sidebar-left ul li a
+        color white
+        background-color none
+        font-size 15px
+        display:inline-block;
+        
+    
+    .sidebar-left ul li a:hover
+        background-color #EC971F
+    
+    .sidebar-right
+        width 125px
+        height 665px
+        background-color #D3EAF3
+        color #fff
+        margin-top 103px        
+        position relative        
+        float right    
+           
+    .alu-reloj
+        background-color #337AB7
+        border-radius 0px !important
+        text-align center
+        font-size 30px !important
+        width 100% !important
+        padding 30px 0 30px 0 !important
+    
+    .alu-reloj:hover
+        background-color #337AB7 !important          
+
+    #content-right-alumno
+    
+        width 75%
+        float left
+    
+
+    #open-test-alumno button
+    {
+        width: 100%;
+        padding: 12px;
+        border: 0;
+        text-align: left;
+        color: #fff;
+        background-color #F0AD4E
+        font-size 15px
+    }
+    
+    #open-test-alumno button:hover
+        background-color #EC971F
+
+    #closed-test-alumno button
+    {   
+        width: 100%;
+        padding: 12px;      
+        border: 0;  
+        text-align: left;
+        color: #fff;
+        background-color #F0AD4E
+        font-size 15px
+    }
+    
+     #closed-test-alumno button:hover
+         background-color #EC971F
+         
+
+    .sidebar-alumno-dropdown
+    {
+        width: 100%;
+        position:relative;
+    }
+    .test-box{
+        border-bottom: 1px solid #CCC;
+    }
+
+    #container-alumno{
+        width:100%; margin:0; padding:0;
+    }
 
 
-/* MENU LATERAL */
+    #top-navbar-alumno
+    {
+            margin:0; padding:0; border-radius:0; border:0; background:#CCC;
+    }
 
+    #subTop-navbar-alumno
+    {
+        margin:0; padding:0; border-radius:0; border:0;
+    }
 
-@media screen and (max-width: 768px) {      
+    .navbar-inverse
+        background-color #26ACDF
+        border-color #26ACDF
+        -webkit-box-shadow: 0px 2px 1px 0px rgba(142, 142, 142, 0.84);
+        -moz-box-shadow:    0px 2px 1px 0px rgba(142, 142, 142, 0.84);
+        box-shadow:         0px 2px 1px 0px rgba(142, 142, 142, 0.84)
+        padding-bottom 0px
+        
+    .navbar-inverse .navbar-nav>li>a 
+        color #fff
+        margin-top 5px 
+
+    .navbar-nav
+        position relative
+        float right
+       
+    .container
+        width 100%    
+
       
+            
+    .navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:focus, .navbar-inverse .navbar-nav>.open>a:hover
+        background-color #26ACDF
+    
+    //CALENDAR
+
+    .cal-cell
+        background-color #FFEBB2
+        border-radius 2px
+    .cal-cell:hover
+        background-color #FFDF81        
+        color #111
+    .cal-context
+        float right
+        width 75% !important
+        margin-right 2%
+    
+    .pull-right
+        margin-top 20px
+        margin-right 2%
+     
+     div.page-header
+         background-color #D3EAF3
+         padding 10px 0 55px 0
+         width 100% 
+    
+    .page-header h3
+        font: 25px arial, bold, sans-serif;
+        float left
+        margin-left 25px
+        color #004B74
+        margin-top 8px
+        
+@media screen and (min-width: 769px) {    
+    .dropdown-menu{ 
+        text-align: center;       
+        width: 219px;
+        height: 750px ;
+        float :left;
+        background-size: 60px 60px;
+        padding: 7px 95px 0 0;
+    }  
+    nav.navbar-collapse ul li {
+        display: inline-block;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        vertical-align: top;
+      }  
+    nav.navbar-collapse ul li a{
+      display: table;
+        height:53px;
+        padding:70px 20px 5px 20px;
+        background-repeat: no-repeat;
+        background-position :center 5px;
+        background-size :70px 70px;
+        border-radius: 2%;
+        opacity:0.75;
+    }
+
+    nav.navbar-collapse ul li a:hover{    
+        opacity:1;
+        background-size:75px 75px;
+        
+        
+    }
+    nav.navbar-collapse ul li a p{
+        display: table-cell;
+        max-width: 120px;
+        text-align: center;
+        color: rgb(255,255,255);
+        margin: 0;
+        padding: 43px 2px 0px 2px;
+        word-wrap: break-word;
+        vertical-align: middle;
+        line-height: 50px;
+    }
+
+}
+
+    //ICONOS
+            
+    .iproyecto
+        background-image url(../img/proyectos.svg)
+
+    .chatsoporte
+        background-image url(../img/chatsoporte.svg)
+
+    .ayuda
+        background-image url(../img/ayuda.svg)
+
+    .alumno
+        background-image url(../img/alumno.svg)
+                 
+    .salir
+        background-image url(../img/salir.svg)
+
+    .cuaderno
+        background-image url(../img/cuaderno.svg)
+        
+    .misnotas
+        background-image url(../img/misnotas.svg)
+        
+    .miasistencia
+        background-image url(../img/asistencia.svg)
+        
+    .anotaciones
+        background-image url(../img/anotaciones.svg)
+
+    .erecursos
+        background-image url(../img/explorarecursos.svg)
+
+    .comunicacion
+        background-image url(../img/comunicacion.svg)    
+                                        
+    .opciones
+        background-image url(../img/opciones.svg)
+
+@media screen and (max-width: 966px) {
+      nav.navbar-collapse ul li a{
+        display: table;
+        height:53px;
+        padding:54px 5px 0px 5px;
+        background-repeat: no-repeat;
+        background-position :center 5px;
+        background-size :50px 50px;
+        font-size:13px;
+        opacity:0.75;
+    }
+    
+    nav.navbar-collapse ul li a:hover{    
+        opacity:1;
+        background-size:55px 55px;
+    }
+    
+    .sidebar-right{
+        display:none;
+    }
+    
+    .sidebar-left{
+        min-width:150px;
+    }
+    
+    .sidebar-left ul li a{
+        display:inline-block;
+    }
+    
+    .cal-context{
+        min-width:300px;
+    }
+    
+   
+    
+    
+   
+}    
+
+
+    /* MENU LATERAL */
+
+
+@media screen and (max-width: 770px) {      
+          
 
     .side-collapse-container{        
         width:100%;
@@ -319,76 +413,68 @@ nav.navbar-collapse ul li a p
         position:fixed;
         overflow:hidden;
         transition:width .4s;
-    }   
+        }   
 
 
     .side-collapse.in {
         width:0;  
     }  
-   
-    
-    .navbar-inverse .navbar-nav>li>a {
-        color: #fff;
-        margin-top:10px;
-    }
-    
+
     .navbar-nav {
         padding-top: 0px;
         float:left;
-        margin-left:-15;     
+        margin-left:15px;     
+    }
+        
+    .navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:focus, .navbar-inverse .navbar-nav>.open>a:hover{
+        background-color:#F0AD4E;
+    } 
+    
+    .navbar-collapse .dropdown-menu ul li a { 
+       display:none;
+    }   
+        
+  .navbar-collapse ul li a{
+        height:47px;
+        width:350px;
+        padding:13px 166px 0 0 !important;
+        vertical-align:middle;
+        background-repeat: no-repeat;
+        background-position :center 0px;
+        background-size :50px 50px;
+        border-radius: 2%;
+        opacity:0.70;
+    }
+    .navbar-collapse ul li a:hover{    
+        opacity:1;
+        background-size:55px 55px;       
     }
     
-     .navbar-collapse .navbar-nav>li>a:hover{
-        background-color:#F7BA63;
-        padding-bottom:10px;
-        padding-top:10px;
-        width: 300px;     
-     }
-    
+ 
+
+    .navbar-inverse .navbar-nav>li>a {
+        color: #fff;
+        margin-top:10px;
+    }      
+        
     .navbar-inverse .navbar-nav .open .dropdown-menu>li>a {
         color: #FFF;
         padding-top:12px;
     }
-    
-    .navbar-inverse .navbar-nav .open .dropdown-menu>li>a:hover{
-        background-color:#F7B962;
         
-    }
-    
-    .navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:focus, .navbar-inverse .navbar-nav>.open>a:hover {
-    background-color:#F7BA63;
-    padding-bottom:3px;
-    padding-top:20px;
-    width: 300px;
-    }
-    
     .sidebar-left{     
         width:220px;
         float:right;
         margin-right:10px;
     }
-    
+        
     .navbar-inverse .navbar-toggle {
         background-color:#F7BA63;
         border-color: #F0AD4E;
-        margin-left:10px;
+        margin-left:20px;
     }
-    
+        
     .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
         border-color: #f0ad4e;
-    }
-    
-    .navbar-inverse .navbar-toggle:hover{
-        background-color:#F7BA63;
-        
-     .navbar-inverse .navbar-nav .open .dropdown-menu>li>a:hover{
-        background-color:#F7BA63;
-    }    
-  
-            
-    } 
-   
-    
-
-    
+    }   
 }

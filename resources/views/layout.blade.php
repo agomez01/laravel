@@ -32,25 +32,30 @@
 
             <div class="navbar-inverse side-collapse in">
                 <nav role="navigation" class="navbar-collapse">
-                    <ul class="nav navbar-nav">
-                            @if ( Session::get('logeado') )
-
-                                <li ><a class="iproyecto" href="{{ Salir::link() }}" target='blank'>Proyectos</a></li>
+                    <ul class="nav navbar-nav">                     
+                        @yield('menu')
+                        <li class="dropdown" align="center">
+                            <a href="#" class="dropdown-toggle hvr-overline-from-left opciones" data-toggle="dropdown" >Opciones<b class="caret"></b></a>
+                            <ul class="dropdown-menu">      
                                 <li ><a class="chatsoporte" href="/login">Chat Soporte</a></li>
-                                <li ><a class="ayuda" href="/login">Ayuda</a></li>
-
-                                @yield('menu')
-                                 
-                                <li ><a class="salir" href="/logout">Salir</a></li>               
-
-                            @endif
+                                <li ><a class="ayuda" href="/login">Ayuda</a></li>                                
+                                <li ><a class="salir" href="/logout">Salir</a></li>                     
+                            </ul>
+                        </li>                                
                     </ul>
                 </nav>
             </div>
         </div>
     </header>
     
-    
+    <div class="sidebar-right" >
+        
+        <ul class="nav nav-pills nav-stacked">   
+        
+
+        </ul>
+    </div>
+       
     <div id="wrap">
       <div class="container" id="container-alumno">
         @yield('content')

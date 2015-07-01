@@ -260,27 +260,26 @@
 		</g>
 	</g>
 </g>
-<g id="cuadernos" display="none">
-	<g display="inline">
+<g id="cuadernos">
+	<g>
 		<g>
 			<defs>
 				<circle id="SVGID_5_" cx="25" cy="25" r="17.8"/>
 			</defs>
-			<use xlink:href="#SVGID_5_"  overflow="visible" fill="#299DC1"/>
+			<use xlink:href="#SVGID_5_"  overflow="visible" fill="#2489A0"/>
 			<clipPath id="SVGID_6_">
 				<use xlink:href="#SVGID_5_"  overflow="visible"/>
 			</clipPath>
 		</g>
-		<path fill="#2489A0" d="M33.1,17.8l9.5,10c0,0-2.8,16.5-20.1,14.8L17,29.9l7.4,2.7l1.6-0.4l6.3-2.6L33.1,17.8z"/>
-		<path fill="#8BC34A" d="M23,27l-3.6-1.4v1.2l3.6,1.4V27z M23,23.3l-3.6-1.4v1.2l3.6,1.4V23.3z M32.7,17.1
+		<path fill="#FFFFFF" d="M23,27l-3.6-1.4v1.2l3.6,1.4V27z M23,23.3l-3.6-1.4v1.2l3.6,1.4V23.3z M32.7,17.1
 			c-0.2-0.2-0.6-0.2-0.8-0.1L25,19.7L18.2,17c-0.3-0.1-0.6-0.1-0.8,0.1c-0.2,0.2-0.4,0.4-0.4,0.7v11.5c0,0.4,0.2,0.7,0.6,0.8
 			l7.2,2.9c0,0,0.1,0,0.2,0.1c0.1,0,0.1,0,0.2,0c0.1,0,0.1,0,0.2,0c0,0,0.2-0.1,0.2-0.1l7.2-2.9c0.3-0.1,0.6-0.5,0.6-0.8V17.8
 			C33.1,17.5,32.9,17.2,32.7,17.1z M24.1,31.2l-5.7-2.3V18.9l5.7,2.3V31.2z M31.6,28.9l-5.7,2.3V21.2l5.7-2.3V28.9z M30.6,25.6
 			L27,27v1.2l3.6-1.4V25.6z M30.6,21.9L27,23.3v1.2l3.6-1.4V21.9z"/>
 	</g>
 </g>
-<g id="salir">
-	<g>
+<g id="salir" display="none">
+	<g display="inline">
 		<defs>
 			<circle id="SVGID_7_" cx="25.2" cy="25" r="17.7"/>
 		</defs>
