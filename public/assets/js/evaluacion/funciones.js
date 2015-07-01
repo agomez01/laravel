@@ -13,7 +13,7 @@ $('document').ready(function(){
 			var tipoPregunta     = parametrosArray[2];
 
 			
-			respuestaAlumno = obtenerRespuestaPregunta(test, pregunta, tipoPregunta);
+			respuestaAlumno = obtenerRespuestaPregunta(test, pregunta, tipoPregunta,'0');
 
 			enviarRespuesta(test, pregunta, tipoPregunta, respuestaAlumno);
 			
@@ -21,9 +21,60 @@ $('document').ready(function(){
 	
 		});
 
+		$(document).on('click', '#eva-btnEnviarTodo',  function(){
+
+			$("#eva-lanzaLoader").click(); //debe mostrar el loader
+
+			if (confirm("¿Estás seguro que deseas enviar todo y terminar?")){
+
+
+				var cantPreg = 0;
+				$.each($('.eva-boxPregunta'), function (){
+
+					cantPreg++;
+
+				});
+
+				var cant = 0;
+				$.each($('.eva-boxPregunta'), function (){
+						var cadenaParametros = $(this).data('id'); //datos de pregunta que estoy respondiendo (test, pregunta, tipo)
+						var parametrosArray  = cadenaParametros.split('_'); //datos de la pregunta en un arreglo.
+
+						var test 			 = parametrosArray[0];
+						var pregunta 		 = parametrosArray[1];
+						var tipoPregunta     = parametrosArray[2];
+
+						
+						//console.log (test, pregunta, tipoPregunta);
+						respuestaAlumno = obtenerRespuestaPregunta(test, pregunta, tipoPregunta, '1');
+						enviarRespuesta(test, pregunta, tipoPregunta, respuestaAlumno);
+
+						cant++;
+
+						//console.log(cantPreg, cant);
+						
+						setTimeout(
+						   function(){
+						      finalizarLaEvaluacion(test);
+					    }, 10000);
+
+						
+				});
+
+			}
+
+		});
+
 
 });
 
+function finalizarLaEvaluacion(test)
+{
+
+	
+	location.href = "/home";
+
+}
 
 function enviarRespuesta(test, pregunta, tipoPregunta, respuestaAlumno){
 
@@ -34,23 +85,39 @@ function enviarRespuesta(test, pregunta, tipoPregunta, respuestaAlumno){
 		var dataForm 		 = form.serialize(); //datos del form para llamada ajas serializados.
 		
 		var urlPost = form.attr('action');
-		console.log(test,pregunta,tipoPregunta,respuestaAlumno);
+
+		
 
 		$.ajax({
 
 			      url: urlPost,
+			      async: true,
 			      type: "post",
 			      data: {'_token': token, 'test':test, 'pregunta': pregunta, 'tipoPregunta':tipoPregunta, 'respuestaAlumno':respuestaAlumno },
 			      success: function(resp){
-			      		sendResposeMessenge(resp,pregunta);
+			      		sendResposeMessenge(resp,pregunta, test, tipoPregunta);
 			      }
 
 	    });
 
 }
 
-function obtenerRespuestaPregunta(test, pregunta, tipoPregunta){
+function sendResposeMessenge(resp, idpregunta, test, tipoPregunta){
+	//console.log(resp,idpregunta);
+	idResp = resp.last_insert_id;
+	if (idResp > 0){
+		//alert("enviada"+idResp);
+		$("#"+test+"_"+idpregunta+"_"+tipoPregunta).removeClass("eva-boxPregunta").addClass("eva-boxPreguntaResp");
 
+		$("#respMessege"+idpregunta).html(resp.messege);
+		$("#eva-minPregNum"+idpregunta).css(  'background-color', '#0BE409');
+	}else{
+		alert(resp.messege);
+	}
+}
+
+function obtenerRespuestaPregunta(test, pregunta, tipoPregunta, todo){
+		
 		switch(tipoPregunta){
 
 				case '1':
@@ -58,21 +125,28 @@ function obtenerRespuestaPregunta(test, pregunta, tipoPregunta){
 						var name = 'vof_'+test+pregunta;
 						var resp = $('input:radio[name='+name+']:checked').val();
 						
-						if (resp === "" || typeof resp === "undefined"){
+						if (resp === "" || typeof resp === "undefined")
+						{
+								if (todo === '1'){
 
-							if (confirm("¿Estás seguro que deseas enviar sin responder la pregunta?")){
+										var respuestaAlumno = 2;
 
-								var respuestaAlumno = 2;
+								}else{
 
-							}else{
+										if (confirm("¿Estás seguro que deseas enviar sin responder la pregunta?")){
 
-								return;
+											var respuestaAlumno = 2;
 
-							}
+										}else{
+
+											return;
+
+										}
+								}
 
 						}else{
 
-							respuestaAlumno = resp;
+								respuestaAlumno = resp;
 
 						}
 
@@ -108,31 +182,47 @@ function obtenerRespuestaPregunta(test, pregunta, tipoPregunta){
 						    x++;
 						});
 							
-							if(todasSinResp){
+							if(todasSinResp)
+							{
 
-								if (confirm("¿Estás seguro que deseas enviar sin responder la pregunta?")){
+								if (todo === '1'){
 
-									respuestaAlumno = JSON.stringify(parejasArray);
+										respuestaAlumno = JSON.stringify(parejasArray);
 
 								}else{
 
-									return;
+										if (confirm("¿Estás seguro que deseas enviar sin responder la pregunta?")){
 
+											respuestaAlumno = JSON.stringify(parejasArray);
+
+										}else{
+
+											return;
+
+										}
 								}
 
 							}else{
 
 								if(algunaSinResp){
 
-									if (confirm("Falta una o más parejas que vincular. ¿Seguro deseas enviar la repuesta?")){
+									if (todo === '1'){
 
-										respuestaAlumno = JSON.stringify(parejasArray);
+											respuestaAlumno = JSON.stringify(parejasArray);
 
 									}else{
 
-										return;
+											if (confirm("Falta una o más parejas que vincular. ¿Seguro deseas enviar la repuesta?")){
 
+												respuestaAlumno = JSON.stringify(parejasArray);
+
+											}else{
+
+												return;
+
+											}
 									}
+
 
 								}else{
 
@@ -148,10 +238,14 @@ function obtenerRespuestaPregunta(test, pregunta, tipoPregunta){
 
 						if (respuestaAlumno === ""){
 
-							if (!confirm("¿Estás seguro que deseas enviar sin responder la pregunta?")){
+							if (todo === '0'){
 
-								return;
-								
+									if (!confirm("¿Estás seguro que deseas enviar sin responder la pregunta?")){
+
+										return;
+										
+									}
+
 							}
 
 						}
@@ -164,14 +258,21 @@ function obtenerRespuestaPregunta(test, pregunta, tipoPregunta){
 						
 						if (resp === "" || typeof resp === "undefined"){
 
-							if (confirm("¿Estás seguro que deseas enviar sin responder la pregunta?")){
+							if (todo === '1'){
 
-								var respuestaAlumno = 0;
+									var respuestaAlumno = 0;
 
 							}else{
 
-								return;
+									if (confirm("¿Estás seguro que deseas enviar sin responder la pregunta?")){
 
+										var respuestaAlumno = 0;
+
+									}else{
+
+										return;
+
+									}
 							}
 
 						}else{
@@ -186,13 +287,20 @@ function obtenerRespuestaPregunta(test, pregunta, tipoPregunta){
 
 						if (respuestaAlumno === ""){
 
-							if (!confirm("¿Estás seguro que deseas enviar sin responder la pregunta?")){
+							if (todo === '0'){
 
-								return;
+									if (!confirm("¿Estás seguro que deseas enviar sin responder la pregunta?")){
+
+										return;
+
+									}
 
 							}
 
+							
+
 						}
+
 					break;	
 			}
 
@@ -201,15 +309,5 @@ function obtenerRespuestaPregunta(test, pregunta, tipoPregunta){
 }
 
 
-function sendResposeMessenge(resp, idpregunta){
-	//console.log(resp,idpregunta);
-	idResp = resp.last_insert_id;
-	if (idResp > 0){
-		//alert("enviada"+idResp);
-		$("#respMessege"+idpregunta).html(resp.messege);
-		$("#eva-minPregNum"+idpregunta).css(  'background-color', '#0BE409');
-	}else{
-		alert(resp.messege);
-	}
-}
+
 

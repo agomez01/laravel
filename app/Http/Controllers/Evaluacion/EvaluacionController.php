@@ -10,6 +10,7 @@ use App\models\Prueba;
 use App\models\Pregunta;
 use App\models\PreguntaAlternativa;
 use App\models\PreguntaEmparejamiento;
+use App\models\PreguntaEmparejamientoVinculo;
 use App\models\PreguntaCorta;
 use App\models\PreguntaVof;
 
@@ -109,7 +110,7 @@ class EvaluacionController extends Controller
             case 1:
                 //VERDADERO O FALSO
                 $pregunta = PreguntaVof::where('pregunta', $registro->idpregunta)->first();
-                //dd($registro);
+                
                 if (intval($registro->respuesta) === 2){
                     //EL ALUMNO OMITIO LA PREGUNTA, SE ASIGNA PUNTAJE CERO EN RESULTADOS Y RESPUESTA VOF ALUMNO
                     $puntaje = 0;
@@ -119,10 +120,12 @@ class EvaluacionController extends Controller
                     //LA RESPUESTA DEL ALUMNO ES IGUAL A LA DE LA BASE DE DATOS, ES CORRECTA 
                     $puntaje = $pregunta->puntaje;
                     $contestada = 1;
+
                 }else{
                     //ES INCORRECTA
                     $puntaje = 0;
                     $contestada = 1;
+
                 }
 
                 $resultado = new Resultado;
@@ -140,9 +143,54 @@ class EvaluacionController extends Controller
                 break;
             
             case 2:
-               //EMPAREJAMIENTO
+                //$preguntaParejas = PreguntaEmparejamientoVinculo::where('pregunta', $registro->idpregunta)->get();
 
+                //Necesito el puntaje de la pregunta en el test.
+                $dataPregunta = TestPregunta::where('test',$registro->idtest)->where('pregunta', $registro->idpregunta)->first();
 
+                $parejas = $registro->respuesta;
+
+                $cantVinculos = count($parejas);
+                
+                $puntajePregunta = $dataPregunta->puntaje;
+                $puntosPorPareja = $puntajePregunta/$cantVinculos;
+
+                $puntaje = 0; 
+                $contestada = 0;
+
+                foreach($parejas as $pos=>$val)
+                {
+
+                    $respuestaAlumno = json_decode($val);
+                    $correcta = PreguntaEmparejamientoVinculo::where('vinculo_a', $respuestaAlumno[0])->first();
+                    $vinculo_b = $correcta->vinculo_b;
+
+                    if (intval($respuestaAlumno[1]) != 0)
+                    {
+                        
+                        $contestada = 1;
+                        if ( intval($respuestaAlumno[1]) === intval($vinculo_b) )
+                        {
+
+                            $puntaje = $puntaje + $puntosPorPareja;
+
+                            $RespuestaEmpAlumno = RespuestaEmparejaAlumno::where('idtest',$registro->idtest)->where('idalumno',$registro->idalumno)->where('idpregunta',$registro->idpregunta)->where('vinculo_a', $respuestaAlumno[0])->first();
+                            $RespuestaEmpAlumno->puntaje = $puntosPorPareja;
+                            $RespuestaEmpAlumno->save();
+                        }
+
+                    }
+
+                }
+
+                $resultado = new Resultado;
+                $resultado->test = $registro->idtest;
+                $resultado->alumno = $registro->idalumno;
+                $resultado->pregunta = $registro->idpregunta;
+                $resultado->puntaje = $puntaje;
+                $resultado->contestada = $contestada;
+                $resultado->save();
+                
                 break;
 
             case 3:
@@ -169,21 +217,86 @@ class EvaluacionController extends Controller
                 $resultado->contestada = $contestada;
                 $resultado->save();
                 
+                $RespuestaDesarrolloAlumno = RespuestaDesarrolloAlumno::where('idtest',$registro->idtest)->where('idalumno',$registro->idalumno)->where('idpregunta',$registro->idpregunta)->first();
+                $RespuestaDesarrolloAlumno->idresultado = $resultado->id;
+                $RespuestaDesarrolloAlumno->puntaje = $puntaje;
+                $RespuestaDesarrolloAlumno->save();
+
                 //echo "<br>contestada: ".$contestada;
           
 
             break;
 
             case 4:
-               //ALTERNATIVA
+                
+                $pregunta = PreguntaAlternativa::where('pregunta', $registro->idpregunta)->where('visible','1')->where('puntaje', '!=', 0)->first();
+                //dd(intval($registro->respuesta), intval($pregunta->id));
+                if(intval($registro->respuesta) === 0){
+                    $puntaje = 0;
+                    $contestada = 0;
+                }else if (intval($registro->respuesta) === intval($pregunta->id) ){
+                    $puntaje = $pregunta->puntaje;
+                    $contestada = 1;
+                }else{
+                    $puntaje = 0;
+                    $contestada = 1;
+                }
 
+                $resultado = new Resultado;
+                $resultado->test = $registro->idtest;
+                $resultado->alumno = $registro->idalumno;
+                $resultado->pregunta = $registro->idpregunta;
+                $resultado->puntaje = $puntaje;
+                $resultado->contestada = $contestada;
+                $resultado->save();
+
+                $RespuestaAlternativaAlumno = RespuestaAlternativaAlumno::where('idtest',$registro->idtest)->where('idalumno',$registro->idalumno)->where('idpregunta',$registro->idpregunta)->first();
+                $RespuestaAlternativaAlumno->puntaje = $puntaje;
+                $RespuestaAlternativaAlumno->save();
 
                 break;
 
             case 5:
-               //RESPUESTA CORTA
+                //RESPUESTA CORTA
+                
 
+                if (trim($registro->respuesta) == "")
+                {
+                     $puntaje = 0;
+                     $contestada = 0;
+                }
+                else 
+                {
+                    $correctas = PreguntaCorta::where( 'pregunta' , $registro->idpregunta )->get();
+                    foreach($correctas as $pos => $val){
 
+                            if(trim($val->texto) === trim($registro->respuesta))
+                            {
+                                $puntaje = $val->puntaje;
+                                $contestada = 1;
+                                break;
+                            }else{
+                                $puntaje = 0;
+                                $contestada = 1;
+                            }
+
+                    }
+
+                }
+
+                //dd($puntaje, $contestada);
+
+                $resultado = new Resultado;
+                $resultado->test = $registro->idtest;
+                $resultado->alumno = $registro->idalumno;
+                $resultado->pregunta = $registro->idpregunta;
+                $resultado->puntaje = $puntaje;
+                $resultado->contestada = $contestada;
+                $resultado->save();
+
+                $RespuestaCortaAlumno = RespuestaCortaAlumno::where('idtest',$registro->idtest)->where('idalumno',$registro->idalumno)->where('idpregunta',$registro->idpregunta)->first();
+                $RespuestaCortaAlumno->puntaje = $puntaje;
+                $RespuestaCortaAlumno->save();
                 break;
         }
 
@@ -210,34 +323,34 @@ class EvaluacionController extends Controller
                         if ( $exists == 0) 
                         {
 
-                            $registro = new RespuestaVofAlumno;
-                                                                
-                            $registro->idtest = $data["test"];
-                            $registro->idpregunta = $data["pregunta"];
-                            $registro->idalumno = $data["idalumno"];
-                            $registro->respuesta = $data["respuestaAlumno"];
-                            $registro->justificacion = "";
-                            $registro->puntaje = 0;
-                            $registro->fecha = time();
-                            //$corregida = EvaluacionController::corregirLaPregunta($data["tipoPregunta"], $registro);
-                            if ($registro->save())
-                            {
+                                $registro = new RespuestaVofAlumno;
+                                                                    
+                                $registro->idtest = $data["test"];
+                                $registro->idpregunta = $data["pregunta"];
+                                $registro->idalumno = $data["idalumno"];
+                                $registro->respuesta = $data["respuestaAlumno"];
+                                $registro->justificacion = "";
+                                $registro->puntaje = 0;
+                                $registro->fecha = time();
+                                //$corregida = EvaluacionController::corregirLaPregunta($data["tipoPregunta"], $registro);
+                                if ($registro->save())
+                                {
 
-                                $corregida = EvaluacionController::corregirLaPregunta($data["tipoPregunta"], $registro);
-                                return Response::json(array('success' => true, 'last_insert_id' => $registro->id, 'messege' => "Respuesta Enviada!!"), 200);
-                            
-                            }
-                            else
-                            {
-                            
-                                return Response::json(array('success' => false, 'last_insert_id' => "-1", 'messege' => "Ocurrió un error al guardar tu respuesta. Intentalo de nuevo por favor!!"), 200);
-                            
-                            }
+                                    $corregida = EvaluacionController::corregirLaPregunta($data["tipoPregunta"], $registro);
+                                    return Response::json(array('success' => true, 'last_insert_id' => $registro->id, 'messege' => "Respuesta Enviada!!"), 200);
+                                
+                                }
+                                else
+                                {
+                                
+                                    return Response::json(array('success' => false, 'last_insert_id' => "-1", 'messege' => "Ocurrió un error al guardar tu respuesta. Intentalo de nuevo por favor!!"), 200);
+                                
+                                }
                         }
                         else
                         {
 
-                            return Response::json(array('success' => false, 'last_insert_id' => "-1", 'messege' => 'Esta pregunta ya registra una respuesta!!'), 200);
+                                return Response::json(array('success' => false, 'last_insert_id' => "-1", 'messege' => 'Esta pregunta ya registra una respuesta!!'), 200);
                         
                         }
                         
@@ -283,14 +396,21 @@ class EvaluacionController extends Controller
                                     else
                                     {
                                     
-                                        $todoOk = fasle;
-                                        exit();
+                                        $todoOk = false;
+                                        break;
                                     }
 
                             }
 
+                            $newRegistro = new StdClass();
+                            $newRegistro->respuesta = $parejas;
+                            $newRegistro->idtest = $data["test"];
+                            $newRegistro->idpregunta = $data["pregunta"];
+                            $newRegistro->idalumno = $data["idalumno"];                
+
+
                             if ($todoOk){
-                                $corregida = EvaluacionController::corregirLaPregunta($data["tipoPregunta"], $registro);
+                                $corregida = EvaluacionController::corregirLaPregunta($data["tipoPregunta"], $newRegistro);
                                 return Response::json(array('success' => true, 'last_insert_id' => $cantInsertados, 'messege' => "Respuesta Enviada!!"), 200);
                             
                             }else{

@@ -210,11 +210,11 @@
                     
 						@if(isset( $pregunta["respuestaAlumno"]->respuesta ))
 								
-                    			<textarea rows="10" cols="80" id="des_<?= $test['id'].$pregunta['data']->id ?>" >{{ $pregunta["respuestaAlumno"]->respuesta }}</textarea>
+                    			<textarea rows="10" cols="80" id="cor_<?= $test['id'].$pregunta['data']->id ?>" >{{ $pregunta["respuestaAlumno"]->respuesta }}</textarea>
 
 						@else
 
-								<textarea rows="10" cols="80" id="des_<?= $test['id'].$pregunta['data']->id ?>" ></textarea>
+								<textarea rows="10" cols="80" id="cor_<?= $test['id'].$pregunta['data']->id ?>" ></textarea>
 
 						@endif
 

@@ -36,7 +36,13 @@
 	border-radius: 5px;
 	padding: 5px !important;
 	border: 1px dashed #CCC;
-;
+
+}
+
+.eva-boxPreguntaResp{
+	border-radius: 5px;
+	padding: 5px !important;
+	border: 1px dashed #CCC;
 }
 
 .eva-btnEnviar
@@ -144,8 +150,17 @@
 
 			{!! Form::close() !!}
 
+			@if( !isset( $val["respuestaAlumno"]->respuesta ) )
 
-			<div data-id="<?= $test['id'].'_'.$val['data']->id.'_'.$val['data']->tipo ?>" class="jumbotron eva-boxPregunta"> 
+				<div data-id="<?= $test['id'].'_'.$val['data']->id.'_'.$val['data']->tipo ?>" class="jumbotron eva-boxPregunta"> 
+
+			@else
+
+				<div data-id="<?= $test['id'].'_'.$val['data']->id.'_'.$val['data']->tipo ?>" class="jumbotron eva-boxPreguntaResp"> 
+
+			@endif
+
+			
 				
 					@if ($val["recurso"] != "")
 					    
@@ -161,7 +176,7 @@
 
 						<h5>
 
-							<strong> Pregunta N°{{ $val["numero"] }} - <?= $val["data"]->texto ?></strong>
+							<strong> Pregunta N°{{ $val["numero"] }} - <?= $val["data"]->texto ?> </strong>
 
 						</h5>
 
@@ -212,7 +227,7 @@
 		  	@include('evaluacion/preguntas', ['test' => $test , 'pregunta' => $val, 'seccion' => 'miniaturas'])
 
 		  </li>
-		  <li class="list-group-item">leyenda</li>
+		  
 		  
 		</ul>
 		
@@ -221,10 +236,22 @@
 	<section class="eva-controles" >
 		<h3 style="text-align: center;">
 
-			Aqui los controles 
+			<a class="btn btn-primary btn-lg" href="javasctipt:void(0)" role="button" id="eva-btnEnviarTodo">Enviar Todo y Terminar</a>
 
 		</h3>
 	</secction>
+</div>
+
+<button id="eva-lanzaLoader" type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm" style="display:none;"></button>
+
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content" style="text-align:center; padding:25px;">
+      <img src="{{ asset('assets/img/loader.gif') }}" style="width:25%;"/ >
+      <br>
+      Guardando respuestas...
+    </div>
+  </div>
 </div>
 
 
