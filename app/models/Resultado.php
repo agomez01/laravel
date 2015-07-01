@@ -13,6 +13,9 @@
          *
          * @var string
          */
+
+        public $timestamps = false;
+        
         protected $table = 'resultados';
 
 
