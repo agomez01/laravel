@@ -108,16 +108,34 @@ class EvaluacionController extends Controller
         switch ($tipoPregunta) {
             case 1:
                 //VERDADERO O FALSO
-                $pregunta = PreguntaVof::where('pregunta', $registro->idpregunta)->get();
-                
-                if ($registro->respuesta == 2){
-                    //EL ALUMNO OMITIO LA PREGUNTA
-                    $resulado = new Resultado;
-                    dd($resulado);
-                    return;
+                $pregunta = PreguntaVof::where('pregunta', $registro->idpregunta)->first();
+                //dd($registro);
+                if (intval($registro->respuesta) === 2){
+                    //EL ALUMNO OMITIO LA PREGUNTA, SE ASIGNA PUNTAJE CERO EN RESULTADOS Y RESPUESTA VOF ALUMNO
+                    $puntaje = 0;
+                    $contestada = 0;
+
+                }else if (intval($registro->respuesta) === intval($pregunta->verdadero)){
+                    //LA RESPUESTA DEL ALUMNO ES IGUAL A LA DE LA BASE DE DATOS, ES CORRECTA 
+                    $puntaje = $pregunta->puntaje;
+                    $contestada = 1;
+                }else{
+                    //ES INCORRECTA
+                    $puntaje = 0;
+                    $contestada = 1;
                 }
 
+                $resultado = new Resultado;
+                $resultado->test = $registro->idtest;
+                $resultado->alumno = $registro->idalumno;
+                $resultado->pregunta = $registro->idpregunta;
+                $resultado->puntaje = $puntaje;
+                $resultado->contestada = $contestada;
+                $resultado->save();
                 
+                $RespuestaVofAlumno = RespuestaVofAlumno::where('idtest',$registro->idtest)->where('idalumno',$registro->idalumno)->where('idpregunta',$registro->idpregunta)->first();
+                $RespuestaVofAlumno->puntaje = $puntaje;
+                $RespuestaVofAlumno->save();
 
                 break;
             
@@ -128,10 +146,33 @@ class EvaluacionController extends Controller
                 break;
 
             case 3:
-               //DESARROLLO
+               //DESARROLLO)
+                if($registro->respuesta != '') 
+                { 
 
+                    $contestada = 2; 
 
-                break;
+                } 
+                else 
+                { 
+
+                    $contestada = 0; 
+                }
+        
+                $puntaje = 0;
+                
+                $resultado = new Resultado;
+                $resultado->test = $registro->idtest;
+                $resultado->alumno = $registro->idalumno;
+                $resultado->pregunta = $registro->idpregunta;
+                $resultado->puntaje = $puntaje;
+                $resultado->contestada = $contestada;
+                $resultado->save();
+                
+                //echo "<br>contestada: ".$contestada;
+          
+
+            break;
 
             case 4:
                //ALTERNATIVA
@@ -178,7 +219,7 @@ class EvaluacionController extends Controller
                             $registro->justificacion = "";
                             $registro->puntaje = 0;
                             $registro->fecha = time();
-                            
+                            //$corregida = EvaluacionController::corregirLaPregunta($data["tipoPregunta"], $registro);
                             if ($registro->save())
                             {
 
