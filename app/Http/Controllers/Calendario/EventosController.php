@@ -13,27 +13,51 @@
 	class EventosController extends Controller
 	{
 
+		public $eventos = array();
+
 
 	    public function EventosJson(){
 
-	    	$result = array();
-
-	    	# Eventos personales
-		    	$e = Self::getEventosPersonales(Session::get('idusuario'));
-
-		    # Eventos Generales
-		    # Eventos UTP
-
+	    	Self::getEventosPersonales(Session::get('idusuario'));
+	    	Self::getEventosGlobales(Session::get('colegio'));
+	    	Self::getEventosCurso(Session::get('curso'));
 
 	    	$data['success'] = 1;
-	    	$data['result'] = $e;
+	    	$data['result'] = $this->eventos;
 
 	    	return Response::json($data);
-
 	    }
 
-	    public function getEvento($id){
 
+	    public function getEventosPersonales($usuario){
+
+	    	$eventos = Evento::where('visible', 1)
+	    						->where('tipo', 1)
+	    						->where('usuario', $usuario)->get();
+
+	    	$this->generaArrayEventos($eventos);
+	    }
+
+	    public function getEventosGlobales($colegio){
+
+	    	$eventos = Evento::where('visible', 1)
+	    						->where('tipo', 2)
+	    						->where('colegio', $colegio)->get();
+
+	    	$this->generaArrayEventos($eventos);
+	    }
+
+	    public function getEventosCurso($curso){
+
+	    	$eventos = Evento::where('visible', 1)
+	    						->where('tipo', 3)
+	    						->where('curso', $curso)->get();
+
+	    	$this->generaArrayEventos($eventos);
+	    }
+
+
+	    public function getEvento($id){
 	    	// el formato de respuesta corresponde al plugin Bootstrap Calendar que es "html"
 
 	    	$evento = Evento::find($id);
@@ -45,15 +69,11 @@
 	    	return Response::json($data);
 	    }
 
-	    static function getEventosPersonales($usuario){
-
-	    	$eventos_personales = Evento::where('visible', 1)
-	    								->where('usuario', $usuario)->get();
+	    public function generaArrayEventos($eventos){
 
 	    	$lista_eventos = array();
 
-
-	    	foreach ($eventos_personales as $evento) {
+	    	foreach ($eventos as $evento) {
 
 	    		$event['id'] 		= $evento->id;
 		    	$event['title'] 	= $evento->nombre;
@@ -62,11 +82,9 @@
 		    	$event['start'] 	= strtotime($evento->fecha_inicio)."000";
 		    	$event['end'] 		= strtotime($evento->fecha_termino)."000";
 
+		    	array_push($this->eventos, $event);
 				array_push($lista_eventos, $event);
 	    	}
-
-
-
 
 	    	return $lista_eventos;
 	    }
