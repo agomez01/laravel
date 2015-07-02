@@ -108,8 +108,7 @@
 		//e.stopPropagation();
 	});
 
-	$(document).on('click', '#btn_actualizar', function(){
-
+	$(document).on('click', '.ckb_filtro_eventos', function(){
 		actualizar_calendario();
 	});
 
