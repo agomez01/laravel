@@ -9,6 +9,7 @@
 
 	use Session;
 	use Response;
+	use Request;
 
 	class EventosController extends Controller
 	{
@@ -18,9 +19,26 @@
 
 	    public function EventosJson(){
 
-	    	Self::getEventosPersonales(Session::get('idusuario'));
-	    	Self::getEventosGlobales(Session::get('colegio'));
-	    	Self::getEventosCurso(Session::get('curso'));
+
+	    	$eventos = Request::get('eventos');
+
+	    	$eventos = explode(',', $eventos);
+
+	    	if($eventos[0]){# Global
+	    		Self::getEventosGlobales(Session::get('colegio'));
+	    	}
+
+	    	if($eventos[1]){# Curso
+				Self::getEventosCurso(Session::get('curso'));
+	    	}
+
+	    	if($eventos[2]){# Personal
+	    		Self::getEventosPersonales(Session::get('idusuario'));
+	    	}
+
+	    	
+	    	
+	    	
 
 	    	$data['success'] = 1;
 	    	$data['result'] = $this->eventos;

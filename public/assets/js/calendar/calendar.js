@@ -47,8 +47,8 @@ if(!String.prototype.formatNum) {
 		// Initial date. No matter month, week or day this will be a starting point. Can be 'now' or a date in format 'yyyy-mm-dd'
 		day: 'now',
 		// Day Start time and end time with time intervals. Time split 10, 15 or 30.
-		time_start: '06:00',
-		time_end: '22:00',
+		time_start: '00:00',
+		time_end: '23:59',
 		time_split: '30',
 		// Source of events data. It can be one of the following:
 		// - URL to return JSON list of events in special format.
@@ -875,6 +875,18 @@ if(!String.prototype.formatNum) {
 	}
 
 	Calendar.prototype._loadEvents = function() {
+
+		// Cargaremos los eventos por categoría
+
+		var filtros = new Array(0,0,0,0,0);
+		if( $('#ck_event_global').is(':checked')	)	{	filtros[0] 	= 1;	}
+		if( $('#ck_event_curso').is(':checked')		)	{	filtros[1] 	= 1;	}
+		if( $('#ck_event_personal').is(':checked')	) 	{	filtros[2] 	= 1;	}
+		if( $('#ck_event_utp').is(':checked')		)	{	filtros[3] 	= 1;	}
+		if( $('#ck_event_sostenedor').is(':checked')) 	{	filtros[4] 	= 1;	}
+
+		var eventos = filtros.join();
+
 		var self = this;
 		var source = null;
 		if('events_source' in this.options && this.options.events_source !== '') {
@@ -902,7 +914,7 @@ if(!String.prototype.formatNum) {
 						var events = [];
                                                 var d = new Date();
                                                 var utc_offset = d.getTimezoneOffset();
-                                                var params = {from: self.options.position.start.getTime(), to: self.options.position.end.getTime(), utc_offset: utc_offset};
+                                                var params = {from: self.options.position.start.getTime(), to: self.options.position.end.getTime(), utc_offset: utc_offset, eventos: eventos};
 
 						if(browser_timezone.length) {
 							params.browser_timezone = browser_timezone;

@@ -102,6 +102,29 @@
 
     	<div id="calendar">calendario</div>
 
+    	<div>
+			<div class="checkbox">
+				<label><input type="checkbox" id='ck_event_global' class='ckb_filtro_eventos' checked> Eventos Globales</label>
+			</div>
+
+			<div class="checkbox">
+				<label><input type="checkbox" id='ck_event_curso' class='ckb_filtro_eventos' checked> Eventos Curso</label>
+			</div>
+
+			<div class="checkbox">
+				<label><input type="checkbox" id='ck_event_personal' class='ckb_filtro_eventos' checked> Eventos Personales</label>
+			</div>
+			<!--
+			<div class="checkbox">
+				<label><input type="checkbox" id='ck_event_utp' class='ckb_filtro_eventos' checked> Eventos Utp</label>
+			</div>
+
+			<div class="checkbox">
+				<label><input type="checkbox" id='ck_event_sostenedor' class='ckb_filtro_eventos' checked> Eventos Sostenedor</label>
+			</div>
+			-->
+		</div>
+
 
 		<div class="modal fade" id="events-modal">
 		    <div class="modal-dialog">
