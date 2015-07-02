@@ -111,7 +111,7 @@
 
     /*  MODULO ALUMNOS  */
     .sidebar-left
-        width 15%
+        width 13% 
         height 665px
         background-color #F0AD4E
         color #fff
@@ -148,7 +148,8 @@
         padding 30px 0 30px 0 !important
     
     .alu-reloj:hover
-        background-color #337AB7 !important          
+        background-color #337AB7 !important     
+           
 
     #content-right-alumno
     
@@ -243,24 +244,19 @@
         color #111
     .cal-context
         float right
-        width 75% !important
+        width 74% !important
         margin-right 2%
     
     .pull-right
         margin-top 20px
-        margin-right 2%
-     
-     div.page-header
-         background-color #D3EAF3
-         padding 10px 0 55px 0
-         width 100% 
-    
-    .page-header h3
-        font: 25px arial, bold, sans-serif;
-        float left
-        margin-left 25px
-        color #004B74
-        margin-top 8px
+        margin-right 2%       
+
+    .event
+        background-color #337AB7
+        width 16px
+        height 16px
+    .cal-day-today
+        background-color #F0AD4E 
         
 @media screen and (min-width: 769px) {    
     .dropdown-menu{ 
@@ -268,9 +264,32 @@
         width: 219px;
         height: 750px ;
         float :left;
+        color:#fff !important;
         background-size: 60px 60px;
         padding: 7px 95px 0 0;
-    }  
+        background-color:#F0AD4E;
+    }
+    
+    .dropdown-menu .alumno:hover{
+        background-color:#F0AD4E;
+        color:#fff;
+    }
+    
+     .dropdown-menu .chatsoporte:hover{
+        background-color:#F0AD4E;
+        color:#fff;
+    }
+    
+     .dropdown-menu .ayuda:hover{
+        background-color:#F0AD4E;
+        color:#fff;
+    }
+    
+     .dropdown-menu .salir:hover{
+        background-color:#F0AD4E;
+        color:#fff;
+    }
+      
     nav.navbar-collapse ul li {
         display: inline-block;
         list-style: none;
@@ -294,6 +313,7 @@
         background-size:75px 75px;
         
         
+        
     }
     nav.navbar-collapse ul li a p{
         display: table-cell;
@@ -306,7 +326,35 @@
         vertical-align: middle;
         line-height: 50px;
     }
-
+    
+    .alu-reloj{
+        display:none;
+    }
+    
+    .alu-biblio{
+        display:none !important;
+    }
+    
+    div.page-header{
+         background-color: #D3EAF3;
+         padding: 10px 0 55px 0;
+         width: 100% ;
+    }
+    .page-header h3{
+        font: 25px arial, bold, sans-serif;
+        float: left;
+        margin-left: 25px;
+        color: #004B74;
+        margin-top: 8px;
+    }
+    
+    .sidebar-left{
+        width:20%;
+    }
+    
+     .salir{
+       margin-top: 260px;
+    }
 }
 
     //ICONOS
@@ -322,6 +370,7 @@
 
     .alumno
         background-image url(../img/alumno.svg)
+        
                  
     .salir
         background-image url(../img/salir.svg)
@@ -346,6 +395,9 @@
                                         
     .opciones
         background-image url(../img/opciones.svg)
+        
+    .biblioteca
+        background-image url(../img/biblioteca.svg)    
 
 @media screen and (max-width: 966px) {
       nav.navbar-collapse ul li a{
@@ -366,10 +418,12 @@
     
     .sidebar-right{
         display:none;
+        
     }
     
     .sidebar-left{
-        min-width:150px;
+        min-width:200px;
+        margin-top:82px;
     }
     
     .sidebar-left ul li a{
@@ -377,11 +431,40 @@
     }
     
     .cal-context{
-        min-width:300px;
+        width:73% !important;
     }
     
-   
+
+    .dropdown-menu{ 
+        text-align: center;       
+        width: 219px;
+        height: 750px ;
+        float :left;
+        background-size: 60px 60px;
+        padding: 10px 130px 0 0px;
+        background-color:#F0AD4E;
+    }
+    .alu-reloj{
+        display:none;
+    }
     
+    .alu-biblio{
+        display:none;
+    }
+    
+    div.page-header{        
+         width: 73% ;
+         margin-left:40%;
+         
+    }
+    .page-header {        
+        margin-left:25% !important;
+        margin-right:25%;
+    }
+    
+    .salir{
+       margin-top: 250px;
+    }     
     
    
 }    
@@ -450,11 +533,10 @@
         background-size:55px 55px;       
     }
     
- 
 
     .navbar-inverse .navbar-nav>li>a {
         color: #fff;
-        margin-top:10px;
+        margin-top:2px;
     }      
         
     .navbar-inverse .navbar-nav .open .dropdown-menu>li>a {
@@ -476,5 +558,31 @@
         
     .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
         border-color: #f0ad4e;
-    }   
+    }
+    
+    
+   .sidebar-left{
+       display:none;        
+    }
+    
+    .cal-context{
+        width:98% !important;
+    }
+    
+    div.page-header{        
+         width: 100% ;
+    }
+    .pull-right {
+        margin-top: 10px;
+        margin-right: 13%;
+        
+    }
+    
+    .salir{
+       margin-top: 0px;
+    }
+    
+
+     
+    
 }

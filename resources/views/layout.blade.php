@@ -22,6 +22,7 @@
 
     <header role="banner" class="navbar navbar-fixed-top navbar-inverse">
         <div class="container">
+
             <div class="navbar-header">
                 <button data-toggle="collapse-side" data-target=".side-collapse" data-target-2=".side-collapse-container" type="button" class="navbar-toggle pull-left">
                     <span class="icon-bar"></span>
@@ -29,17 +30,19 @@
                     <span class="icon-bar"></span>
                 </button>
             </div>
-
-            <div class="navbar-inverse side-collapse in">
-                <nav role="navigation" class="navbar-collapse">
-                    <ul class="nav navbar-nav">                     
-                        @yield('menu')
+            
+            <div class="navbar-inverse side-collapse in">            
+                <nav role="navigation" class="navbar-collapse">                    
+                    <ul class="nav navbar-nav">                                    
+                        @yield('menu')                        
+                        <li role="presentation"><a class="alu-biblio biblioteca" href="#">Biblioteca Alumno</a></li> 
                         <li class="dropdown" align="center">
                             <a href="#" class="dropdown-toggle hvr-overline-from-left opciones" data-toggle="dropdown" >Opciones<b class="caret"></b></a>
-                            <ul class="dropdown-menu">      
+                            <ul class="dropdown-menu" id="dropdown-aux">      
+                                <li><a class="alumno" href="">Alumno</a></li>
                                 <li ><a class="chatsoporte" href="/login">Chat Soporte</a></li>
                                 <li ><a class="ayuda" href="/login">Ayuda</a></li>                                
-                                <li ><a class="salir" href="/logout">Salir</a></li>                     
+                                <li ><a class="salir" href="/logout">Salir</a></li>                                                    
                             </ul>
                         </li>                                
                     </ul>

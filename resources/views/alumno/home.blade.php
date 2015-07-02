@@ -76,12 +76,9 @@
     </div>
 
 
-    <div class="container">
-    	<br><br>
-		<div id="content-right-alumno" class="">
-     		<h2>{{ Session::get('idalumno') }}</h2>
-     	</div>
-		
+    <div class="row-fluid">
+	<div class="col-md-8">
+    	<br><br><br>	
 
 		<div class="page-header">
 
@@ -97,10 +94,11 @@
 				<button class="btn btn-warning" data-calendar-view="week">Semana</button>
 				<button class="btn btn-warning" data-calendar-view="day">Día</button>
 			</div>
-		</div>
+		</div></div>
 
 		<h3></h3>		
 	</div>
+	<div class="col-md-8">
 
     	<div id="calendar">calendario</div>
 
@@ -120,7 +118,8 @@
 		        </div>
 		    </div>
 		</div>
-
+	</div>
+</div>
 
     </div>
 
