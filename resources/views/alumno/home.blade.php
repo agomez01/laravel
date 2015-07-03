@@ -10,14 +10,14 @@
 @section ('content')
 
 	
-
-    <div class="sidebar-left" >
+<div class="row">
+    <div class="col-md-2 sidebar-left" >
         
     	<ul class="nav nav-pills nav-stacked">
 
 			  
 			  <li role="presentation"><a class="alu-reloj">00:00:00</a></li>
-			  <li role="presentation"><a href="#">Biblioteca Alumno</a></li>
+			  <li role="presentation"><a class="alu-biblio" 	href="#">Biblioteca Alumno</a></li>
 
 		</ul>
 
@@ -76,8 +76,7 @@
     </div>
 
 
-    <div class="row-fluid">
-	<div class="col-md-8">
+    <div class="col-md-9">
     	<br><br><br>	
 
 		<div class="page-header">
@@ -94,36 +93,12 @@
 				<button class="btn btn-warning" data-calendar-view="week">Semana</button>
 				<button class="btn btn-warning" data-calendar-view="day">Día</button>
 			</div>
-		</div></div>
+		</div>
 
 		<h3></h3>		
 	</div>
-	<div class="col-md-8">
 
     	<div id="calendar">calendario</div>
-
-    	<div>
-			<div class="checkbox">
-				<label><input type="checkbox" id='ck_event_global' class='ckb_filtro_eventos' checked> Eventos Globales</label>
-			</div>
-
-			<div class="checkbox">
-				<label><input type="checkbox" id='ck_event_curso' class='ckb_filtro_eventos' checked> Eventos Curso</label>
-			</div>
-
-			<div class="checkbox">
-				<label><input type="checkbox" id='ck_event_personal' class='ckb_filtro_eventos' checked> Eventos Personales</label>
-			</div>
-			<!--
-			<div class="checkbox">
-				<label><input type="checkbox" id='ck_event_utp' class='ckb_filtro_eventos' checked> Eventos Utp</label>
-			</div>
-
-			<div class="checkbox">
-				<label><input type="checkbox" id='ck_event_sostenedor' class='ckb_filtro_eventos' checked> Eventos Sostenedor</label>
-			</div>
-			-->
-		</div>
 
 
 		<div class="modal fade" id="events-modal">
@@ -141,11 +116,25 @@
 		        </div>
 		    </div>
 		</div>
-	</div>
-</div>
+		</div>
+
+			<div class="checkbox">
+				<label><input type="checkbox" id='ck_event_personal' class='ckb_filtro_eventos' checked> Eventos Personales</label>
+			</div>
+			
+			<div class="checkbox">
+				<label><input type="checkbox" id='ck_event_utp' class='ckb_filtro_eventos' checked> Eventos Utp</label>
+			</div>
+
+			<div class="checkbox">
+				<label><input type="checkbox" id='ck_event_sostenedor' class='ckb_filtro_eventos' checked> Eventos Sostenedor</label>
+			</div>
+			
+		</div>
+
 
     </div>
-
+</div>
     
   
 

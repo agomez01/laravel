@@ -21,7 +21,7 @@
   <body>
 
     <header role="banner" class="navbar navbar-fixed-top navbar-inverse">
-        <div class="container">
+        <div class="container row">
 
             <div class="navbar-header">
                 <button data-toggle="collapse-side" data-target=".side-collapse" data-target-2=".side-collapse-container" type="button" class="navbar-toggle pull-left">
@@ -34,8 +34,7 @@
             <div class="navbar-inverse side-collapse in">            
                 <nav role="navigation" class="navbar-collapse">                    
                     <ul class="nav navbar-nav">                                    
-                        @yield('menu')                        
-                        <li role="presentation"><a class="alu-biblio biblioteca" href="#">Biblioteca Alumno</a></li> 
+                        @yield('menu')                      
                         <li class="dropdown" align="center">
                             <a href="#" class="dropdown-toggle hvr-overline-from-left opciones" data-toggle="dropdown" >Opciones<b class="caret"></b></a>
                             <ul class="dropdown-menu" id="dropdown-aux">      
@@ -49,15 +48,8 @@
                 </nav>
             </div>
         </div>
-    </header>
+    </header>    
     
-    <div class="sidebar-right" >
-        
-        <ul class="nav nav-pills nav-stacked">   
-        
-
-        </ul>
-    </div>
        
     <div id="wrap">
       <div class="container" id="container-alumno">

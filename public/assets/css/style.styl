@@ -2,7 +2,7 @@
 
     body
         width 100%
-        min-width 480px
+        min-width 300px
         
         .hola
             border-color black
@@ -110,34 +110,8 @@
 
 
     /*  MODULO ALUMNOS  */
-    .sidebar-left
-        width 13% 
-        height 665px
-        background-color #F0AD4E
-        color #fff
-        margin-top 103px
-        padding 15px
-        position relative        
-        float left
+       
     
-    .sidebar-left ul li a
-        color white
-        background-color none
-        font-size 15px
-        display:inline-block;
-        
-    
-    .sidebar-left ul li a:hover
-        background-color #EC971F
-    
-    .sidebar-right
-        width 125px
-        height 665px
-        background-color #D3EAF3
-        color #fff
-        margin-top 103px        
-        position relative        
-        float right    
            
     .alu-reloj
         background-color #337AB7
@@ -146,6 +120,7 @@
         font-size 30px !important
         width 100% !important
         padding 30px 0 30px 0 !important
+        color #fff
     
     .alu-reloj:hover
         background-color #337AB7 !important     
@@ -169,7 +144,7 @@
     }
     
     #open-test-alumno button:hover
-        background-color #EC971F
+        background-color #337AB7
 
     #closed-test-alumno button
     {   
@@ -183,7 +158,7 @@
     }
     
      #closed-test-alumno button:hover
-         background-color #EC971F
+         background-color #337AB7
          
 
     .sidebar-alumno-dropdown
@@ -242,10 +217,8 @@
     .cal-cell:hover
         background-color #FFDF81        
         color #111
-    .cal-context
-        float right
-        width 74% !important
-        margin-right 2%
+    .cal-context              
+       margin 0 auto
     
     .pull-right
         margin-top 20px
@@ -256,13 +229,19 @@
         width 16px
         height 16px
     .cal-day-today
-        background-color #F0AD4E 
+        background-color #F0AD4E
         
-@media screen and (min-width: 769px) {    
+    #cal-slide-content a.event-item
+         color #111 
+         
+    div.checkbox
+        display table-cell
+          
+        
+@media screen and (min-width: 768px) {    
     .dropdown-menu{ 
         text-align: center;       
-        width: 219px;
-        height: 750px ;
+        width: 219px;        
         float :left;
         color:#fff !important;
         background-size: 60px 60px;
@@ -289,7 +268,10 @@
         background-color:#F0AD4E;
         color:#fff;
     }
-      
+    
+    #dropdown-aux{
+        height:660px;
+    }  
     nav.navbar-collapse ul li {
         display: inline-block;
         list-style: none;
@@ -331,9 +313,7 @@
         display:none;
     }
     
-    .alu-biblio{
-        display:none !important;
-    }
+  
     
     div.page-header{
          background-color: #D3EAF3;
@@ -346,14 +326,27 @@
         margin-left: 25px;
         color: #004B74;
         margin-top: 8px;
+    }    
+   
+    
+     .salir{
+       margin-top: 150px;
+    }
+    
+    div.checkbox{
+        display:table-cell;
+    }
+    
+    .cal-context{
+        float:left;
+        width:100%;
     }
     
     .sidebar-left{
-        width:20%;
-    }
-    
-     .salir{
-       margin-top: 260px;
+        margin-top:100px;
+        background-color:#F0AD4E;
+        height:660px;
+        width:255px;
     }
 }
 
@@ -408,45 +401,32 @@
         background-position :center 5px;
         background-size :50px 50px;
         font-size:13px;
-        opacity:0.75;
+        opacity:1;
     }
     
     nav.navbar-collapse ul li a:hover{    
         opacity:1;
         background-size:55px 55px;
-    }
-    
-    .sidebar-right{
-        display:none;
-        
-    }
-    
-    .sidebar-left{
-        min-width:200px;
-        margin-top:82px;
-    }
-    
-    .sidebar-left ul li a{
-        display:inline-block;
-    }
+    }   
+   
     
     .cal-context{
-        width:73% !important;
+        width:75% !important;
+        margin 0 auto
     }
     
+    #dropdown-aux{
+        height:660px;
+    }
 
     .dropdown-menu{ 
         text-align: center;       
-        width: 219px;
-        height: 750px ;
+        width: 219px;        
         float :left;
         background-size: 60px 60px;
         padding: 10px 130px 0 0px;
         background-color:#F0AD4E;
-    }
-    .alu-reloj{
-        display:none;
-    }
+    }   
     
     .alu-biblio{
         display:none;
@@ -463,8 +443,27 @@
     }
     
     .salir{
-       margin-top: 250px;
-    }     
+       margin-top: 150px;
+    }
+    
+    .sidebar-left{
+        margin-top:78px;
+        background-color:#F0AD4E;
+        
+    }
+    
+     #open-test-alumno button{
+        background-color:#F0AD4E;
+        color:#fff;
+    }
+    
+    #closed-test-alumno button{
+        background-color:#F0AD4E;
+        color:#fff;
+    }
+    .alu-reloj{
+        color:#fff;
+    }    
     
    
 }    
@@ -473,8 +472,7 @@
     /* MENU LATERAL */
 
 
-@media screen and (max-width: 770px) {      
-          
+@media screen and (max-width: 768px) {              
 
     .side-collapse-container{        
         width:100%;
@@ -489,7 +487,7 @@
 
     .side-collapse {
         background-color:#F0AD4E;
-        top:53px;
+        top:0;
         bottom:0;
         left:0;
         width:250px;
@@ -519,14 +517,23 @@
         
   .navbar-collapse ul li a{
         height:47px;
-        width:350px;
-        padding:13px 166px 0 0 !important;
+        width:280px;
+        padding:20px 166px 0 0 !important;
         vertical-align:middle;
         background-repeat: no-repeat;
         background-position :center 0px;
         background-size :50px 50px;
         border-radius: 2%;
-        opacity:0.70;
+        font-size:16px !important;
+        opacity:0.90;
+        
+    }
+    div.navbar-inverse {
+        overflow-y:auto;
+        scrollbar-base-color: orange;
+        scrollbar-arrow-color: green;
+        scrollbar-DarkShadow-Color: blue;
+             
     }
     .navbar-collapse ul li a:hover{    
         opacity:1;
@@ -542,13 +549,8 @@
     .navbar-inverse .navbar-nav .open .dropdown-menu>li>a {
         color: #FFF;
         padding-top:12px;
-    }
-        
-    .sidebar-left{     
-        width:220px;
-        float:right;
-        margin-right:10px;
-    }
+    }   
+   
         
     .navbar-inverse .navbar-toggle {
         background-color:#F7BA63;
@@ -558,23 +560,21 @@
         
     .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
         border-color: #f0ad4e;
-    }
-    
-    
-   .sidebar-left{
-       display:none;        
-    }
+    }   
+   
     
     .cal-context{
-        width:98% !important;
+        width:100% !important;
+        margin:0 auto;
     }
     
     div.page-header{        
          width: 100% ;
     }
     .pull-right {
-        margin-top: 10px;
-        margin-right: 13%;
+        margin-top: 0 !important;
+        margin-right: 0 !important;       
+        float: inherit !important;
         
     }
     
@@ -582,7 +582,102 @@
        margin-top: 0px;
     }
     
-
+    .btn-group{
+        padding:0;
+        display:block;
+        margin-top:-80px;
+    }
      
+    .page-header {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        margin-top:0 !important;
+    }
     
+    .page-header {        
+        margin: 0 auto;        
+    }
+    
+    .btn{
+        border-radius:0;
+        padding: 14px 25px;
+        width:33%;
+    }
+    
+    
+    
+    #open-test-alumno button{
+        background-color:#26ACDF;
+        color:#fff;
+    }
+    
+    #closed-test-alumno button{
+        background-color:#26ACDF;
+        color:#fff;
+    }
+    
+    .sidebar-left{
+        margin-top:49px;
+        background-color:#fff;
+    }
+    
+    .navbar-inverse{
+        box-shadow:none;
+    }
+    
+    .pull-left{
+        float:right !important;        
+    }
+    
+    .alu-biblio{
+        background-color:#26ACDF;
+        color:#fff;
+        border:1px;
+        border-color:#fff;
+    }
+    
+    .alu-reloj{
+        display:none !important;
+    }
+    
+    .alu-biblio:hover{
+        background-color:#337AB7 !important;
+        color:#fff !important;    
+    }
+    
+    .cal-row-fluid{
+        display:inline-block;
+    }
+    
+    .btn-primary{
+        width:33.3%;
+    }
+    
+    .btn-warning{
+        width:25%;
+        padding:3px 0 3px 0;
+        background-color:#fff;
+        color:#111;
+        border:0;
+    }
+    
+    .btn-warning:hover{
+        background-color:#286090;
+    }
+    
+    .btn-warning:active{
+        background-color:;
+    }
+    
+    .nav-pills>li>a {
+        border-radius: 0;   
+    }
+    
+   .h3, h3 {        
+        font-size:30px;
+        font-weight: bold;
+        text-align: center;
+        
+    } 
+   
 }
