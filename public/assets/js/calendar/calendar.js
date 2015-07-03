@@ -109,8 +109,8 @@ if(!String.prototype.formatNum) {
 			}
 		},
 		merge_holidays: false,
-		display_week_numbers: true,
-		weekbox: true,
+		display_week_numbers: false,
+		weekbox: false,
 		// ------------------------------------------------------------
 		// CALLBACKS. Events triggered by calendar class. You can use
 		// those to affect you UI
