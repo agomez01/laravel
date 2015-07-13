@@ -1,8 +1,6 @@
 /*  */
 
-    body
-        width 100%
-        min-width 300px
+
         
         .hola
             border-color black
@@ -124,13 +122,8 @@
     
     .alu-reloj:hover
         background-color #337AB7 !important     
-           
 
-    #content-right-alumno
-    
-        width 75%
-        float left
-    
+   
 
     #open-test-alumno button
     {
@@ -139,12 +132,12 @@
         border: 0;
         text-align: left;
         color: #fff;
-        background-color #F0AD4E
+        background-color #26ACDF
         font-size 15px
     }
     
     #open-test-alumno button:hover
-        background-color #337AB7
+        background-color #51BCE4
 
     #closed-test-alumno button
     {   
@@ -153,12 +146,12 @@
         border: 0;  
         text-align: left;
         color: #fff;
-        background-color #F0AD4E
+        background-color #26ACDF
         font-size 15px
     }
     
      #closed-test-alumno button:hover
-         background-color #337AB7
+         background-color #51BCE4
          
 
     .sidebar-alumno-dropdown
@@ -171,7 +164,9 @@
     }
 
     #container-alumno{
-        width:100%; margin:0; padding:0;
+        width:100%; 
+        margin:0 0 0 17px; 
+        padding:0;
     }
 
 
@@ -191,7 +186,7 @@
         -webkit-box-shadow: 0px 2px 1px 0px rgba(142, 142, 142, 0.84);
         -moz-box-shadow:    0px 2px 1px 0px rgba(142, 142, 142, 0.84);
         box-shadow:         0px 2px 1px 0px rgba(142, 142, 142, 0.84)
-        padding-bottom 0px
+        padding 20px 0 0 0
         
     .navbar-inverse .navbar-nav>li>a 
         color #fff
@@ -202,7 +197,7 @@
         float right
        
     .container
-        width 100%    
+        width 98%    
 
       
             
@@ -212,17 +207,22 @@
     //CALENDAR
 
     .cal-cell
-        background-color #FFEBB2
+        background-color #F0F0F0
         border-radius 2px
+        width 100px
     .cal-cell:hover
-        background-color #FFDF81        
+        background-color #D3EAF3        
         color #111
+        
+    .cal-month-day
+        height 70px 
+            
     .cal-context              
        margin 0 auto
     
     .pull-right
-        margin-top 20px
-        margin-right 2%       
+        margin 0 5px 0 5px       
+        float inherit !important       
 
     .event
         background-color #337AB7
@@ -232,10 +232,36 @@
         background-color #F0AD4E
         
     #cal-slide-content a.event-item
-         color #111 
+         color #111
          
     div.checkbox
         display table-cell
+        padding 0 20px 0 0
+        
+    .evento-Personal
+        background-color  #D44444 
+        
+    .evento-Global
+        background-color #26ACDF
+    
+    .evento-Curso
+        background-color #08A689
+    
+    .ck_event_personal 
+        background-color #D44444 
+        padding 5px 20px 0 0
+        margin 5px 0 0 0
+    .ck_event_global 
+        background-color #26ACDF
+        padding 5px 20px 0 0
+        margin 5px 0 0 0
+        
+    .ck_event_curso 
+        background-color #08A689
+        padding 5px 20px 0 0
+        margin 5px 0 0 0        
+        
+            
           
         
 @media screen and (min-width: 768px) {    
@@ -247,6 +273,20 @@
         background-size: 60px 60px;
         padding: 7px 95px 0 0;
         background-color:#F0AD4E;
+    }
+    
+    .alu-biblio{
+        background-color:#D44444;
+        color:#fff;
+        padding:22px 0 22px 0 !important;
+        margin:5px 0 5px 0;
+        vertical-align:middle;        
+    }
+    
+    .alu-biblio img{
+        width:70px;
+        padding:0 0 0 0;
+        margin:0 16px 0 0;
     }
     
     .dropdown-menu .alumno:hover{
@@ -285,14 +325,14 @@
         padding:70px 20px 5px 20px;
         background-repeat: no-repeat;
         background-position :center 5px;
-        background-size :70px 70px;
+        background-size :55px 55px;
         border-radius: 2%;
-        opacity:0.75;
+        opacity:0.8;
     }
 
     nav.navbar-collapse ul li a:hover{    
         opacity:1;
-        background-size:75px 75px;
+        background-size:60px 60px;
         
         
         
@@ -317,15 +357,20 @@
     
     div.page-header{
          background-color: #D3EAF3;
-         padding: 10px 0 55px 0;
-         width: 100% ;
+         padding: 6px 0 18px 0;
+         margin: 104px 0 11px 0;
+         width: 98% ;
+         border-radius:4px;
     }
     .page-header h3{
         font: 25px arial, bold, sans-serif;
         float: left;
-        margin-left: 25px;
         color: #004B74;
-        margin-top: 8px;
+        margin:0 20px 0 280px;
+    }
+    
+    .page-header{
+        margin:88px 0 0 0;
     }    
    
     
@@ -339,15 +384,169 @@
     
     .cal-context{
         float:left;
-        width:100%;
+        width:98% !important;
     }
     
-    .sidebar-left{
-        margin-top:100px;
-        background-color:#F0AD4E;
+    .sidebar-left{       
+        background-color:#fff;
         height:660px;
-        width:255px;
+        /*width:350px;*/
+        padding:0 0 0 0;
+        margin:165px 0 0 0;
     }
+    .reloj { 
+        width: 100%; 
+        height: 75px; 
+        padding:20px 0 0 0 ; 
+        background-color:#D44444;
+        background-repeat:no-repeat;       
+        font: bold 1.9em dotum, "lucida sans", arial; 
+        text-align: center;
+        border-radius:4px;
+        vertical-align:middle;
+        color:#fff;
+    }
+    
+    .reloj img{
+        float:left;
+        margin-top:-36px;
+       
+    }    
+    
+    .fecha{
+        font-size:14px;
+    }        
+    
+    .top_line{
+        position: absolute;
+        top :0px;
+        height: 30px;
+        width: 100%;
+        min-width: 1000px;
+        background: rgba(255,255,255,0.2);
+        padding: 0px 0px 0px 0px;
+}
+    .top_line a{
+        color: #fff!important;
+        font-size: 0.9em!important;
+    }
+    .top_line a:hover{
+        text-decoration: underline!important;
+    }
+    .top_usuario{
+        float: left!important;
+        margin: 2px 0px 0px 20px!important;
+    }
+    .top_selector{
+        float: right!important;
+        margin: 1px 10px 0px 0px!important;
+    }
+    .top_selector span{
+        margin-bottom: 3px!important;
+    }
+    #cambioColegio{
+        float: left!important;
+        margin: 2px 0px 0px 0px!important;
+    }
+    .top_selector img {
+        margin: 1px 0px 0px 10px!important;
+    }
+    .top_selector select {
+        height: 20px!important;
+        width: 115px!important;
+        border-radius: 5px!important;
+        font-size: 0.8em!important;
+    }
+    .top_selector select option{
+        font-size: 0.9em!important;
+    }
+    .top_alumno{
+        position: relative;
+        float: right!important;
+        margin: 3px 10px 0px 0px!important;
+        color: #fff!important;
+        font-size: 0.9em!important;
+    }
+    .top_alumno span{
+        margin-bottom: 3px!important;
+    }
+    .top_alumno select {
+        height: 20px!important;
+        width: 150px!important;
+        border-radius: 5px!important;
+        font-size: 0.9em!important;
+    }
+    .top_alumno select option{
+        font-size: 0.9em!important;
+    }
+    #fotoAlumno {
+        position: absolute!important;
+        top:50px!important;
+        right: 10px!important;
+        border: 2px solid #fff!important;
+        padding: 0!important;
+        margin: 0!important;
+    }
+    .top_btn{
+        float: right!important;
+        margin: 2px 15px 0px 0px!important;
+    }
+    .top_btn img{
+        vertical-align: middle!important;
+    }
+    
+    .hoy{
+        background-color:#D3EAF3;
+        font-size:18px;
+        
+    } 
+    
+    .controla{
+        background-color:#D3EAF3;              
+    }
+    
+    .controla img{
+        width:40px;
+        margin:0 0 0 0;
+    }
+    
+    .h3-xs{
+        display:none;        
+    }
+    
+    .h3-md{
+        float:left;
+    }
+    
+    .controla-hoy{
+        margin:0 0 0 0;
+        padding:0 0 0 0;
+    }
+    
+    .controla-mes{
+        float:right;
+        padding:15px 0 0 0;
+        margin:0 0 0 0;
+    }
+    .btn-warning{
+        background-color: #26ACDF;
+        border-color: #93D6EF;
+    }
+    .btn-warning:hover{         
+        background-color: #26ACDF;
+        border-color: #93D6EF;
+        opacity: 0.5;
+    }    
+    .btn-warning.active, .btn-warning.focus, .btn-warning:active, .btn-warning:focus, .btn-warning:hover, .open>.dropdown-toggle.btn-warning{
+        color: #111;
+        background-color: #93D6EF;
+        border-color: #26ACDF;
+        border-top: 0px;   
+    }
+    
+    
+
+  
 }
 
     //ICONOS
@@ -369,28 +568,44 @@
         background-image url(../img/salir.svg)
 
     .cuaderno
-        background-image url(../img/cuaderno.svg)
+        background-image url(../img/cuadernos.png)
         
     .misnotas
-        background-image url(../img/misnotas.svg)
+        background-image url(../img/notas.png)
         
     .miasistencia
-        background-image url(../img/asistencia.svg)
+        background-image url(../img/asistencia.png)
         
     .anotaciones
-        background-image url(../img/anotaciones.svg)
+        background-image url(../img/anotaciones.png)
 
     .erecursos
-        background-image url(../img/explorarecursos.svg)
+        background-image url(../img/recursos.png)
 
     .comunicacion
-        background-image url(../img/comunicacion.svg)    
+        background-image url(../img/btn_comunica.png)    
                                         
     .opciones
         background-image url(../img/opciones.svg)
         
     .biblioteca
-        background-image url(../img/biblioteca.svg)    
+        background-image url(../img/biblioteca.svg)
+        vertical-align middle
+        
+    .anterior
+        background-image url(../img/anterior.svg)
+        background-repeat no-repeat    
+    
+    .siguiente
+        background-image url(../img/siguiente.svg)
+        background-repeat no-repeat
+             
+    .btn_reloj
+        background-image url(../img/reloj.png)
+        vertical-align middle
+        
+        
+           
 
 @media screen and (max-width: 966px) {
       nav.navbar-collapse ul li a{
@@ -399,80 +614,49 @@
         padding:54px 5px 0px 5px;
         background-repeat: no-repeat;
         background-position :center 5px;
-        background-size :50px 50px;
+        background-size :40px 40px;
         font-size:13px;
         opacity:1;
     }
     
     nav.navbar-collapse ul li a:hover{    
         opacity:1;
-        background-size:55px 55px;
-    }   
-   
-    
-    .cal-context{
-        width:75% !important;
-        margin 0 auto
-    }
-    
-    #dropdown-aux{
-        height:660px;
-    }
-
-    .dropdown-menu{ 
-        text-align: center;       
-        width: 219px;        
-        float :left;
-        background-size: 60px 60px;
-        padding: 10px 130px 0 0px;
-        background-color:#F0AD4E;
-    }   
-    
-    .alu-biblio{
-        display:none;
-    }
-    
-    div.page-header{        
-         width: 73% ;
-         margin-left:40%;
-         
-    }
-    .page-header {        
-        margin-left:25% !important;
-        margin-right:25%;
-    }
-    
-    .salir{
-       margin-top: 150px;
+        background-size:45px 45px;
     }
     
     .sidebar-left{
-        margin-top:78px;
-        background-color:#F0AD4E;
-        
+        margin:148px 0 0 0;
     }
     
-     #open-test-alumno button{
-        background-color:#F0AD4E;
-        color:#fff;
+    .page-header h3{
+        font: 25px arial, bold, sans-serif;
+        float: left;
+        color: #004B74;
+        margin:0 20px 0 50px;
     }
     
-    #closed-test-alumno button{
-        background-color:#F0AD4E;
-        color:#fff;
+    .btn-warning{
+        background-color: #26ACDF;
+        border-color: #93D6EF;
     }
-    .alu-reloj{
-        color:#fff;
+    .btn-warning:hover{         
+        background-color: #26ACDF;
+        border-color: #93D6EF;
+        opacity: 0.5;
     }    
-    
-   
+    .btn-warning.active, .btn-warning.focus, .btn-warning:active, .btn-warning:focus, .btn-warning:hover, .open>.dropdown-toggle.btn-warning{
+        color: #111;
+        background-color: #93D6EF;
+        border-color: #26ACDF;
+        border-top: 0px;   
+    }
 }    
 
 
     /* MENU LATERAL */
 
 
-@media screen and (max-width: 768px) {              
+@media screen and (max-width: 767px) {              
 
     .side-collapse-container{        
         width:100%;
@@ -486,7 +670,10 @@
     }
 
     .side-collapse {
-        background-color:#F0AD4E;
+        -webkit-box-shadow: 5px 0px 8px 0px rgba(50, 50, 50, 0.45) !important;
+        -moz-box-shadow:    5px 0px 8px 0px rgba(50, 50, 50, 0.45)  !important;
+        box-shadow:         5px 0px 8px 0px rgba(50, 50, 50, 0.45)  !important;
+        background-color:#fff;        
         top:0;
         bottom:0;
         left:0;
@@ -522,19 +709,19 @@
         vertical-align:middle;
         background-repeat: no-repeat;
         background-position :center 0px;
-        background-size :50px 50px;
+        background-size :35px 35px;
         border-radius: 2%;
-        font-size:16px !important;
+        font-size:15px !important;
         opacity:0.90;
         
+    }    
+    
+    .navbar-inverse{
+        box-shadow:none;
+        margin:0 0 0 0;
+        padding:0 0 0 0;
     }
-    div.navbar-inverse {
-        overflow-y:auto;
-        scrollbar-base-color: orange;
-        scrollbar-arrow-color: green;
-        scrollbar-DarkShadow-Color: blue;
-             
-    }
+    
     .navbar-collapse ul li a:hover{    
         opacity:1;
         background-size:55px 55px;       
@@ -542,9 +729,14 @@
     
 
     .navbar-inverse .navbar-nav>li>a {
-        color: #fff;
-        margin-top:2px;
-    }      
+        color: #777;
+        margin-top:10px;
+    }
+    
+    .navbar-inverse .navbar-nav>li>a:hover {
+        color: #111;
+        margin-top:10px;
+    }       
         
     .navbar-inverse .navbar-nav .open .dropdown-menu>li>a {
         color: #FFF;
@@ -553,8 +745,8 @@
    
         
     .navbar-inverse .navbar-toggle {
-        background-color:#F7BA63;
-        border-color: #F0AD4E;
+        background-color:#26ACDF;
+        border-color: #93D6EF;
         margin-left:20px;
     }
         
@@ -572,8 +764,8 @@
          width: 100% ;
     }
     .pull-right {
-        margin-top: 0 !important;
-        margin-right: 0 !important;       
+        padding:0 0 70px 0; 
+        margin:20px 0 0 0;      
         float: inherit !important;
         
     }
@@ -617,13 +809,10 @@
     }
     
     .sidebar-left{
-        margin-top:49px;
+        margin:49px 0 0 0;
         background-color:#fff;
-    }
-    
-    .navbar-inverse{
-        box-shadow:none;
-    }
+        padding:0 0 0 0;
+    }    
     
     .pull-left{
         float:right !important;        
@@ -645,6 +834,10 @@
         color:#fff !important;    
     }
     
+    .alu-biblio img{
+        display:none;
+    }
+    
     .cal-row-fluid{
         display:inline-block;
     }
@@ -655,18 +848,21 @@
     
     .btn-warning{
         width:25%;
-        padding:3px 0 3px 0;
-        background-color:#fff;
-        color:#111;
+        padding:13px 0 13px 0;
+        background-color:#26ACDF;
+        color:#fff;
         border:0;
     }
     
     .btn-warning:hover{
-        background-color:#286090;
+        background-color:#26ACDF;
+        opacity:0.5;
     }
     
-    .btn-warning:active{
-        background-color:;
+    .btn-warning.active, .btn-warning.focus, .btn-warning:active, .btn-warning:focus, .btn-warning:hover, .open>.dropdown-toggle.btn-warning {
+        color: #111;
+        background-color:#93D6EF;
+        border-color: #d58512;        
     }
     
     .nav-pills>li>a {
@@ -676,8 +872,39 @@
    .h3, h3 {        
         font-size:30px;
         font-weight: bold;
-        text-align: center;
-        
+        text-align: center;       
+    }
+    
+    .h3-md{
+        display:none;
+    }
+    
+    .page-header h3{
+        font: 25px arial, bold, sans-serif;       
+        color: #004B74;       
+    }
+    
+    .top_line{
+        display:none;
+    }
+    
+    .fecha{
+        display:none;
+    }
+    
+    .reloj{
+        display:none;
+    }
+    div#reloj{
+        display:none;
+    }   
+    
+    .hoy{
+        background-color:#DBDBDB;
     } 
+    
+    .controla{
+        background-color:#fff;
+    }  
    
 }
