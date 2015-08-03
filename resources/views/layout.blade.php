@@ -35,7 +35,7 @@
     <div class="top_usuario" style="color:#fff;">    
     </div>
     <div class="top_btn" title="Salir">
-        <a href="#" >
+        <a href="/logout" >
             Salir
             <img src="../assets/img/webclass-btn-salir.png" alt="Salir" width="24" height="24"   />
         </a>
