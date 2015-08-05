@@ -3,108 +3,7 @@
 @section ('title') Rendir Evaluación @stop
 
 @section ('content')
-	<style>
 
-	#eva-leftSection
-	{
-
-		padding:10px;
-		width: 80%;
-		float:left;
-		height: 100vh;
-
-	}
-
-	#eva-rightSection
-	{
-
-		width: 20%;
-		float:left;
-		background: #EEE;	
-		height: 100vh;
-
-	}
-
-	#eva-membretePrueba
-	{
-		
-		border-bottom: 1px dashed #CCC;	
-
-	}
-
-	.eva-boxPregunta
-	{
-		border-radius: 5px;
-		padding: 5px !important;
-		border: 1px dashed #CCC;
-
-	}
-
-	.eva-boxPreguntaResp{
-		border-radius: 5px;
-		padding: 5px !important;
-		border: 1px dashed #CCC;
-	}
-
-	.eva-btnEnviar
-	{
-
-		font-size:14px !important;
-
-	}
-
-
-	.eva-casillaImagen
-	{
-
-		text-align: center;
-
-	}
-
-	.eva-casillaImagen:img 
-	{
-
-	 	display: block; margin: 0 auto;
-
-	}
-
-	.eva-casillaCuerpo
-	{
-		padding:25px;
-	}
-
-	.eva-checkAlternativa
-	{
-		width:3%;
-	}
-
-	.eva-textoAlternativa
-	{
-		width:94%;
-
-	}
-
-	.eva-letraAlternativa{
-		width:3%;
-	}
-
-	.eva-parejas
-	{
-		list-style-type: none;
-		margin:0;
-		padding:0;
-	}
-
-	.eva-Indicadores{
-		padding:25px;
-	}
-
-	.eva-btnMinPreg{
-		border-radius: 26px !important;
-
-	}
-
-	</style>
 
 	<div id="eva-leftSection">
 
@@ -155,7 +54,7 @@
 
 					@if( !isset( $val["respuestaAlumno"]->respuesta ) )
 
-						<div data-id="<?= $test['id'].'_'.$val['data']->id.'_'.$val['data']->tipo ?>" class="jumbotron eva-boxPregunta"> 
+						<div  data-id="<?= $test['id'].'_'.$val['data']->id.'_'.$val['data']->tipo ?>" class="jumbotron eva-boxPregunta"> 
 
 					@else
 

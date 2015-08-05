@@ -16,10 +16,11 @@
         <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
         <script src="{{ asset('assets/js/evaluacion/funciones.js') }}"></script>
         <script src="{{ asset('assets/js/evaluacion/cronometro.js') }}"></script>
+        <script src="{{ asset('assets/js/scrolling-nav.js') }}"></script>          
 
     </head>
   
-    <body>
+    <body data-spy="scroll" data-target=".list-group-item" data-offset="50">
 
     <style>
         #container-alumno{
