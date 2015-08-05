@@ -32,15 +32,15 @@
 
 		Route::get('/home', 	'Home\HomeController@index');
 		Route::any('/logout', 	'Login\LoginController@logout');
-		Route::any('/eventos', 	'Calendario\EventosController@EventosJson');
 
+		Route::any('/eventos', 	'Calendario\EventosController@EventosJson');
 		Route::any('/eventos/{id}', 	'Calendario\EventosController@getEvento')->where('id', '[0-9]+');
 
-		Route::get('/evaluacion/{id}/{action?}', 'Evaluacion\EvaluacionController@index');
-		Route::post('evaluacion', ['as' => 'evaluacion', 'uses' => 'Evaluacion\EvaluacionController@procesarRespuesta']);
+		
+
 		# Acceso ROL SUPER ADMINISTRADOR
 		Route::group(['middleware' => 'isSuperAdmin'], function(){
-			Route::get(	'/alumno/evaluacion', 	'Alumno\AlumnoController@index');
+			//Route::get(	'/alumno/evaluacion', 	'Alumno\AlumnoController@index');
 
 		});
 
@@ -58,6 +58,11 @@
 		Route::group(['middleware' => 'isInsGeneral'], function(){ /**/ });
 		Route::group(['middleware' => 'isApoderado'], function(){ /**/ });
 		
-		Route::group(['middleware' => 'isAlumno'], function(){ /**/ });		
+		Route::group(['middleware' => 'isAlumno'], function(){ 
+
+			Route::get('/evaluacion/{id}/{action?}', 'Evaluacion\EvaluacionController@index');
+			Route::post('evaluacion', ['as' => 'evaluacion', 'uses' => 'Evaluacion\EvaluacionController@procesarRespuesta']);
+
+		});		
 		
 	});

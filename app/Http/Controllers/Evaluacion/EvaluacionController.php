@@ -97,7 +97,18 @@ class EvaluacionController extends Controller
 
                 case 2:
 
+                    $dataTest = Test::find($data);
 
+                    if(count($dataTest)>0){
+                        $datos['estado']    = true;
+                        $datos['duracion']  = $dataTest->duracion;
+                        $datos['horas']     = round( ($dataTest->duracion/60),0,PHP_ROUND_HALF_DOWN);
+                        $datos['minutos']     = $dataTest->duracion % 60;
+                    }else{
+                        $datos['estado']    = false;
+                    }
+
+                    echo json_encode($datos);
 
                 break;
             }

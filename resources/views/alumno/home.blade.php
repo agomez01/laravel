@@ -11,14 +11,25 @@
 
 	
 <div class="row">
-    <div class="col-md-3 col-sm-4 sidebar-left" >        
-    	<ul class="nav nav-pills nav-stacked">
-    	<li class="reloj"><div id="reloj">00 : 00 : 00</div><div class="fecha"><img src="../assets/img/reloj.png" alt=""><script type="text/javascript"> var meses = new Array 
-    	("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"); 
-    	var diasSemana = new Array("Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"); 
-    	var f=new Date(); document.write(diasSemana[f.getDay()] + " " + f.getDate() + " de " + meses[f.getMonth()] + " de " + f.getFullYear()); </script></div></li>
-			  <li role="presentation" ><a class="alu-biblio" 	href="#"><img src="../assets/img/biblioteca.png" alt="">Biblioteca Alumno</a></li>
+    <div class="col-md-3 col-sm-4 sidebar-left" >
 
+    	<ul class="nav nav-pills nav-stacked">
+    		<li class="reloj">
+    			<div id="reloj">00 : 00 : 00</div>
+    			<div class="fecha">
+    				<img src="../assets/img/reloj.png" alt="">
+
+    				<script type="text/javascript"> 
+    					var meses = new Array ("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"); 
+    					var diasSemana = new Array("Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"); 
+    					var f=new Date(); document.write(diasSemana[f.getDay()] + " " + f.getDate() + " de " + meses[f.getMonth()] + " de " + f.getFullYear());
+    				</script>
+    			</div>
+    		</li>
+
+			<li role="presentation" ><a class="alu-biblio" 	href="#">
+			  	<img src="../assets/img/biblioteca.png" alt="">Biblioteca Alumno</a>
+			</li>
 		</ul>
 
 		<div class="dropdown" id="open-test-alumno">
