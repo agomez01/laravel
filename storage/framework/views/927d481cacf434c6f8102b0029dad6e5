@@ -267,7 +267,7 @@
 
 		    	<?php else: ?>
 
-		    		<a href="#<?= $test['id'].'_'.$val['data']->id.'_'.$val['data']->tipo ?>"><button style="background-color: #0BE409;" type="button" class="btn btn-default eva-btnMinPreg" id="eva-minPregNum<?php echo e($val['data']->id); ?>"><?php echo e($val["numero"]); ?></button>
+		    		<a href="#<?= $test['id'].'_'.$val['data']->id.'_'.$val['data']->tipo ?>"><button style="background-color: #0BE409;" type="button" class="btn btn-default page-scroll eva-btnMinPreg" id="eva-minPregNum<?php echo e($val['data']->id); ?>"><?php echo e($val["numero"]); ?></button>
 
 		    	<?php endif; ?>
 		    	    
@@ -280,4 +280,3 @@
     </div>
 
 <?php endif; ?>
-

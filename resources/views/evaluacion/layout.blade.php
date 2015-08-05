@@ -26,6 +26,10 @@
         #container-alumno{
             width:100%; margin:0; padding:0;
         }
+
+         body {
+        background:#f0f0f0 !important;
+        }
     </style>
 
     <div id="wrap">

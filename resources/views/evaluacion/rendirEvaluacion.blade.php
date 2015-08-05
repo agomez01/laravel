@@ -9,32 +9,32 @@
 
 		<section id="eva-membretePrueba" >
 			<ul class="list-group">
-			  <li class="list-group-item">
-			  		<h2 style="text-align: center;">
+			  <li class="list-group-item info-general">
+			  		<h3>
 
 						{{ $test["nombre"] }}
 
-					</h2>
+					</h3>
 			  </li>
-			  <li class="list-group-item">
+			  <li class="list-group-item info-alumno">
 
-				  <h5>
+				  <p>
 				  		Alumno: {{ Session::get('full-name') }}
-				  </h5>
+				  </p>
 
-				  <h5>
+				  <p>
 				  		Curso: {{ Session::get('nombre-curso') }}
-				  </h5>
+				  </p>
 
-				  <h5>
+				  <p>
 				  		Fecha: {{  date("d-m-Y", time())  }}
-				  </h5>
+				  </p>
 
 			  </li>
-			  <li class="list-group-item">
+			  <li class="list-group-item info-instucciones">
 			  
-			  	<h5><strong>Instrucciones</strong></h5>
-			  	<?=  $test["instrucciones"];  ?>
+			  	<strong>INSTRUCCIONES</strong><br><br>
+			  	<p> <?=  $test["instrucciones"];  ?></p>
 			  </li>
 			  
 			</ul>
@@ -98,7 +98,7 @@
 
 									@else
 
-										Respuesta Enviada!!
+										<button class="btn btn-success btn-md"> Respuesta Enviada!!</button>
 
 									@endif
 						    </p>
@@ -120,13 +120,13 @@
 		<section class="eva-Indicadores" >
 			
 			<ul class="list-group">
-				<li class="list-group-item">
+				<li class="list-group-item info-prueba">
 					Id Evaluación: {{ $test["id"] }}<br>
 					Profesor: {{ $test["autor"] }}
 				</li>
 			
-				<li class="list-group-item">
-					Tiempo disponible:<br><span id='duracion_test'>{{ $test["duracion"] }} minutos</span>
+				<li class="list-group-item info-tiempo">
+					Tiempo disponible: <span id='duracion_test'>{{ $test["duracion"] }} minutos</span>
 					<br><br>
 					Tiempo Restante: <span id='cronometro'></span>
 				</li>
@@ -145,9 +145,9 @@
 		<section class="eva-controles" >
 			<h3 style="text-align: center;">
 
-				<a class="btn btn-primary btn-lg" href="javasctipt:void(0)" role="button" id="eva-btnEnviarTodo">Enviar Todo y Terminar</a>
+				<a class="btn btn-primary btn-md" href="javasctipt:void(0)" role="button" id="eva-btnEnviarTodo">Enviar Todo y Terminar</a>
 
-				<a class="btn btn-primary btn-lg" role="button" id="pausa">Pausar</a>
+				<a class="btn btn-default btn-md" role="button" id="pausa">Pausar <strong style="font-weight:extra-bold;">||</strong></a>
 
 
 

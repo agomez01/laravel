@@ -261,119 +261,128 @@
         padding 5px 20px 0 0
         margin 5px 0 0 0        
         
-            
+    /*EVALUACION*/  
+
+    #eva-leftSection
+        padding 20px 5px 0 20px
+        margin 0 0 0 0
+        width  70%
+        float left
+        height  100vh    
+
+    #eva-rightSection
+        width  20%
+        float left          
+        height 100%    
+    
+    .eva-Indicadores
+        padding 20px 10px 0 0
+        margin 0 0 0 0
+        height 100%
+        position fixed
+        background #fff    
+    
+    .info-prueba
+        padding 22px 10px 23px 15px
+        background #208BD4
+        color #fff    
+    
+    .info-tiempo
+        padding 3px 10px 2px 15px
+        background #F0F0F0
+        color #777    
+    
+    .info-tiempo li
+        margin 4px 0 4px 0    
+    
+    #cronometro
+        font-size 30px
+        color #D23232
+        font-weight bold
+        opacity 0.9    
+    
+    #duracion_test
+        font-size 16px        
+    
+    .info-general
+        
+        padding 14px 0 14px 20px
+        background #208BD4
+        color #fff
+        text-align left !important    
+    
+    .info-general h3
+        font-weight normal   
+    
+    .info-alumno
+        background #F0F0F0
+        color 777
+        font-weight normal 
+    
+    .info-alumno p
+        font-weight normal        
+        margin 2px 0 2px 0   
+    
+    .info-instucciones span
+        font-weight normal
+        font-size 14px !important    
+
+    #eva-membretePrueba        
+        border-bottom  1px dashed #CCC     
+
+    .eva-boxPregunta    
+        border-radius  5px
+        padding  5px !important
+        border  1px dashed #CCC
+        background #fff    
+
+    .eva-boxPreguntaResp
+        border-radius  5px
+        padding  5px !important
+        border  1px dashed #CCC
+        background #fff    
+
+    .eva-btnEnviar
+        font-size 14px !important
+
+    .eva-casillaImagen
+        text-align  center    
+
+    .eva-casillaImagen img
+        display  block margin  0 auto    
+
+    .eva-casillaCuerpo   
+        padding 25px    
+
+    .eva-checkAlternativa    
+        width 3%
+        
+    .eva-textoAlternativa    
+        width 94%   
+
+    .eva-letraAlternativa
+        width 3%    
+
+    .eva-parejas    
+        list-style-type  none
+        margin 0
+        padding 0       
+
+    .eva-btnMinPreg
+        width 40px
+        height 40px
+        border-radius  26px !important
+        padding 0
+        margin 0 0 3px 0       
+
+    .eva-btnMinPreg focus
+        background #337AB7
+        color #fff         
+    /**/        
           
         
 @media screen and (min-width: 768px) {    
-    /*EVALUACION*/
-    #eva-leftSection
-    {
-
-        padding:10px;
-        width: 80%;
-        float:left;
-        height: 100vh;
-
-    }
-
-    #eva-rightSection
-    {
-
-        width: 20%;
-        float:left;
-        background: #EEE;   
-        height: 100vh;
-
-    }
-
-    #eva-membretePrueba
-    {
-        
-        border-bottom: 1px dashed #CCC; 
-
-    }
-
-    .eva-boxPregunta
-    {
-        border-radius: 5px;
-        padding: 5px !important;
-        border: 1px dashed #CCC;
-
-    }
-
-    .eva-boxPreguntaResp{
-        border-radius: 5px;
-        padding: 5px !important;
-        border: 1px dashed #CCC;
-    }
-
-    .eva-btnEnviar
-    {
-
-        font-size:14px !important;
-
-    }
-
-
-    .eva-casillaImagen
-    {
-
-        text-align: center;
-
-    }
-
-    .eva-casillaImagen:img 
-    {
-
-        display: block; margin: 0 auto;
-
-    }
-
-    .eva-casillaCuerpo
-    {
-        padding:25px;
-    }
-
-    .eva-checkAlternativa
-    {
-        width:3%;
-    }
-
-    .eva-textoAlternativa
-    {
-        width:94%;
-
-    }
-
-    .eva-letraAlternativa{
-        width:3%;
-    }
-
-    .eva-parejas
-    {
-        list-style-type: none;
-        margin:0;
-        padding:0;
-    }
-
-    .eva-Indicadores{
-        padding:25px;
-        position:fixed;
-    }
-
-    .eva-btnMinPreg{
-        width:40px;
-        height:40px;
-        border-radius: 26px !important;
-        padding:0;
-        margin:0 0 3px 0;
-    }
     
-    .eva-btnMinPreg:focus{
-        background:#337AB7;
-        color:#fff;
-    }     
-    /**/
 
     .dropdown-menu{ 
         text-align: center;       
@@ -760,6 +769,14 @@
         border-color: #26ACDF;
         border-top: 0px;   
     }
+    /*evaluacion*/
+     #eva-rightSection{
+        float:left;
+        position:fixed;
+        vertical-align:top;
+        top:0;
+        
+     }    
 }    
 
 
