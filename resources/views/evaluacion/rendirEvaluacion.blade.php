@@ -143,69 +143,76 @@
 		</secction>
 
 		<section>
+
+			@if (count($preguntas) > 0 )
 			
-			@foreach ($preguntas as $pos=>$val)
+				@foreach ($preguntas as $pos=>$val)
 
 
-				{!! Form::open( ['route' => ['evaluacion',''], 'method' => 'UPDATE', 'id' => 'resp_'.$val["data"]->id ] ) !!}
+					{!! Form::open( ['route' => ['evaluacion',''], 'method' => 'UPDATE', 'id' => 'resp_'.$val["data"]->id ] ) !!}
 
-				{!! Form::close() !!}
+					{!! Form::close() !!}
 
-				@if( !isset( $val["respuestaAlumno"]->respuesta ) )
+					@if( !isset( $val["respuestaAlumno"]->respuesta ) )
 
-					<div data-id="<?= $test['id'].'_'.$val['data']->id.'_'.$val['data']->tipo ?>" class="jumbotron eva-boxPregunta"> 
+						<div data-id="<?= $test['id'].'_'.$val['data']->id.'_'.$val['data']->tipo ?>" class="jumbotron eva-boxPregunta"> 
 
-				@else
+					@else
 
-					<div data-id="<?= $test['id'].'_'.$val['data']->id.'_'.$val['data']->tipo ?>" class="jumbotron eva-boxPreguntaResp"> 
+						<div data-id="<?= $test['id'].'_'.$val['data']->id.'_'.$val['data']->tipo ?>" class="jumbotron eva-boxPreguntaResp"> 
 
-				@endif
+					@endif
 
-				
 					
-						@if ($val["recurso"] != "")
-						    
-						<div class="eva-casillaImagen">					    
+						
+							@if ($val["recurso"] != "")
+							    
+							<div class="eva-casillaImagen">					    
 
-							@include('evaluacion/preguntas', ['test' => $test , 'pregunta' => $val, 'seccion' => 'recurso'])
+								@include('evaluacion/preguntas', ['test' => $test , 'pregunta' => $val, 'seccion' => 'recurso'])
+								
+							</div>
 							
-						</div>
-						
-						@endif
+							@endif
 
-						<div class="eva-casillaTexto">
+							<div class="eva-casillaTexto">
 
-							<h5>
+								<h5>
 
-								<strong> Pregunta N°{{ $val["numero"] }} - <?= $val["data"]->texto ?> </strong>
+									<strong> Pregunta N°{{ $val["numero"] }} - <?= $val["data"]->texto ?> </strong>
 
-							</h5>
+								</h5>
 
-						</div>
+							</div>
 
-						<div class="eva-casillaCuerpo">
+							<div class="eva-casillaCuerpo">
 
-							@include('evaluacion/preguntas', ['test' => $test , 'pregunta' => $val, 'seccion' => 'cuerpo'])
+								@include('evaluacion/preguntas', ['test' => $test , 'pregunta' => $val, 'seccion' => 'cuerpo'])
 
-						</div>
+							</div>
 
-						<p style="text-align:right;" id="respMessege{{ $val['data']->id }}">
+							<p style="text-align:right;" id="respMessege{{ $val['data']->id }}">
 
-								@if( !isset( $val["respuestaAlumno"]->respuesta ) ) 
+									@if( !isset( $val["respuestaAlumno"]->respuesta ) ) 
 
-									<a class="btn btn-primary btn-lg eva-btnEnviar" href="javasctipt:void(0)" role="button" >Enviar respuesta</a>
+										<a class="btn btn-primary btn-lg eva-btnEnviar" href="javasctipt:void(0)" role="button" >Enviar respuesta</a>
 
-								@else
+									@else
 
-									Respuesta Enviada!!
+										Respuesta Enviada!!
 
-								@endif
-					    </p>
-						
-				</div>
+									@endif
+						    </p>
+							
+					</div>
 
 
-			@endforeach
+				@endforeach
+
+			@else
+				No existen preguntas.
+
+			@endif
 
 		</section>
 	</div>
@@ -227,9 +234,10 @@
 			
 				<li class="list-group-item">
 					Preguntas
-
-					@include('evaluacion/preguntas', ['test' => $test , 'pregunta' => $val, 'seccion' => 'miniaturas'])
-
+					
+					@if (count($preguntas) > 0 )
+						@include('evaluacion/preguntas', ['test' => $test , 'pregunta' => $val, 'seccion' => 'miniaturas'])
+					@endif
 				</li>
 			</ul>
 			
