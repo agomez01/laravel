@@ -3,3 +3,4 @@
 .env
 _notes/
 _*
+.env.example

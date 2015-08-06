@@ -79,7 +79,7 @@
 														@endforeach
 
 													</select>
-													<span id="{{ $val->id }}">{{ $val->texto }}</span>
+													<span id="{{ $val->id }}"><?= $val->texto ?></span>
 
 												</li>
 
@@ -113,7 +113,7 @@
 														@endforeach
 
 													</select>
-													<span id="{{ $val->id }}">{{ $val->texto }}</span>
+													<span id="{{ $val->id }}"><?= $val->texto ?></span>
 
 												</li>
 
@@ -133,7 +133,7 @@
 
 										<li>
 
-											{{ $var = $var + 1 }}) <span id="{{ $val->id }}">{{ $val->texto }}  </span>
+											{{ $var = $var + 1 }}) <span id="{{ $val->id }}"><?= $val->texto ?></span>
 
 										</li>
 
@@ -178,24 +178,24 @@
 						
 						@if(isset( $pregunta["respuestaAlumno"]->respuesta ))
 
-							@if($val->id === $pregunta["respuestaAlumno"]->respuesta)					
+							@if($val->id === $pregunta["respuestaAlumno"]->respuesta)
 
-								<input name="respAlt_{{ $test['id'] }}{{ $val->pregunta }}" type="radio" value="{{ $val->id }}" checked="checked"/> 
+								<input name="respAlt_{{ $test['id'] }}{{ $val->pregunta }}"  id="R{{$val->pregunta}}{{$val->letra}}" type="radio" value="{{ $val->id }}" checked="checked"/> 
 
 							@else
 
-								<input name="respAlt_{{ $test['id'] }}{{ $val->pregunta }}" type="radio" value="{{ $val->id }}" /> 
+								<input name="respAlt_{{ $test['id'] }}{{ $val->pregunta }}" id="R{{$val->pregunta}}{{$val->letra}}" type="radio" value="{{ $val->id }}" /> 
 
 							@endif
 
 						@else
 
-							<input name="respAlt_{{ $test['id'] }}{{ $val->pregunta }}" type="radio" value="{{ $val->id }}" />
+							<input name="respAlt_{{ $test['id'] }}{{ $val->pregunta }}" id="R{{$val->pregunta}}{{$val->letra}}" type="radio" value="{{ $val->id }}" />
 
 						@endif
 
 					</td>
-					<td class="eva-textoAlternativa">{{ $val->texto }}</td>
+					<td class="eva-textoAlternativa"><label for='R{{$val->pregunta}}{{$val->letra}}'> <?= $val->texto ?></label></td>
 				</tr>
 
 				@endforeach

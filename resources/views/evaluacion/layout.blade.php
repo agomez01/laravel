@@ -16,11 +16,14 @@
         <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
         <script src="{{ asset('assets/js/evaluacion/funciones.js') }}"></script>
         <script src="{{ asset('assets/js/evaluacion/cronometro.js') }}"></script>
-        <script src="{{ asset('assets/js/scrolling-nav.js') }}"></script>          
+        <script src="{{ asset('assets/js/evaluacion/respuestas.js') }}"></script>
+        <script src="{{ asset('assets/js/scrolling-nav.js') }}"></script>        
 
     </head>
   
     <body data-spy="scroll" data-target=".list-group-item" data-offset="50">
+        
+        <input type='hidden' id='url_recursos' value='<?=URL_RECURSOS?>'>
 
     <style>
         #container-alumno{

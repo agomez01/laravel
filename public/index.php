@@ -4,9 +4,8 @@
 
 	define("PLATAFORMA", 		"desarrollo");
 	define("URL_PLATAFORMA", 	"http://localhost/sistema/desarrollo");
-
-
 	define("URL_PLATAFORMA_PRODUCCION", "http://proyecto.webescuela.cl/sistema/webclass");
+	define("URL_RECURSOS", "http://proyecto.webescuela.cl" );
 	
 /**
  * Laravel - A PHP Framework For Web Artisans
