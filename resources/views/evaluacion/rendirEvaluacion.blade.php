@@ -4,6 +4,28 @@
 
 @section ('content')
 
+	<style>
+		.cortina_pause{
+			background-color: rgba(0,0,0,0.9);
+			display: none;
+			height: 100%;
+			position: fixed;
+			width: 100%;
+			z-index: 900;
+		}
+
+		.cortina_pause > div{
+			height: 40%;
+			margin: 10% auto;
+			text-align: center;
+			width: 60%;
+		}
+
+		.btn{
+			margin: 10% auto;
+		}
+	</style>
+
 
 	<div id="eva-leftSection">
 
@@ -169,5 +191,12 @@
 
 	<input type='hidden' id='idevaluacion' value='{{ base64_encode($test["id"]) }}' />
 
+	<div class='cortina_pause'>
+		<div class='jumbotron'>
+			<h2>Evaluación pausada!</h2>
 
+			<button class='btn btn btn-primary btn-lg' 	id='btn_continuar'>Continuar</button>
+			<button class='btn btn-default btn-lg' 		id='btn_volver'>Guardar y salir</button>
+		</div>
+	</div>
 @stop

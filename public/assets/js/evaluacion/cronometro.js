@@ -11,17 +11,25 @@ $(document).ready(function(){
 	var trm 	= iniciar();
 
 
+	$(document).on('click', '#btn_continuar', function(){
 
+		$("#pausa").trigger('click');
 
-	$(document).on('click', '#pausa', function(){	
-		
+	});
+
+	$(document).on('click', '#pausa', function(){
+
 		if(!pausa){
 			clearInterval(trm);
 			$(this).text('Continuar');
+
+			$(".cortina_pause").show();
+			
 			pausa = true;
 		}else{
 			trm = iniciar();
 			$(this).text('Pausa');
+			$(".cortina_pause").hide();
 			pausa = false;
 		}
 

@@ -7,7 +7,7 @@
         <meta name="csrf-token" content="<?php echo csrf_token() ?>" />
         <link rel="shortcut icon" href="favicon.ico">
 
-        <title>@yield('title', 'WebClass')</title>
+        <title>Webclass | @yield('title', 'WebClass')</title>
 
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap.min.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
@@ -22,7 +22,7 @@
     </head>
   
     <body data-spy="scroll" data-target=".list-group-item" data-offset="50">
-        
+
         <input type='hidden' id='url_recursos' value='<?=URL_RECURSOS?>'>
 
     <style>
