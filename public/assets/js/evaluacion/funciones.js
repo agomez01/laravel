@@ -23,20 +23,24 @@ $('document').ready(function(){
 
 		$(document).on('click', '#eva-btnEnviarTodo',  function(){
 
-			$("#eva-lanzaLoader").click(); //debe mostrar el loader
+			
 
 			if (confirm("¿Estás seguro que deseas enviar todo y terminar?")){
-
+				
+				$("#eva-lanzaLoader").click(); //debe mostrar el loader
 
 				var cantPreg = 0;
+
 				$.each($('.eva-boxPregunta'), function (){
-
 					cantPreg++;
-
 				});
 
+				console.log("np:"+cantPreg)
+
 				var cant = 0;
+
 				$.each($('.eva-boxPregunta'), function (){
+
 						var cadenaParametros = $(this).data('id'); //datos de pregunta que estoy respondiendo (test, pregunta, tipo)
 						var parametrosArray  = cadenaParametros.split('_'); //datos de la pregunta en un arreglo.
 
@@ -52,14 +56,16 @@ $('document').ready(function(){
 						cant++;
 
 						//console.log(cantPreg, cant);
-						
-						setTimeout(
-						   function(){
-						      finalizarLaEvaluacion(test);
-					    }, 10000);
+						console.log(respuestaAlumno);
 
-						
+
+						/*setTimeout(
+						   function(){
+						      
+					    }, 1000);*/
 				});
+
+				finalizarLaEvaluacion(test);
 
 			}
 
@@ -73,8 +79,6 @@ $('document').ready(function(){
 
 function finalizarLaEvaluacion(test)
 {
-
-	
 	location.href = "/home";
 
 }
@@ -94,7 +98,7 @@ function enviarRespuesta(test, pregunta, tipoPregunta, respuestaAlumno){
 		$.ajax({
 
 			      url: urlPost,
-			      async: true,
+			      async: false,
 			      type: "post",
 			      data: {'_token': token, 'test':test, 'pregunta': pregunta, 'tipoPregunta':tipoPregunta, 'respuestaAlumno':respuestaAlumno },
 			      success: function(resp){

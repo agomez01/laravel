@@ -167,7 +167,7 @@
 		<section class="eva-controles" >
 			<h3 style="text-align: center;">
 
-				<a class="btn btn-primary btn-md" href="javasctipt:void(0)" role="button" id="eva-btnEnviarTodo">Enviar Todo y Terminar</a>
+				<a class="btn btn-primary btn-md"  role="button" id="eva-btnEnviarTodo">Enviar Todo y Terminar</a>
 
 				<a class="btn btn-default btn-md" role="button" id="pausa">Pausar <strong style="font-weight:extra-bold;">||</strong></a>
 

@@ -3,12 +3,12 @@ $(document).ready(function(){
 	
 	var pausa 	= false;
 	var tiempor	= 0;
-
+	var trm;
 
 	var evaluacion = $("#idevaluacion").val();
 	obtener_tiempo(evaluacion);
 
-	var trm 	= iniciar();
+	
 
 
 	$(document).on('click', '#btn_continuar', function(){
@@ -61,8 +61,10 @@ $(document).ready(function(){
 			dataType: 'json',
 			success: function(data){
 				if(data.estado){
+
 					timer.horas 	= data.horas;
 					timer.minutos	= data.minutos;
+					trm = iniciar();
 				}
 			}
 
