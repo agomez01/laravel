@@ -1,8 +1,6 @@
-@extends ('evaluacion/layout')
+<?php $__env->startSection('title'); ?> Rendir Evaluación <?php $__env->stopSection(); ?>
 
-@section ('title') Rendir Evaluación @stop
-
-@section ('content')
+<?php $__env->startSection('content'); ?>
 
 	<style>
 		.cortina_pause{
@@ -34,22 +32,26 @@
 			  <li class="list-group-item info-general">
 			  		<h3>
 
-						{{ $test["nombre"] }}
+						<?php echo e($test["nombre"]); ?>
+
 
 					</h3>
 			  </li>
 			  <li class="list-group-item info-alumno">
 
 				  <p>
-				  		Alumno: {{ Session::get('full-name') }}
+				  		Alumno: <?php echo e(Session::get('full-name')); ?>
+
 				  </p>
 
 				  <p>
-				  		Curso: {{ Session::get('nombre-curso') }}
+				  		Curso: <?php echo e(Session::get('nombre-curso')); ?>
+
 				  </p>
 
 				  <p>
-				  		Fecha: {{  date("d-m-Y", time())  }}
+				  		Fecha: <?php echo e(date("d-m-Y", time())); ?>
+
 				  </p>
 
 			  </li>
@@ -65,42 +67,44 @@
 
 		<section>
 
-			@if (count($preguntas) > 0 )
+			<?php if(count($preguntas) > 0 ): ?>
 			
-				@foreach ($preguntas as $pos=>$val)
+				<?php foreach($preguntas as $pos=>$val): ?>
 
 
-					{!! Form::open( ['route' => ['evaluacion',''], 'method' => 'UPDATE', 'id' => 'resp_'.$val["data"]->id ] ) !!}
+					<?php echo Form::open( ['route' => ['evaluacion',''], 'method' => 'UPDATE', 'id' => 'resp_'.$val["data"]->id ] ); ?>
 
-					{!! Form::close() !!}
 
-					@if( !isset( $val["respuestaAlumno"]->respuesta ) )
+					<?php echo Form::close(); ?>
+
+
+					<?php if( !isset( $val["respuestaAlumno"]->respuesta ) ): ?>
 
 						<div  data-id="<?= $test['id'].'_'.$val['data']->id.'_'.$val['data']->tipo ?>" class="jumbotron div_pregunta eva-boxPregunta"> 
 
-					@else
+					<?php else: ?>
 
 						<div data-id="<?= $test['id'].'_'.$val['data']->id.'_'.$val['data']->tipo ?>" class="jumbotron div_pregunta eva-boxPreguntaResp"> 
 
-					@endif
+					<?php endif; ?>
 
 					
 						
-							@if ($val["recurso"] != "")
+							<?php if($val["recurso"] != ""): ?>
 							    
 							<div class="eva-casillaImagen">					    
 
-								@include('evaluacion/preguntas', ['test' => $test , 'pregunta' => $val, 'seccion' => 'recurso'])
+								<?php echo $__env->make('evaluacion/preguntas', ['test' => $test , 'pregunta' => $val, 'seccion' => 'recurso'], array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 								
 							</div>
 							
-							@endif
+							<?php endif; ?>
 
 							<div class="eva-casillaTexto">
 
 								<h5>
 
-									<strong> Pregunta N°{{ $val["numero"] }} - <?= $val["data"]->texto ?> </strong>
+									<strong> Pregunta N°<?php echo e($val["numero"]); ?> - <?= $val["data"]->texto ?> </strong>
 
 								</h5>
 
@@ -108,36 +112,36 @@
 
 							<div class="eva-casillaCuerpo">
 
-								@include('evaluacion/preguntas', ['test' => $test , 'pregunta' => $val, 'seccion' => 'cuerpo'])
+								<?php echo $__env->make('evaluacion/preguntas', ['test' => $test , 'pregunta' => $val, 'seccion' => 'cuerpo'], array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
 							</div>
 
-							<p style="text-align:right;" id="respMessege{{ $val['data']->id }}">
+							<p style="text-align:right;" id="respMessege<?php echo e($val['data']->id); ?>">
 
-									@if( !isset( $val["respuestaAlumno"]->respuesta ) ) 
+									<?php if( !isset( $val["respuestaAlumno"]->respuesta ) ): ?> 
 
 										<a class="btn btn-primary btn-lg eva-btnEnviar" href="javasctipt:void(0)" role="button" >Enviar respuesta</a>
 
-									@else
+									<?php else: ?>
 
 										<button class="btn btn-success btn-md"> Respuesta Enviada!!</button>
 
-									@endif
+									<?php endif; ?>
 						    </p>
 							
 					</div>
 
 
-				@endforeach
+				<?php endforeach; ?>
 	
 				<button class='btn btn-success' id='pag_ant' disabled><span class='glyphicon glyphicon-backward' aria-hidden="true"></span></button>
 				<button class='btn btn-info' 	id='num_pag'>1</button>
 				<button class='btn btn-success'	id='pag_sig'><span class='glyphicon glyphicon-forward' aria-hidden="true"></span></button>
 
-			@else
+			<?php else: ?>
 				No existen preguntas.
 
-			@endif
+			<?php endif; ?>
 
 		</section>
 	</div>
@@ -147,12 +151,13 @@
 			
 			<ul class="list-group">
 				<li class="list-group-item info-prueba">
-					Id Evaluación: {{ $test["id"] }}<br>
-					Profesor: {{ $test["autor"] }}
+					Id Evaluación: <?php echo e($test["id"]); ?><br>
+					Profesor: <?php echo e($test["autor"]); ?>
+
 				</li>
 			
 				<li class="list-group-item info-tiempo">
-					Tiempo disponible: <span id='duracion_test'>{{ $test["duracion"] }} minutos</span>
+					Tiempo disponible: <span id='duracion_test'><?php echo e($test["duracion"]); ?> minutos</span>
 					<br><br>
 					Tiempo Restante: <span id='cronometro'></span>
 				</li>
@@ -160,9 +165,9 @@
 				<li class="list-group-item">
 					Preguntas
 					
-					@if (count($preguntas) > 0 )
-						@include('evaluacion/preguntas', ['test' => $test , 'pregunta' => $val, 'seccion' => 'miniaturas'])
-					@endif
+					<?php if(count($preguntas) > 0 ): ?>
+						<?php echo $__env->make('evaluacion/preguntas', ['test' => $test , 'pregunta' => $val, 'seccion' => 'miniaturas'], array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+					<?php endif; ?>
 				</li>
 			</ul>
 			
@@ -171,7 +176,7 @@
 		<section class="eva-controles" >
 			<h3 style="text-align: center;">
 
-				<a class="btn btn-primary btn-md"  role="button" id="eva-btnEnviarTodo" data-test='{{ $test["id"] }}'>Enviar Todo y Terminar</a>
+				<a class="btn btn-primary btn-md"  role="button" id="eva-btnEnviarTodo" data-test='<?php echo e($test["id"]); ?>'>Enviar Todo y Terminar</a>
 
 				<a class="btn btn-default btn-md" role="button" id="pausa">Pausar <span class='glyphicon glyphicon-pause' aria-hidden="true"></span></a>
 
@@ -186,7 +191,7 @@
 	<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
 	  <div class="modal-dialog modal-sm">
 	    <div class="modal-content" style="text-align:center; padding:25px;">
-	      <img src="{{ asset('assets/img/loader.gif') }}" style="width:25%;"/ >
+	      <img src="<?php echo e(asset('assets/img/loader.gif')); ?>" style="width:25%;"/ >
 	      <br>
 	      Guardando respuestas...
 	    </div>
@@ -194,11 +199,11 @@
 	</div>
 	
 
-	<input type='hidden' id='porpagina' value="{{ $test['porpagina'] }}">
+	<input type='hidden' id='porpagina' value="<?php echo e($test['porpagina']); ?>">
 	<input type='hidden' id='pag' value="1">
 
-	<input type='hidden' id='idevaluacion' value='{{ base64_encode($test["id"]) }}' />
-	<input type="hidden" name="_token" value="{{ csrf_token() }}" id='tokenEvaluacion'>
+	<input type='hidden' id='idevaluacion' value='<?php echo e(base64_encode($test["id"])); ?>' />
+	<input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>" id='tokenEvaluacion'>
 
 	<div class='cortina_pause'>
 		<div class='jumbotron'>
@@ -208,4 +213,5 @@
 			<button class='btn btn-default btn-lg' 		id='btn_pausar_salir'>Guardar y salir</button>
 		</div>
 	</div>
-@stop
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('evaluacion/layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

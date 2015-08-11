@@ -22,7 +22,7 @@
 	Route::post('/ajax', 'PruebaController@ajax');
 	
 
-	# Ruta enlace externo
+	# Ruta enlace externo, sin TOKEN
 	Route::post('/externo', 'Login\LoginController@logexterno');
 
 

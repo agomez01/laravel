@@ -1,11 +1,12 @@
 $(document).ready(function(){
 
-	
-	var pausa 	= false;
-	var tiempor	= 0;
+	var infinito	= false;
+	var pausa 		= false;
+	var tiempor		= 0;
 	var trm;
 
 	var evaluacion = $("#idevaluacion").val();
+	
 	obtener_tiempo(evaluacion);
 
 	
@@ -36,19 +37,22 @@ $(document).ready(function(){
 	});
 
 	function iniciar(){
-		return setInterval(function(){
-			timer.actualizar();			
 
-			var tiempo = timer.imprimir();
+		if(!infinito){
+			return setInterval(function(){
+				timer.actualizar();			
 
-			$("#cronometro").text(tiempo);
+				var tiempo = timer.imprimir();
 
-			if(timer.terminar){
-				$("#eva-membretePrueba").hide();
-				clearInterval(trm);
-				alert("termino la prueba!");
-			}
-		},1000);
+				$("#cronometro").text(tiempo);
+
+				if(timer.terminar){
+					$("#eva-membretePrueba").hide();
+					clearInterval(trm);
+					alert("termino la prueba!");
+				}
+			},1000);
+		}
 	}
 
 	function obtener_tiempo(ev){
@@ -62,9 +66,20 @@ $(document).ready(function(){
 			success: function(data){
 				if(data.estado){
 
-					timer.horas 	= data.horas;
-					timer.minutos	= data.minutos;
-					trm = iniciar();
+					if(!data.infinito){
+
+						timer.horas 	= data.horas;
+						timer.minutos	= data.minutos;
+						trm = iniciar();
+
+						infinito = false;
+					}else{
+
+						$("#cronometro").text('Sin tiempo.');
+						infinito = true;
+					}
+
+					
 				}
 			}
 

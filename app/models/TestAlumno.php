@@ -14,6 +14,7 @@
          * @var string
          */
         protected $table = 'test_alumno';
+        public $timestamps = false;
 
         public static function getTestActivosDelAlumno($idalumno,$curso)
         {
@@ -60,7 +61,6 @@
                         ->get();
 
             return $data;
-
         }
 
 

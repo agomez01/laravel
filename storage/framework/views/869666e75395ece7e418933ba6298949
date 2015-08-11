@@ -1,0 +1,7 @@
+<li><a  class="cuaderno" href="<?php echo e(Salir::link('alumno/mis_clases.php')); ?>"  target='blank'>Mis Cuadernos</a></li>
+<li><a class="misnotas" href="<?php echo e(Salir::link('libro_clases_alumno/notas_alumno.php')); ?>" target='blank'>Mis Notas</a></li>
+<li><a class="miasistencia" href="<?php echo e(Salir::link('libro_clases_alumno/asistencia_alumno.php')); ?>" target='blank'>Mi Asistencia</a></li>
+<li><a class="anotaciones" href="<?php echo e(Salir::link('libro_clases_alumno/anotaciones_alumno.php')); ?>" target='blank'>Mis anotaciones</a></li>
+<li><a class="erecursos" href="<?php echo e(Salir::link('recursos/buscadoralumnos.php?page=0')); ?>" target='blank'>Explorar Recursos</a></li>
+<li><a class="comunicacion" href="<?php echo e(Salir::link('mensajeria')); ?>" target='blank'>Comunicación</a></li>                        
+                        

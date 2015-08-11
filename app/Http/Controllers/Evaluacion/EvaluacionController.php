@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Evaluacion;
 
 
 use App\models\Test;
+use App\models\TestAlumno;
 use App\models\TestPregunta;
 use App\models\Prueba;
 use App\models\Pregunta;
@@ -91,6 +92,8 @@ class EvaluacionController extends Controller
                         $test["nivel"]       = $dataTest->miPrueba->miSector->miNivel->nombre;
                         $test["asignatura"]  = $dataTest->miPrueba->miSector->nombre;
                         $test["duracion"]    = $dataTest->duracion;
+                        $test["porpagina"]    = $dataTest->preg_por_pag;
+
                         //dd($preguntas);
                         return view('evaluacion/rendirEvaluacion')->with('test', $test)->with('preguntas', $preguntas);
                 break;
@@ -99,17 +102,146 @@ class EvaluacionController extends Controller
 
                     $dataTest = Test::find($data);
 
+                    $testAlumno = TestAlumno::where('test', $dataTest->id)
+                                            ->where('alumno', Session::get('idalumno'))->first();
+                    
+
                     if(count($dataTest)>0){
-                        $datos['estado']    = true;
-                        $datos['duracion']  = $dataTest->duracion;
-                        $datos['horas']     = round( ($dataTest->duracion/60),0,PHP_ROUND_HALF_DOWN);
-                        $datos['minutos']     = $dataTest->duracion % 60;
+                        
+                        if (!$dataTest->tiempo_infinito) {
+
+                            if($testAlumno->minutos > 0){
+                                $datos['duracion']  = ($dataTest->duracion - $testAlumno->minutos);
+                            }else{
+                                $datos['duracion']  = $dataTest->duracion;
+                            }
+
+                            // obtenemos la hora de este modo ya que no funcionó el round y PHP_ROUND_HALF_DOWN !
+                            $horas = $datos['duracion'] / 60;
+                            $horas = explode('.', $horas);
+                            $horas = $horas[0];
+
+                            $datos['estado']    = true;
+                            $datos['horas']     = $horas;
+                            $datos['minutos']   = $datos['duracion'] % 60;
+                            $datos['infinito']  = false;
+                        }else{
+                            $datos['estado']    = true;
+                            $datos['infinito']  = true;
+                        }
+                        
                     }else{
                         $datos['estado']    = false;
                     }
 
                     echo json_encode($datos);
 
+                break;
+
+                case 3:
+                    # OBTENER ESTADO DE EVALUACION
+
+                    $test = TestAlumno::where('test', $data)
+                                        ->where('alumno', Session::get('idalumno'))->first();
+
+                    $data = array();
+
+                    if($test->realizado == 0){
+                        if($test->t_inicio == 0){
+
+                            $test->t_inicio = time();
+                            $test->save();
+
+                            $data['inicio'] = true;
+                        }
+
+                        $data['realizado'] = false;
+                    }else{
+                        $data['realizado'] = true;
+                    }
+
+
+                    echo json_encode($data);
+
+                break;
+
+                case 4:
+                    # FINALIZAR EVALUACION
+                    
+                    $datos = array();
+                    
+                    $test = TestAlumno::where('test', $data)
+                                        ->where('alumno', Session::get('idalumno'))->first();
+
+                    if($test->realizado != 1){
+
+                        $test->realizado = 1;
+                        $test->t_termino = time();
+
+                        if($test->save()){
+                            $datos['estado'] = true;
+                        }else{
+                            $datos['error'] = 'Error al finalizar test.';
+                            $datos['estado'] = false;
+                        }
+
+                    }else{
+                        $datos['error'] = 'Test ya se encuentra cerrado.';
+                        $datos['estado'] = false;
+                    }
+                    
+                    echo json_encode($datos);
+
+                break;
+
+                case 5:
+                    # PAUSAR EVALUACION
+
+                    $datos = array();
+
+                    $test = TestAlumno::where('test', $data)
+                                        ->where('alumno', Session::get('idalumno'))->first();
+
+
+
+                    if($test->realizado == 1){
+
+                        $datos['error'] = 'Test ya se encuentra cerrado.';
+                        $datos['estado'] = false;
+
+                    }else{
+
+                        if($test->minutos > 0){
+
+                            $dataTest       = Test::find($data);
+
+                            $duracion = $dataTest->duracion;
+
+
+
+                            $test->t_inicio ;
+
+                        }
+
+                        $test->t_pausa = time();
+                        
+
+
+
+
+
+
+                        if($test->save()){
+                            $datos['estado'] = true;
+                        }else{
+                            $datos['error'] = 'Error al pausar test.';
+                            $datos['estado'] = false;
+                        }
+                    }
+
+                       
+
+                    echo json_encode($datos);
                 break;
             }
             
