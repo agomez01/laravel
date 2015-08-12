@@ -60,9 +60,14 @@
 		
 		Route::group(['middleware' => 'isAlumno'], function(){ 
 
-			Route::get('/evaluacion/{id}/{action?}', 'Evaluacion\EvaluacionController@index');
-			Route::post('evaluacion', ['as' => 'evaluacion', 'uses' => 'Evaluacion\EvaluacionController@procesarRespuesta']);
-
+			
+			
+			
 		});		
+
+		Route::get('/evaluacion/{id}/{action?}', 'Evaluacion\EvaluacionController@index');
+		Route::post('evaluacion', ['as' => 'evaluacion', 'uses' => 'Evaluacion\EvaluacionController@procesarRespuesta']);
+
+
 		
 	});

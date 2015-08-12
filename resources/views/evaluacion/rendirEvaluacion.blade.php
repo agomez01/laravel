@@ -73,27 +73,26 @@
 					{!! Form::open( ['route' => ['evaluacion',''], 'method' => 'UPDATE', 'id' => 'resp_'.$val["data"]->id ] ) !!}
 
 					{!! Form::close() !!}
-
+					
+					
+					
 					@if( !isset( $val["respuestaAlumno"]->respuesta ) )
 
+						
 						<div  data-id="<?= $test['id'].'_'.$val['data']->id.'_'.$val['data']->tipo ?>" class="jumbotron div_pregunta eva-boxPregunta"> 
+						
 
 					@else
-
-						<div data-id="<?= $test['id'].'_'.$val['data']->id.'_'.$val['data']->tipo ?>" class="jumbotron div_pregunta eva-boxPreguntaResp"> 
-
-					@endif
-
-					
 						
-							@if ($val["recurso"] != "")
-							    
-							<div class="eva-casillaImagen">					    
+						
+						<div data-id="<?= $test['id'].'_'.$val['data']->id.'_'.$val['data']->tipo ?>" class="jumbotron div_pregunta eva-boxPreguntaResp"> 
+						
 
-								@include('evaluacion/preguntas', ['test' => $test , 'pregunta' => $val, 'seccion' => 'recurso'])
-								
-							</div>
-							
+					@endif					
+							@if ($val["recurso"] != "")
+								<div class="eva-casillaImagen">
+									@include('evaluacion/preguntas', ['test' => $test , 'pregunta' => $val, 'seccion' => 'recurso'])
+								</div>
 							@endif
 
 							<div class="eva-casillaTexto">
@@ -116,7 +115,7 @@
 
 									@if( !isset( $val["respuestaAlumno"]->respuesta ) ) 
 
-										<a class="btn btn-primary btn-lg eva-btnEnviar" href="javasctipt:void(0)" role="button" >Enviar respuesta</a>
+										<a class="btn btn-primary btn-lg eva-btnEnviar" role="button" >Enviar respuesta</a>
 
 									@else
 
@@ -124,15 +123,17 @@
 
 									@endif
 						    </p>
-							
 					</div>
 
 
 				@endforeach
-	
-				<button class='btn btn-success' id='pag_ant' disabled><span class='glyphicon glyphicon-backward' aria-hidden="true"></span></button>
-				<button class='btn btn-info' 	id='num_pag'>1</button>
-				<button class='btn btn-success'	id='pag_sig'><span class='glyphicon glyphicon-forward' aria-hidden="true"></span></button>
+		
+				<div id='navegacion'>
+					<button class='btn btn-success' id='pag_ant' disabled><span class='glyphicon glyphicon-backward' aria-hidden="true"></span></button>
+					<button class='btn btn-info' 	id='num_pag'>1</button>
+					<button class='btn btn-success'	id='pag_sig'><span class='glyphicon glyphicon-forward' aria-hidden="true"></span></button>
+				</div>
+					
 
 			@else
 				No existen preguntas.

@@ -27,6 +27,8 @@ $(document).ready(function(){
 			$(".cortina_pause").show();
 			
 			pausa = true;
+
+			pausarEvaluacion();
 		}else{
 			trm = iniciar();
 			$(this).text('Pausa');
@@ -50,9 +52,66 @@ $(document).ready(function(){
 					$("#eva-membretePrueba").hide();
 					clearInterval(trm);
 					alert("termino la prueba!");
+
+					guardarTerminar();
 				}
 			},1000);
 		}
+	}
+
+	function guardarTerminar(){
+
+		$("#eva-lanzaLoader").click(); //debe mostrar el loader
+
+		var cantPreg = 0;
+
+		$.each($('.eva-boxPregunta'), function (){
+			cantPreg++;
+		});
+
+		var test = $(this).attr('data-test');
+
+		var cant = 0;
+
+		$.each($('.eva-boxPregunta'), function (){
+
+				var cadenaParametros = $(this).data('id'); //datos de pregunta que estoy respondiendo (test, pregunta, tipo)
+				var parametrosArray  = cadenaParametros.split('_'); //datos de la pregunta en un arreglo.
+
+				//var test 			 = parametrosArray[0];
+				var pregunta 		 = parametrosArray[1];
+				var tipoPregunta     = parametrosArray[2];
+
+				
+				//console.log (test, pregunta, tipoPregunta);
+				respuestaAlumno = obtenerRespuestaPregunta(test, pregunta, tipoPregunta, '1');
+				enviarRespuesta(test, pregunta, tipoPregunta, respuestaAlumno);
+
+				cant++;
+
+				//console.log(cantPreg, cant);
+				console.log(respuestaAlumno);
+		});
+
+		finalizarLaEvaluacion();
+	}
+
+	function pausarEvaluacion(){
+
+		var test = $("#idevaluacion").val();
+
+		$.ajax({
+			url: '/evaluacion/'+test+"/5",
+			async: true,
+			type: "get",
+			data: {'test': test },
+			dataType: 'json',
+			success: function(data){
+				
+				console.log(data);
+
+			}
+		});
 	}
 
 	function obtener_tiempo(ev){
@@ -64,26 +123,55 @@ $(document).ready(function(){
 			type: "get",
 			dataType: 'json',
 			success: function(data){
+
+				console.log(data);
+
 				if(data.estado){
 
 					if(!data.infinito){
 
 						timer.horas 	= data.horas;
 						timer.minutos	= data.minutos;
+						timer.segundos  = data.segundos;
 						trm = iniciar();
-
 						infinito = false;
+							
 					}else{
 
 						$("#cronometro").text('Sin tiempo.');
 						infinito = true;
 					}
-
-					
+				}else{
+					if(data.agotado){
+						console.log("tiempo agotado");
+						$("#cronometro").text('Tiempo agotado.');
+						finalizarLaEvaluacion();
+					}
 				}
 			}
 
 	    });
+	}
+
+
+	function finalizarLaEvaluacion(){
+
+		var test = $("#idevaluacion").val();
+
+		$.ajax({
+			url: '/evaluacion/'+test+"/4",
+			async: true,
+			type: "get",
+			data: {'test': test },
+			dataType: 'json',
+			success: function(data){
+				
+				if (data.estado){
+					location.href = "/home";
+				}			
+
+			}
+		});
 	}
 
 });

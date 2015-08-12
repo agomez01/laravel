@@ -103,21 +103,43 @@ $('document').ready(function(){
 						console.log(respuestaAlumno);
 				});
 
-				pausarLaEvaluacion();
+				transcurrido();
 			}
 
 		});
 
 
+	$(document).on('click', '#btn_continuar', function(){
+
+		var test = $("#idevaluacion").val();
+
+		$.ajax({
+			url: '/evaluacion/'+test+"/7",
+			async: true,
+			type: "get",
+			data: {'test': test },
+			dataType: 'json',
+			success: function(data){
+				
+				if (data.estado){
+					console.log("continuar...");
+				}			
+
+			}
+		});
+
+	});
+
+
 });
 
 
-function pausarLaEvaluacion(){
+function transcurrido(){
 
 	var test = $("#idevaluacion").val();
 
 	$.ajax({
-		url: '/evaluacion/'+test+"/5",
+		url: '/evaluacion/'+test+"/6",
 		async: true,
 		type: "get",
 		data: {'test': test },
@@ -131,6 +153,8 @@ function pausarLaEvaluacion(){
 		}
 	});
 }
+
+
 
 function finalizarLaEvaluacion(){
 
@@ -408,45 +432,56 @@ function obtenerEstadotest(test){// variable 'test' en Base64
 	var preg 	= new Array();				// array multidimencional
 	var paginas;
 
+
+
+
 	function paginar_preguntas(){
 
 		var num 	= $("#porpagina").val();	// cantidad de pregutas por página
 
-		var cont 	= 0;						// contador de preguntas
-		var pag 	= 1;						// número de página 
+		if(num != 0){
 
-		// obtenemos la cantidad de preguntas
-		var nump = $(".div_pregunta").length;
+			var cont 	= 0;						// contador de preguntas
+			var pag 	= 1;						// número de página 
 
-
-		// Calculamos la cantidad de páginas
-		paginas = nump / num;
-		if( (nump%num) > 0 ){
-			paginas = paginas+1;
-		}
-
-		// creamos la matriz con los array dependiendo de la cantidad de paginas
-		for (var i = 1; i <= paginas; i++) {
-			preg[i] = new Array();
-		};
+			// obtenemos la cantidad de preguntas
+			var nump = $(".div_pregunta").length;
 
 
-		// creamos un array multidimencional, separando las preguntas por página
-		$.each($(".div_pregunta"), function(){
-			preg[pag][cont] = $(this).attr('data-id');
-			cont++;
-
-			if(cont == num ){
-				cont = 0;
-				pag ++;
+			// Calculamos la cantidad de páginas
+			paginas = nump / num;
+			if( (nump%num) > 0 ){
+				paginas = paginas+1;
 			}
 
-		});
+			// creamos la matriz con los array dependiendo de la cantidad de paginas
+			for (var i = 1; i <= paginas; i++) {
+				preg[i] = new Array();
+			};
 
-		// mostramos la pagina actual y la cantidad total Ejem: 1/6
-		$("#num_pag").text("1/"+paginas);
 
-		paginar();
+			// creamos un array multidimencional, separando las preguntas por página
+			$.each($(".div_pregunta"), function(){
+				preg[pag][cont] = $(this).attr('data-id');
+				cont++;
+
+				if(cont == num ){
+					cont = 0;
+					pag ++;
+				}
+
+			});
+
+			// mostramos la pagina actual y la cantidad total Ejem: 1/6
+			$("#num_pag").text("1/"+paginas);
+
+			paginar();
+
+		}else{
+			$("#navegacion").hide();
+		}
+
+
 	}
 
 	function paginar(num){

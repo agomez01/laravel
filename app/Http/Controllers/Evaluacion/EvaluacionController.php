@@ -65,20 +65,17 @@ class EvaluacionController extends Controller
                         $dataPrueba     = Prueba::find($dataTest->prueba);
 
                         //$preguntasTest  = TestPregunta::where('test', $dataTest->id)->orderBy('orden', 'desc')->get(); //Esta es la tabla vinculante entre test y las preguntas.
-                       //dd($preguntasTest);
                         
-                        if ($dataTest->barajar === 1)
-                        {
-                             
+                        
+                        if ($dataTest->barajar === 1){
+
                                 $preguntasTest  = TestPregunta::where('test', $dataTest->id)->orderBy(DB::raw('RAND()'))->get(); //Esta es la tabla vinculante entre test y las preguntas.
-
                         }
-                        else
-                        {
-
+                        else{
                                 $preguntasTest  = TestPregunta::where('test', $dataTest->id)->orderBy('orden', 'asc')->get(); //Esta es la tabla vinculante entre test y las preguntas.
                         }
                         
+
                         
                         $preguntas      = EvaluacionController::obternerContenidoDePreguntasDelTest($preguntasTest, $dataTest->id, $dataTest->barajar_resp); //Este es un arreglo que contiene todas las preguntas de la prueba y su contenido.
                         
@@ -94,6 +91,7 @@ class EvaluacionController extends Controller
                         $test["duracion"]    = $dataTest->duracion;
                         $test["porpagina"]    = $dataTest->preg_por_pag;
 
+                        //dd($test);
                         //dd($preguntas);
                         return view('evaluacion/rendirEvaluacion')->with('test', $test)->with('preguntas', $preguntas);
                 break;
@@ -110,27 +108,56 @@ class EvaluacionController extends Controller
                         
                         if (!$dataTest->tiempo_infinito) {
 
-                            if($testAlumno->minutos > 0){
-                                $datos['duracion']  = ($dataTest->duracion - $testAlumno->minutos);
+                            if($testAlumno->minutos < $dataTest->duracion){
+
+                                if($testAlumno->minutos > 0){
+                                    $datos['duracion']  = round(($dataTest->duracion - $testAlumno->minutos),2);
+                                }else{
+                                    $datos['duracion']  = round($dataTest->duracion, 2);
+                                }
+
+                                // obtenemos la hora de este modo ya que no funcionó el round y PHP_ROUND_HALF_DOWN !
+
+
+                                $horas  = $datos['duracion'] / 60;
+
+
+                                $horas  = explode('.', $horas);
+
+                                
+
+                                $horas  = intval($horas[0]);
+
+
+                                $seg    = explode('.', $datos['duracion']);
+                                $seg    = $seg[1];
+
+                                if($seg>0){
+                                    $datos['segundos']  = round(($seg*60)/100, 0);
+                                }else{
+                                    $datos['segundos']  = 0;
+                                }
+
+                                $datos['estado']    = true;
+                                $datos['horas']     = $horas;
+                                $datos['minutos']   = $datos['duracion'] % 60;
+                                $datos['infinito']  = false;
+
                             }else{
-                                $datos['duracion']  = $dataTest->duracion;
+                                $datos['error']     = 'tiempo agotado';
+                                $datos['agotado']   = true;
+                                $datos['estado']    = false;
                             }
 
-                            // obtenemos la hora de este modo ya que no funcionó el round y PHP_ROUND_HALF_DOWN !
-                            $horas = $datos['duracion'] / 60;
-                            $horas = explode('.', $horas);
-                            $horas = $horas[0];
+                                
 
-                            $datos['estado']    = true;
-                            $datos['horas']     = $horas;
-                            $datos['minutos']   = $datos['duracion'] % 60;
-                            $datos['infinito']  = false;
                         }else{
                             $datos['estado']    = true;
                             $datos['infinito']  = true;
                         }
                         
                     }else{
+                        $datos['error']     = 'no existe la evaluación.';
                         $datos['estado']    = false;
                     }
 
@@ -147,12 +174,26 @@ class EvaluacionController extends Controller
                     $data = array();
 
                     if($test->realizado == 0){
+
                         if($test->t_inicio == 0){
 
                             $test->t_inicio = time();
+                            $test->t_pausa = $test->t_inicio;
                             $test->save();
 
                             $data['inicio'] = true;
+
+                        }else{
+
+                            $now = time();
+
+                            $pausa = $now - $test->t_pausa;
+                            //echo "\n";
+                            $pausa = $pausa/60;
+
+                            $test->t_pausa = $now;
+                            $test->minutos += $pausa;
+                            $test->save();
                         }
 
                         $data['realizado'] = false;
@@ -211,25 +252,11 @@ class EvaluacionController extends Controller
 
                     }else{
 
-                        if($test->minutos > 0){
-
-                            $dataTest       = Test::find($data);
-
-                            $duracion = $dataTest->duracion;
-
-
-
-                            $test->t_inicio ;
-
-                        }
-
-                        $test->t_pausa = time();
-                        
-
-
-
-
-
+                        $now = time();
+                        $pausa = $now - $test->t_pausa;
+                        $pausa = $pausa/60;
+                        $test->t_pausa = $now;
+                        $test->minutos += $pausa;
 
                         if($test->save()){
                             $datos['estado'] = true;
@@ -239,10 +266,71 @@ class EvaluacionController extends Controller
                         }
                     }
 
-                       
+                    echo json_encode($datos);
+                break;
+                
+                case 6:
+                    # REGISTRA TIEMPO TRANSCURRIDO
+
+                    $datos = array();
+
+                    $test = TestAlumno::where('test', $data)
+                                        ->where('alumno', Session::get('idalumno'))->first();
+
+
+
+                    if($test->realizado == 1){
+
+                        $datos['error'] = 'Test ya se encuentra cerrado.';
+                        $datos['estado'] = false;
+
+                    }else{
+
+                        $now = time();
+                        $test->t_transcurrido = $now;
+
+                        if($test->save()){
+                            $datos['estado'] = true;
+                        }else{
+                            $datos['error'] = 'Error al registrar tiempo transcurrido.';
+                            $datos['estado'] = false;
+                        }
+                    }
 
                     echo json_encode($datos);
                 break;
+
+                case 7:
+                    # CONTINUAR PAUSA
+                    # solo actualiza la variable t_pausa
+
+                    $datos = array();
+
+                    $test = TestAlumno::where('test', $data)
+                                        ->where('alumno', Session::get('idalumno'))->first();
+
+
+
+                    if($test->realizado == 1){
+
+                        $datos['error'] = 'Test ya se encuentra cerrado.';
+                        $datos['estado'] = false;
+
+                    }else{
+
+                        $test->t_pausa = time();
+
+                        if($test->save()){
+                            $datos['estado'] = true;
+                        }else{
+                            $datos['error'] = 'Error al pausar test.';
+                            $datos['estado'] = false;
+                        }
+                    }
+
+                    echo json_encode($datos);
+                break;
+
             }
             
         }

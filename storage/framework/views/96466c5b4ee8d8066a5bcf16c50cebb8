@@ -238,7 +238,7 @@
 
 		<?php elseif(strtolower($val["recurso"]->archivo_extension) === 'url' or strtolower($val["recurso"]->archivo_extension) === 'doc' or strtolower($val["recurso"]->archivo_extension) === 'docx' or strtolower($val["recurso"]->archivo_extension) === 'xls' or strtolower($val["recurso"]->archivo_extension) === 'xlsx' or strtolower($val["recurso"]->archivo_extension) === 'ppt' or strtolower($val["recurso"]->archivo_extension) === 'pps' or strtolower($val["recurso"]->archivo_extension) === 'pptx' or strtolower($val["recurso"]->archivo_extension) === 'pdf'): ?>
 
-			<a  href="<?php echo e($val['recurso']->url); ?>" target="_blank" > <strong>Archivo adjunto </strong> <!-- 3 - <?php echo e($val["recurso"]->id); ?></a> -->
+			<a  href="<?php echo e($val['recurso']->url); ?>" target="_blank" > <strong>Archivo adjunto </strong></a> <!-- 3 - <?php echo e($val["recurso"]->id); ?></a> -->
 		
 		<?php elseif(strtolower($val["recurso"]->archivo_extension) === 'flv'): ?>
 		

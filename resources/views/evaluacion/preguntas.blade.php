@@ -238,7 +238,7 @@
 
 		@elseif (strtolower($val["recurso"]->archivo_extension) === 'url' or strtolower($val["recurso"]->archivo_extension) === 'doc' or strtolower($val["recurso"]->archivo_extension) === 'docx' or strtolower($val["recurso"]->archivo_extension) === 'xls' or strtolower($val["recurso"]->archivo_extension) === 'xlsx' or strtolower($val["recurso"]->archivo_extension) === 'ppt' or strtolower($val["recurso"]->archivo_extension) === 'pps' or strtolower($val["recurso"]->archivo_extension) === 'pptx' or strtolower($val["recurso"]->archivo_extension) === 'pdf')
 
-			<a  href="{{ $val['recurso']->url }}" target="_blank" > <strong>Archivo adjunto </strong> <!-- 3 - {{  $val["recurso"]->id  }}</a> -->
+			<a  href="{{ $val['recurso']->url }}" target="_blank" > <strong>Archivo adjunto </strong></a> <!-- 3 - {{  $val["recurso"]->id  }}</a> -->
 		
 		@elseif (strtolower($val["recurso"]->archivo_extension) === 'flv')
 		
