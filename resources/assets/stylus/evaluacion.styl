@@ -1,12 +1,15 @@
 /*  MAQUETADO */
 
+
+
+
 #eva-leftSection
     display 	inline-block
     margin 		0 0 0 0    
     padding 	20px 5px 0 20px
     width  		70%
-    min-width   620px;
-
+    min-width   620px
+    
 #eva-rightSection
     vertical-align top
     display inline-block
@@ -18,10 +21,29 @@
     padding 20px 10px 0 0
     margin 0 0 0 0
     height 100%
-
-    //background #fff
     min-width 200px
 
+
+/* DISEÑO */
+
+.cortina_pause{
+    top:0;
+    background-color: rgba(0,0,0,0.9);
+    display: none;
+    height: 100%;
+    position: fixed;
+    width: 100%;
+    z-index: 999;
+}
+
+.cortina_pause > div{
+    height: 40%;
+    margin: 10% auto;
+    text-align: center;
+    width: 60%;
+}
+
+        
 .info-prueba
     padding 22px 10px 23px 15px
     background #208BD4
@@ -122,11 +144,34 @@
 
 @media screen and (max-width: 840px) { 
     
+    body{
+        font-size 1.5em;
+    }
+        
+    
     #eva-rightSection{
         width 100%
     }
     
     #eva-leftSection{
         width       100%
+    }
+    
+    .cortina_pause > div{
+        height 70%;
+    }
+    
+    .div_btn{
+        margin 20px auto
+        
+        .btn{
+            margin-top 10px
+        }
+    }
+
+    
+    .div_btn > .btn{
+        display inline-block
+        width 100%
     }
 }

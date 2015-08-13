@@ -121,21 +121,21 @@ class EvaluacionController extends Controller
 
                                 $horas  = $datos['duracion'] / 60;
 
-
-                                $horas  = explode('.', $horas);
-
+                                # comprobamos que hayan segundos (decimales)
+                                if(strrpos($horas, '.') !== false){
+                                    $horas  = explode('.', $horas);
+                                    $horas  = intval($horas[0]);
+                                    $seg    = explode('.', $datos['duracion']);
+                                    $seg = $seg[1];
+                                }else{
+                                    $seg = 0;
+                                }
                                 
-
-                                $horas  = intval($horas[0]);
-
-
-                                $seg    = explode('.', $datos['duracion']);
-                                $seg    = $seg[1];
 
                                 if($seg>0){
                                     $datos['segundos']  = round(($seg*60)/100, 0);
                                 }else{
-                                    $datos['segundos']  = 0;
+                                    $datos['segundos']  = $seg;
                                 }
 
                                 $datos['estado']    = true;
