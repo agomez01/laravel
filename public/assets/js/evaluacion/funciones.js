@@ -1,5 +1,11 @@
 $('document').ready(function(){
 
+		 $("#menu-toggle,#close-toggle").click(function(e) {
+	        e.preventDefault();
+	        $("#wrapper").toggleClass("toggled");
+	    });
+
+
 		obtenerEstadotest($("#idevaluacion").val());
 
 		paginar_preguntas();
@@ -548,3 +554,4 @@ function obtenerEstadotest(test){// variable 'test' en Base64
 		$('#pag_ant').attr('disabled', false);
 
 	});	
+

@@ -10,14 +10,16 @@
         <title>Webclass | @yield('title', 'WebClass')</title>
 
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap.min.css') }}">
-        <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/evaluacion.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/simple-sidebar.css') }}">
 
         <script src="{{ asset('assets/js/jquery-2.1.4.min.js') }}"></script>
         <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
         <script src="{{ asset('assets/js/evaluacion/funciones.js') }}"></script>
         <script src="{{ asset('assets/js/evaluacion/cronometro.js') }}"></script>
         <script src="{{ asset('assets/js/evaluacion/respuestas.js') }}"></script>
-        <script src="{{ asset('assets/js/scrolling-nav.js') }}"></script>        
+        <script src="{{ asset('assets/js/scrolling-nav.js') }}"></script>
+                
 
     </head>
   

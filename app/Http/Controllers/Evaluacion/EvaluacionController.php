@@ -121,6 +121,7 @@ class EvaluacionController extends Controller
 
                                 $horas  = $datos['duracion'] / 60;
 
+
                                 # comprobamos que hayan segundos (decimales)
                                 if(strrpos($horas, '.') !== false){
                                     $horas  = explode('.', $horas);
@@ -129,8 +130,7 @@ class EvaluacionController extends Controller
                                     $seg = $seg[1];
                                 }else{
                                     $seg = 0;
-                                }
-                                
+                                }                            
 
                                 if($seg>0){
                                     $datos['segundos']  = round(($seg*60)/100, 0);
@@ -568,7 +568,7 @@ class EvaluacionController extends Controller
                                 {
 
                                     $corregida = EvaluacionController::corregirLaPregunta($data["tipoPregunta"], $registro);
-                                    return Response::json(array('success' => true, 'last_insert_id' => $registro->id, 'messege' => "Respuesta Enviada!!"), 200);
+                                    return Response::json(array('success' => true, 'last_insert_id' => $registro->id, 'messege' => "<input class='btn btn-success' value='Respuesta Enviada!'>"), 200);
                                 
                                 }
                                 else
@@ -642,7 +642,7 @@ class EvaluacionController extends Controller
 
                             if ($todoOk){
                                 $corregida = EvaluacionController::corregirLaPregunta($data["tipoPregunta"], $newRegistro);
-                                return Response::json(array('success' => true, 'last_insert_id' => $cantInsertados, 'messege' => "Respuesta Enviada!!"), 200);
+                                return Response::json(array('success' => true, 'last_insert_id' => $cantInsertados, 'messege' => "<input type='button' class='btn btn-success btn-md' value='Respuesta Enviada!!'>"), 200);
                             
                             }else{
 
@@ -693,7 +693,7 @@ class EvaluacionController extends Controller
                             {
 
                                 $corregida = EvaluacionController::corregirLaPregunta($data["tipoPregunta"], $registro);
-                                return Response::json(array('success' => true, 'last_insert_id' => $registro->id, 'messege' => "Respuesta Enviada!!"), 200);
+                                return Response::json(array('success' => true, 'last_insert_id' => $registro->id, 'messege' => "<input type='button' class='btn btn-success btn-md' value='Respuesta Enviada!!'>"), 200);
                             
                             }
                             else
@@ -734,7 +734,7 @@ class EvaluacionController extends Controller
                             {
 
                                 $corregida = EvaluacionController::corregirLaPregunta($data["tipoPregunta"], $registro);
-                                return Response::json(array('success' => true, 'last_insert_id' => $registro->id, 'messege' => "Respuesta Enviada!!"), 200);
+                                return Response::json(array('success' => true, 'last_insert_id' => $registro->id, 'messege' => "<input type='button' class='btn btn-success btn-md' value='Respuesta Enviada!!'>"), 200);
                             
                             }
                             else
@@ -776,7 +776,7 @@ class EvaluacionController extends Controller
                             {
                                 
                                 $corregida = EvaluacionController::corregirLaPregunta($data["tipoPregunta"], $registro);
-                                return Response::json(array('success' => true, 'last_insert_id' => $registro->id, 'messege' => "Respuesta Enviada!!"), 200);
+                                return Response::json(array('success' => true, 'last_insert_id' => $registro->id, 'messege' => "<input type='button' class='btn btn-success btn-md' value='Respuesta Enviada!!'>"), 200);
                             
                             }
                             else
