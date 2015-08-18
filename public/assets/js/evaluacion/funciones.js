@@ -10,6 +10,8 @@ $('document').ready(function(){
 
 		paginar_preguntas();
 
+		mostrarFeed();//parseara las respuesta y mostrara el feed
+
 
 		$(document).on('click', '.eva-btnEnviar',  function(){
 			
@@ -27,9 +29,8 @@ $('document').ready(function(){
 			respuestaAlumno = obtenerRespuestaPregunta(test, pregunta, tipoPregunta,'0');
 
 			enviarRespuesta(test, pregunta, tipoPregunta, respuestaAlumno);
-			
-			
-	
+
+			obtenerFeedback(test, pregunta, tipoPregunta);
 		});
 
 		$(document).on('click', '#eva-btnEnviarTodo',  function(){
@@ -135,10 +136,61 @@ $('document').ready(function(){
 		});
 
 	});
-
-
 });
 
+
+function mostrarFeed(){
+
+	$.each($('.eva-boxPreguntaResp'), function (){
+		var datos = $(this).attr('data-id');
+		datos = datos.split('_');
+		obtenerFeedback( datos[0], datos[1], datos[2] ); 
+	});
+
+}
+
+function obtenerFeedback(test, pregunta, tipo){
+
+		$.ajax({
+			url: '/evaluacion/feed/'+test+"/"+pregunta+"/"+tipo,
+			async: false,
+			type: "get",
+			dataType: 'json',
+			success: function(data){
+
+				if (data.estado){
+
+					var div = "div[data-id='"+data.div+"']";
+					$(div+" > .eva-casillaCuerpo").remove(); //removemos las respuestas
+
+					// procedemos a mostrar el feedback
+
+					if(data.respuesta != ''){
+						$(div).append("<div class='alert alert-warning feedr'><strong>Respuesta:</strong> "+data.respuesta+"</div>");
+					}
+					/*if(data.comentario != ''){
+						$(div).append("<div class='alert alert-info'><strong>Comentario:</strong> "+data.comentario+"</div>");
+					}*/
+
+					if(data.correccion != ''){
+						$(div).append("<div class='alert alert-warning'><strong>Corrección:</strong> "+data.correccion+"</div>");
+					}
+
+					if(data.puntuacion != ''){
+						$(div).append("<div class='alert alert-success'><strong>Puntuación:</strong> "+data.puntuacion+"</div>");
+					}
+
+					if(data.retro != ''){
+						$(div).append("<div class='alert alert-success'><strong>Retroalimentación General:</strong> "+data.retro+"</div>");
+					}
+					
+					parserImg();
+
+				}			
+
+			}
+		});
+	}
 
 function transcurrido(){
 
@@ -455,28 +507,27 @@ function obtenerEstadotest(test){// variable 'test' en Base64
 
 
 			// Calculamos la cantidad de páginas
-			paginas = nump / num;
-			if( (nump%num) > 0 ){
-				paginas = paginas+1;
+			paginas = Math.ceil(nump / num);
+
+			if(paginas > 0){
+				// creamos la matriz con los array dependiendo de la cantidad de paginas
+				for (var i = 1; i <= paginas; i++) {
+					preg[i] = new Array();
+				};
+
+
+				// creamos un array multidimencional, separando las preguntas por página
+				$.each($(".div_pregunta"), function(){
+					preg[pag][cont] = $(this).attr('data-id');
+					cont++;
+
+					if(cont == num ){
+						cont = 0;
+						pag ++;
+					}
+
+				});
 			}
-
-			// creamos la matriz con los array dependiendo de la cantidad de paginas
-			for (var i = 1; i <= paginas; i++) {
-				preg[i] = new Array();
-			};
-
-
-			// creamos un array multidimencional, separando las preguntas por página
-			$.each($(".div_pregunta"), function(){
-				preg[pag][cont] = $(this).attr('data-id');
-				cont++;
-
-				if(cont == num ){
-					cont = 0;
-					pag ++;
-				}
-
-			});
 
 			// mostramos la pagina actual y la cantidad total Ejem: 1/6
 			$("#num_pag").text("1/"+paginas);
@@ -490,13 +541,13 @@ function obtenerEstadotest(test){// variable 'test' en Base64
 
 	}
 
-	function paginar(num){
+	function paginar(){
 
 		var num 	= $("#porpagina").val();	// cantidad de pregutas por págin
 		
 		var pagina_actual	= $("#pag").val();
 
-		// ocultamos todas las prgeuntas
+		// ocultamos todas las preguntas
 		$(".div_pregunta").hide();
 
 		// luego mostramos solo las preguntas correspondientes
@@ -505,7 +556,9 @@ function obtenerEstadotest(test){// variable 'test' en Base64
 			$(".div_pregunta[data-id='"+v+"']").show();
 		});
 
-		console.log(preg[pagina_actual]);
+		if(paginas == 1){
+			$("#pag_sig").attr('disabled', true);
+		}
 
 	}
 
@@ -555,3 +608,21 @@ function obtenerEstadotest(test){// variable 'test' en Base64
 
 	});	
 
+
+	function parserImg(){
+		/*
+		se parsearan las imagenes que no contengan una dirección completa a recursos
+		*/
+		var url_recursos = $("#url_recursos").val();
+
+		$("img").each(function(i){
+
+			var url = $(this).attr('src');
+			var c = url.search(/http/i);
+
+			if(c < 0){
+				$(this).attr('src', url_recursos+url);
+			}
+
+		});
+	}

@@ -52,4 +52,22 @@
             return $data;
 
         }
+
+
+        /*
+            return  Array
+        */
+        public function getArrayRetroAttribute(){
+
+            $cuociente = (int)$this->modulos;
+
+            while($cuociente >= 1)  
+            {
+                $resto =  $cuociente % 2; 
+                $cuociente = (int)($cuociente / 2);                  
+                $binario[] = $resto;
+            }
+
+            return $binario;
+        }
     }

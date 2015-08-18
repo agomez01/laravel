@@ -24,4 +24,9 @@
 
         }
 
+        public function rvof(){
+
+            return $this->hasOne('App\models\RespuestaVof', 'pregunta', 'idpregunta');
+        }
+
     }

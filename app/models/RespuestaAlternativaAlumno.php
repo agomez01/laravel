@@ -25,4 +25,10 @@
 
            return $respuestaAlumno;
         }
+
+
+        public function ralternativa(){
+
+            return $this->hasOne('App\models\RespuestaAlternativa', 'id', 'respuesta');
+        }
     }

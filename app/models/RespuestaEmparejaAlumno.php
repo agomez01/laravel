@@ -23,4 +23,12 @@
             return $respuestaAlumno = RespuestaEmparejaAlumno::where('idtest', $idtest)->where('idpregunta', $idpregunta)->where('idalumno', $idalumno)->get();
             
         }
+
+        public function rordena(){
+            return $this->hasOne('App\models\RespuestaEmparejaOrden', 'id', 'vinculo_a');
+        }
+
+        public function rordenb(){
+            return $this->hasOne('App\models\RespuestaEmparejaOrden', 'id', 'vinculo_b');
+        }
     }
