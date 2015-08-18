@@ -26,9 +26,13 @@ $('document').ready(function(){
 			var tipoPregunta     = parametrosArray[2];
 
 			
-			respuestaAlumno = obtenerRespuestaPregunta(test, pregunta, tipoPregunta,'0');
+			if(respuestaAlumno = obtenerRespuestaPregunta(test, pregunta, tipoPregunta,'0')){
+				enviarRespuesta(test, pregunta, tipoPregunta, respuestaAlumno);
+			}else{
+				return;
+			}
 
-			enviarRespuesta(test, pregunta, tipoPregunta, respuestaAlumno);
+			
 
 			obtenerFeedback(test, pregunta, tipoPregunta);
 		});
@@ -60,8 +64,9 @@ $('document').ready(function(){
 
 						
 						//console.log (test, pregunta, tipoPregunta);
-						respuestaAlumno = obtenerRespuestaPregunta(test, pregunta, tipoPregunta, '1');
-						enviarRespuesta(test, pregunta, tipoPregunta, respuestaAlumno);
+						if(respuestaAlumno = obtenerRespuestaPregunta(test, pregunta, tipoPregunta, '1')){
+							enviarRespuesta(test, pregunta, tipoPregunta, respuestaAlumno);
+						}						
 
 						cant++;
 
@@ -101,8 +106,9 @@ $('document').ready(function(){
 
 						
 						//console.log (test, pregunta, tipoPregunta);
-						respuestaAlumno = obtenerRespuestaPregunta(test, pregunta, tipoPregunta, '1');
-						enviarRespuesta(test, pregunta, tipoPregunta, respuestaAlumno);
+						if(respuestaAlumno = obtenerRespuestaPregunta(test, pregunta, tipoPregunta, '1')){
+							enviarRespuesta(test, pregunta, tipoPregunta, respuestaAlumno);
+						}						
 
 						cant++;
 
@@ -290,7 +296,7 @@ function obtenerRespuestaPregunta(test, pregunta, tipoPregunta, todo){
 
 										}else{
 
-											return;
+											return false;
 
 										}
 								}
