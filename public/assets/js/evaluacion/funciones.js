@@ -263,7 +263,7 @@ function sendResposeMessenge(resp, idpregunta, test, tipoPregunta){
 		$("#respMessege"+idpregunta).html(resp.messege);
 		$("#eva-minPregNum"+idpregunta).css(  'background-color', '#0BE409');
 	}else{
-		alert(resp.messege);
+		console.log(resp.messege);
 	}
 }
 
