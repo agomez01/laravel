@@ -4,21 +4,43 @@
 
 @section ('content')
 
+<div id="close-toggle2"></div>  
+
+
  <div id="wrapper">
 
         <!-- Page Content -->
-        <div id="page-content-wrapper">  
+        <div id="page-content-wrapper">
 
-        <div class='cortina_pause'>
+
+        
+       <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content" style="text-align:center; padding:25px;">
+          <img src="{{ asset('assets/img/loader.gif') }}" style="width:25%;"/ >
+          <br>
+          Guardando respuestas...
+        </div>
+      </div>
+    </div>
+    
+
+    <input type='hidden' id='porpagina' value="{{ $test['porpagina'] }}">
+    <input type='hidden' id='pag' value="1">
+
+    <input type='hidden' id='idevaluacion' value='{{ base64_encode($test["id"]) }}' />
+    <input type="hidden" name="_token" value="{{ csrf_token() }}" id='tokenEvaluacion'>
+
+    <div class='cortina_pause'>
         <div class='jumbotron'>
             <h2>Evaluación pausada!</h2>
-
-                <div class='div_btn'>
+            <div class='div_btn'>
                 <button class='btn btn btn-primary btn-lg'  id='btn_continuar'>Continuar</button>
                 <button class='btn btn-default btn-lg'      id='btn_pausar_salir'>Guardar y salir</button>
             </div>
+                
         </div>
-    </div>                                     
+    </div>                          
                         
      <div class="col-md-9 col-sm-8 col-xs-12" id="eva-leftSection">
 
@@ -55,6 +77,7 @@
             </ul>
 
         </secction>
+
 
         <section>
 
@@ -120,12 +143,14 @@
 
 
                 @endforeach
-        
+                
+                
                 <div id='navegacion'>
                     <button class='btn btn-success' id='pag_ant' disabled><span class='glyphicon glyphicon-backward' aria-hidden="true"></span></button>
                     <button class='btn btn-info'    id='num_pag'>1</button>
                     <button class='btn btn-success' id='pag_sig'><span class='glyphicon glyphicon-forward' aria-hidden="true"></span></button>
                 </div>
+                <a class="btn btn-primary btn-lg eva-btnEnviartododown"  role="button" id="eva-btnEnviarTodo" data-test='{{ $test["id"] }}'>Enviar Todo y Terminar</a>
                     
 
             @else
@@ -172,7 +197,7 @@
 
                 <a class="btn btn-default btn-lg" role="button" id="pausa">Pausar <span class='glyphicon glyphicon-pause' aria-hidden="true"></span></a>
 
-                <a class="btn btn-danger btn-lg" role="button" id="close-toggle">Volver <span class='glyphicon glyphicon-info-sign' aria-hidden="true"></span></a>
+                <a class="btn btn-danger btn-lg" role="button" id="close-toggle">Ocultar <span class='glyphicon glyphicon-info-sign' aria-hidden="true"></span></a>
                
 
 
@@ -182,15 +207,7 @@
 
     <button id="eva-lanzaLoader" type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm" style="display:none;"></button>
 
-    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-      <div class="modal-dialog modal-sm">
-        <div class="modal-content" style="text-align:center; padding:25px;">
-          <img src="{{ asset('assets/img/loader.gif') }}" style="width:25%;"/ >
-          <br>
-          Guardando respuestas...
-        </div>
-      </div>
-    </div>
+   
     
 
     <input type='hidden' id='porpagina' value="{{ $test['porpagina'] }}">

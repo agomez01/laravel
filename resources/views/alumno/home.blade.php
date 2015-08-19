@@ -9,7 +9,7 @@
 
 @section ('content')
 
-	
+<div id="close-toggle2"></div>	
 <div class="row">
     <div class="col-md-3 col-sm-4 sidebar-left" >
 

@@ -3,5 +3,7 @@
 <li><a class="miasistencia" href="{{ Salir::link('libro_clases_alumno/asistencia_alumno.php') }}" target='blank'>Mi Asistencia</a></li>
 <li><a class="anotaciones" href="{{ Salir::link('libro_clases_alumno/anotaciones_alumno.php') }}" target='blank'>Mis anotaciones</a></li>
 <li><a class="erecursos" href="{{ Salir::link('recursos/buscadoralumnos.php?page=0') }}" target='blank'>Explorar Recursos</a></li>
-<li><a class="comunicacion" href="{{ Salir::link('mensajeria') }}" target='blank'>Comunicación</a></li>                        
+<li><a class="comunicacion" href="{{ Salir::link('mensajeria') }}" target='blank'>Comunicación</a></li>
+<li><a class="biblioteca" href="">Biblioteca</a></li>
+<li class="btn_salir"><a class="salir" href="/logout">Salir</a></li>                         
                         

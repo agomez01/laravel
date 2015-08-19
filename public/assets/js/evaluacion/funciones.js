@@ -1,8 +1,21 @@
 $('document').ready(function(){
 
+
 		 $("#menu-toggle,#close-toggle").click(function(e) {
 	        e.preventDefault();
 	        $("#wrapper").toggleClass("toggled");
+
+
+	        $("#close-toggle2").toggleClass('cerrar-toggle2');
+	    });
+
+
+
+		 $("#close-toggle2").click(function(e) {
+	        e.preventDefault();
+	        $("#wrapper").toggleClass("toggled");
+
+	        $(this).toggleClass('cerrar-toggle2');
 	    });
 
 
