@@ -63,49 +63,55 @@ class FeedBack extends Controller
 
 		$feed = $this->decimal_a_binario($eval->modulos);
 
-
-
 		$preg = Pregunta::find($pregunta);
 
-		for($i=0;$i<count($feed);$i++){
+		if(count($feed)>0){
+			for($i=0;$i<count($feed);$i++){
 
-			# al obtener el feed de pregunta respondida solo recorremos hasta la quinta posición
+				# al obtener el feed de pregunta respondida solo recorremos hasta la quinta posición
 
-			switch ($i) {
-				case 0: #RESPUESTAS - respuesta del alumno [al responder se oculta el div de la pregunta y e muestra solo la respuesta]
-					if($feed[$i]){
-						$data['respuesta'] = $this->getRespuestaAlumno($test, $pregunta, $preg->tipo);
-					}	
-				break;
+				switch ($i) {
+					case 0: #RESPUESTAS - respuesta del alumno [al responder se oculta el div de la pregunta y e muestra solo la respuesta]
+						if($feed[$i]){
+							$data['respuesta'] = $this->getRespuestaAlumno($test, $pregunta, $preg->tipo);
+						}	
+					break;
 
-				case 1: #SOLUCIONES   - corrección
-					if($feed[$i]){
-						$data['correccion']	= $preg->correccion;
-					}	
-				break;
+					case 1: #SOLUCIONES   - corrección
+						if($feed[$i]){
+							$data['correccion']	= $preg->correccion;
+						}	
+					break;
 
-				case 2: #COMENTARIO
-					/*if($feed[$i]){
-						$data['comentario'] = $this->getComentarioRespuesta($pregunta, $preg->tipo);
-					}*/
-				break;
+					case 2: #COMENTARIO
+						/*if($feed[$i]){
+							$data['comentario'] = $this->getComentarioRespuesta($pregunta, $preg->tipo);
+						}*/
+					break;
 
-				case 3: #RETROALIMENTACIÓN GENERAL
-					if($feed[$i]){
-						$data['retro']	=	$preg->retroalimentacion;
-					}	
-				break;
-				
-				case 4: #PUNTUACIONES
-					if($feed[$i]){
-						$data['puntuacion']	=	$this->getPuntuacion($test, $pregunta);
-					}	
-				break;
+					case 3: #RETROALIMENTACIÓN GENERAL
+						if($feed[$i]){
+							$data['retro']	=	$preg->retroalimentacion;
+						}	
+					break;
+					
+					case 4: #PUNTUACIONES
+						if($feed[$i]){
+							$data['puntuacion']	=	$this->getPuntuacion($test, $pregunta);
+						}	
+					break;
+				}
+
+				$data['estado'] = true;
+
 			}
-
+		}else{
+			$data['estado'] = false;
 		}
 
-		$data['estado'] = true;
+			
+
+		
 
 		return Response::json($data);
 	}

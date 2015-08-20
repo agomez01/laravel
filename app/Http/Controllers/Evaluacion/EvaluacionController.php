@@ -147,9 +147,7 @@ class EvaluacionController extends Controller
                                 $datos['error']     = 'tiempo agotado';
                                 $datos['agotado']   = true;
                                 $datos['estado']    = false;
-                            }
-
-                                
+                            }                                
 
                         }else{
                             $datos['estado']    = true;

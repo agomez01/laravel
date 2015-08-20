@@ -177,10 +177,10 @@ function obtenerFeedback(test, pregunta, tipo){
 			dataType: 'json',
 			success: function(data){
 
-				if (data.estado){
+				var div = "div[data-id='"+data.div+"']";
+				$(div+" > .eva-casillaCuerpo").remove(); //removemos las respuestas
 
-					var div = "div[data-id='"+data.div+"']";
-					$(div+" > .eva-casillaCuerpo").remove(); //removemos las respuestas
+				if (data.estado){					
 
 					// procedemos a mostrar el feedback
 
