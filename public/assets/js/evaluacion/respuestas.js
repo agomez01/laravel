@@ -7,6 +7,7 @@ $(document).ready(function(){
 	$("img").each(function(i){
 
 		var url = $(this).attr('src');
+
 		var c = url.search(/http/i);
 
 		if(c < 0){

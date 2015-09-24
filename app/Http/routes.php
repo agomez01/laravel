@@ -60,15 +60,13 @@
 		
 		Route::group(['middleware' => 'isAlumno'], function(){ 
 
-			
-			
+			Route::get('/evaluacion/{id}/{action?}', 'Evaluacion\EvaluacionController@index');
+			Route::get('/evaluacion/feed/{test}/{pregunta}/{tipo}', 'Evaluacion\FeedBack@getFeed');
+			Route::post('evaluacion', ['as' => 'evaluacion', 'uses' => 'Evaluacion\EvaluacionController@procesarRespuesta']);
 			
 		});		
 
-		Route::get('/evaluacion/{id}/{action?}', 'Evaluacion\EvaluacionController@index');
-		Route::get('/evaluacion/feed/{test}/{pregunta}/{tipo}', 'Evaluacion\FeedBack@getFeed');
-
-		Route::post('evaluacion', ['as' => 'evaluacion', 'uses' => 'Evaluacion\EvaluacionController@procesarRespuesta']);
+		
 
 
 		

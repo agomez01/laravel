@@ -16,18 +16,20 @@
 
     <script src="<?php echo e(asset('assets/js/jquery-2.1.4.min.js')); ?>"></script>
     <script src="<?php echo e(asset('assets/js/bootstrap.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('assets/js/min.js')); ?>"></script>
+    
     
   </head>
   <body>
+ 
 
+<!--<div id="close-toggle2" class="cerrar-toggle2"></div>-->
     <header role="banner" class="navbar navbar-fixed-top navbar-inverse">
         <div class="container row">
 
-            <div class="navbar-header">
-                <button data-toggle="collapse-side" data-target=".side-collapse" data-target-2=".side-collapse-container" type="button" class="navbar-toggle pull-left">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
+            <div class="navbar-header"  >
+                <button id="collapse-left" data-toggle="collapse-side" data-target=".side-collapse" data-target-2=".side-collapse-container" type="button" class="navbar-toggle pull-left">
+                    <span class="glyphicon glyphicon-chevron-right"></span>              
                 </button>
             </div>
 
@@ -75,7 +77,8 @@
             <div class="navbar-inverse side-collapse in">            
                 <nav role="navigation" class="navbar-collapse">                    
                     <ul class="nav navbar-nav">                                    
-                        <?php echo $__env->yieldContent('menu'); ?>                                                 
+                        <?php echo $__env->yieldContent('menu'); ?>
+                                                                         
                     </ul>
                 </nav>
             </div>

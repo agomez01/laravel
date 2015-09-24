@@ -28,6 +28,9 @@
 			        		->with('testCerrados', $testCerradoAlumno);
 	        	break;
 	        	
+	        	default:
+	        		abort(403, 'Unauthorized action.');
+	        	break;
 	        }
 
 	    }

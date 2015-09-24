@@ -76,7 +76,6 @@ class EvaluacionController extends Controller
                         }
                         
 
-                        
                         $preguntas      = EvaluacionController::obternerContenidoDePreguntasDelTest($preguntasTest, $dataTest->id, $dataTest->barajar_resp); //Este es un arreglo que contiene todas las preguntas de la prueba y su contenido.
                         
                         $dataAutor = Usuario::find($dataTest->profesor);
@@ -906,12 +905,13 @@ class EvaluacionController extends Controller
                     $arreglo = Array();
                     $pregunta = Pregunta::find($value->pregunta);
 
+
                     $tipoPregunta = $pregunta->tipo;
 
                     $arreglo['numero'] = $num;
                     $arreglo['data'] = $pregunta;
                     
-                    //dd($arreglo['respuestaAlumno']);                    
+                                 
 
                     if(!isset($pregunta->miRecurso->url))
                     {
@@ -933,9 +933,13 @@ class EvaluacionController extends Controller
 
                     }
 
-                    
-                    $arreglo['data']->texto = str_replace('/sistema/webclass/', URL_PLATAFORMA_PRODUCCION.'/', $arreglo['data']->texto);                    
-                    
+
+                    $pos = strpos($arreglo['data']->texto, 'http');
+
+                    if($pos === false){
+                        $arreglo['data']->texto = str_replace('/sistema/webclass/', URL_PLATAFORMA_PRODUCCION.'/', $arreglo['data']->texto);  
+                    }
+                    unset($pos);
                    
                     //si la pregunta es de alternativas (tipo 4) entonces adjunto en el arreglo sus alternativas.
 
@@ -992,6 +996,9 @@ class EvaluacionController extends Controller
 
                     }
 
+                   
+
+
                     $arreglo['respuestaAlumno'] = EvaluacionController::obtenerRespuestaDelAlumno($arreglo['data']->id, $arreglo['data']->tipo, $idtest, $idalumno);
                     
                         array_push($respuesta, $arreglo);
@@ -1002,6 +1009,7 @@ class EvaluacionController extends Controller
 
             }
             
+
             return $respuesta;
 
         }
