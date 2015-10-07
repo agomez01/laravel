@@ -65,9 +65,4 @@
 			Route::post('evaluacion', ['as' => 'evaluacion', 'uses' => 'Evaluacion\EvaluacionController@procesarRespuesta']);
 			
 		});		
-
-		
-
-
-		
 	});
