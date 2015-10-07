@@ -32,7 +32,7 @@
 			</li>
 		</ul>
 
-		<div class="dropdown" id="open-test-alumno">
+		<div class="dropdown open" id="open-test-alumno">
 		    <button class="btn btn-default dropdown-toggle" type="button" id="open-test" data-toggle="dropdown">Evaluaciones Abiertas ({{count($testAbiertos)}})
 		    <span class="caret"></span></button>
 		    <ul class="dropdown-menu sidebar-alumno-dropdown" role="menu" aria-labelledby="open-test">
