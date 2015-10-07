@@ -10,6 +10,7 @@
 @section ('content')
 
 <div id="close-toggle2"></div>	
+
 <div class="row">
     <div class="col-md-3 col-sm-4 sidebar-left" >
 
@@ -56,7 +57,7 @@
 		      
 		    
 		    </ul>
-	  </div>
+	  	</div>
 
 		<div class="dropdown" id="closed-test-alumno">
 		    <button class="btn btn-default dropdown-toggle" type="button" id="closed-test" data-toggle="dropdown">Evaluaciones Cerradas ({{count($testCerrados)}})
@@ -92,63 +93,29 @@
 
 		<div class="page-header">
 
-		<div class="pull-right form-inline">
-			<div class="btn-group controla-hoy">
-				<button class="btn controla" data-calendar-nav="prev"><img src="../assets/img/anterior.svg" alt="" width="20"></button>
-				<button class="btn hoy" data-calendar-nav="today">Hoy</button>
-				<button class="btn controla" data-calendar-nav="next"><img src="../assets/img/siguiente.svg" alt="" width="20"></button>
-			</div>
-			<div class="btn-group"><h3 class="h3-md"></h3></div>			
-			<div class="btn-group controla-mes">
-				<button class="btn btn-warning" data-calendar-view="year">Año</button>
-				<button class="btn btn-warning active" data-calendar-view="month">Mes</button>
-				<button class="btn btn-warning" data-calendar-view="week">Semana</button>
-				<button class="btn btn-warning" data-calendar-view="day">Día</button>
-			</div>
+			<div class="pull-right form-inline">
+				<div class="btn-group controla-hoy">
+					<button class="btn controla" data-calendar-nav="prev"><img src="../assets/img/anterior.svg" alt="" width="20"></button>
+					<button class="btn hoy" data-calendar-nav="today">Hoy</button>
+					<button class="btn controla" data-calendar-nav="next"><img src="../assets/img/siguiente.svg" alt="" width="20"></button>
+				</div>
+				<div class="btn-group"><h3 class="h3-md"></h3></div>			
+				<div class="btn-group controla-mes">
+					<button class="btn btn-warning" data-calendar-view="year">Año</button>
+					<button class="btn btn-warning active" data-calendar-view="month">Mes</button>
+					<button class="btn btn-warning" data-calendar-view="week">Semana</button>
+					<button class="btn btn-warning" data-calendar-view="day">Día</button>
+				</div>
 
+			</div>
+			<h3 class="h3-xs"></h3>
+					
 		</div>
-		<h3 class="h3-xs"></h3>
-				
+
+    	@include ('calendario')
 	</div>
-
-    	<div id="calendar">calendario</div>
-
-
-		<div class="modal fade" id="events-modal">
-		    <div class="modal-dialog">
-		        <div class="modal-content">
-		            <div class="modal-header">
-		                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-		                <h3>Evento</h3>
-		            </div>
-		            <div class="modal-body" style="height: 400px">
-		            </div>
-		            <div class="modal-footer">
-		                <a href="#" data-dismiss="modal" class="btn">Cerrar</a>
-		            </div>
-		        </div>
-		    </div>
-		</div>
-		</div>
-
-			<div class="checkbox">
-				<label><div class="ck_event_personal"><input type="checkbox" id='ck_event_personal' class='ckb_filtro_eventos' checked></div> Eventos Personales</label>
-			</div>
-			
-			<div class="checkbox">
-				<label><div class="ck_event_global"><input type="checkbox" id='ck_event_global' class='ckb_filtro_eventos' checked></div> Eventos Globales</label>
-			</div>
-
-			<div class="checkbox">
-				<label><div class="ck_event_curso"><input type="checkbox" id='ck_event_curso' class='ckb_filtro_eventos' checked></div> Eventos Curso</label>
-			</div>
-			
-		</div>
-
-
-    </div>
 </div>
-    
+  
   
 
 @stop

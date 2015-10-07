@@ -20,4 +20,6 @@
 	});
 
 
-	Route::get('/utp', 	'Utp\UtpController@index');
+	Route::get('/utp', 					'Utp\UtpController@index');
+	Route::get('/utp/calendarizacion', 	'Utp\UtpController@calendarizacion');
+

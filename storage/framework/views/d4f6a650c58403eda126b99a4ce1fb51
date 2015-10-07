@@ -1,34 +1,11 @@
 	<?php $__env->startSection('title'); ?> Home UTP <?php $__env->stopSection(); ?>
 
-
-<?php $__env->startSection('menu'); ?>
-	<?php echo $__env->make('utp.menu', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
-<?php $__env->stopSection(); ?>
-
-
 <?php $__env->startSection('content'); ?>
-
-
-<div id="close-toggle2"></div>	
-	<div class="row">
 	
-		hola
+	<h1>1</h1>
 
-    	<div class="col-md-3 col-sm-4 sidebar-left" >
-		
-		hola
+	<h1>Home UTP</h1>
 
-		
-			
-
-    </div>
-
-
-    
-
-
-    </div>
-</div>
 
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

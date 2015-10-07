@@ -2,34 +2,11 @@
 
 	@section ('title') Home UTP @stop
 
-
-@section ('menu')
-	@include ('utp.menu')
-@stop
-
-
 @section ('content')
-
-
-<div id="close-toggle2"></div>	
-	<div class="row">
 	
-		hola
+	<h1>1</h1>
 
-    	<div class="col-md-3 col-sm-4 sidebar-left" >
-		
-		hola
+	<h1>Home UTP</h1>
 
-		
-			
-
-    </div>
-
-
-    
-
-
-    </div>
-</div>
 
 @stop

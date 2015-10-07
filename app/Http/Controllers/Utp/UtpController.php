@@ -13,4 +13,9 @@
 		{
 			return view('utp/home');
 		}
+
+		public function calendarizacion()
+		{
+			return view('utp/calendarizacion');
+		}
 	}
